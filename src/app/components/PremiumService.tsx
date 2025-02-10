@@ -43,6 +43,48 @@ const services: ServiceProps[] = [
     iconUrl: passport,
     altText: "NRI Services"
   },
+  {
+    title: "Visa",
+    imageUrl: rectangle1,
+    iconUrl: visa,
+    altText: "Visa Services"
+  },
+  {
+    title: "Passport",
+    imageUrl: rectangle2,
+    iconUrl: passport,
+    altText: "Passport Services"
+  },
+  {
+    title: "Passport",
+    imageUrl: rectangle2,
+    iconUrl: passport,
+    altText: "Passport Services"
+  },
+  {
+    title: "Green Card",
+    imageUrl: rectangle3,
+    iconUrl: greenCard,
+    altText: "Green card Services"
+  },
+  {
+    title: "NRI",
+    imageUrl: rectangle4,
+    iconUrl: passport,
+    altText: "NRI Services"
+  },
+  {
+    title: "Visa",
+    imageUrl: rectangle1,
+    iconUrl: visa,
+    altText: "Visa Services"
+  },
+  {
+    title: "Passport",
+    imageUrl: rectangle2,
+    iconUrl: passport,
+    altText: "Passport Services"
+  },
   // Add more services as needed
 ];
 
@@ -130,14 +172,14 @@ const PremiumServices: React.FC = () => {
           disabled={currentPage === 0}
           className="p-2 text-gray-500 disabled:opacity-50"
         >
-          <ChevronLeft className="w-6 h-6" />
+          {/* <ChevronLeft className="w-6 h-6" /> */}
         </button>
         <button
           onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
           disabled={currentPage === totalPages - 1}
           className="p-2 text-gray-500 disabled:opacity-50"
         >
-          <ChevronRight className="w-6 h-6" />
+          {/* <ChevronRight className="w-6 h-6" /> */}
         </button>
       </div>
     </div>
