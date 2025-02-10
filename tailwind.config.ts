@@ -8,8 +8,12 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        urbanist: ["Urbanist", "sans-serif"],
+      },
       colors: {
         primary: "#004195",
+        bgBlue:"#f4f8fc",
       },
     },
   },

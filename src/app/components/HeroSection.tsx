@@ -36,8 +36,8 @@ const HeroSection = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
-    style={{ backgroundColor: '#f4f8fc'}} 
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-bgBlue "
+    
     >
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-8">
