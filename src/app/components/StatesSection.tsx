@@ -68,7 +68,7 @@ const StatesSection = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
+    <div className="px-[10vw] mx-auto  lg: py-16">
       <div className="flex flex-wrap justify-between items-center gap-8 ">
         {stats.map((stat, index) => (
           <StatItem key={index} {...stat} />

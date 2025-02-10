@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+// import { ChevronLeft, ChevronRight } from 'lucide-react';
 import rectangle1 from '../../../public/assets/images/Home/Rectangle 1.png';
 import rectangle2 from '../../../public/assets/images/Home/Rectangle2 .svg';
 import rectangle3 from '../../../public/assets/images/Home/Rectangle 3.svg';
@@ -139,7 +139,7 @@ const PremiumServices: React.FC = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="px-[10vw] mx-auto  lg: py-16">
       <h2 className="text-3xl font-bold text-center mb-12">Our Premium services</h2>
       
       {/* Cards Grid */}
@@ -157,8 +157,8 @@ const PremiumServices: React.FC = () => {
             onClick={() => setCurrentPage(index)}
             className={`transition-all duration-300 rounded-full ${
               currentPage === index
-                ? 'w-4 h-4 bg-blue-600'
-                : 'w-2 h-2 bg-gray-300 hover:bg-blue-400'
+                ? 'w-4 h-4 bg-primary'
+                : 'w-2 h-2 bg-primary hover:bg-blue-400'
             }`}
             aria-label={`Go to page ${index + 1}`}
           />
@@ -170,14 +170,14 @@ const PremiumServices: React.FC = () => {
         <button
           onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
           disabled={currentPage === 0}
-          className="p-2 text-gray-500 disabled:opacity-50"
+          className="p-2 text-primary disabled:opacity-50"
         >
           {/* <ChevronLeft className="w-6 h-6" /> */}
         </button>
         <button
           onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
           disabled={currentPage === totalPages - 1}
-          className="p-2 text-gray-500 disabled:opacity-50"
+          className="p-2 text-primary disabled:opacity-50"
         >
           {/* <ChevronRight className="w-6 h-6" /> */}
         </button>
