@@ -56,7 +56,7 @@ const HeroSection = () => {
           </div>
 
           <div className="space-y-6">
-            <div className="flex items-center space-x-2 overflow-x-auto">
+            <div className="flex items-center space-x-2 no-scrollbar">
               {documentTypes.map((type) => (
                 <DocumentTypeButton
                   key={type.id}
