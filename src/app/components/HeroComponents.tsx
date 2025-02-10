@@ -1,7 +1,17 @@
 // components/DocumentComponents.tsx
 "use client";
-import React, { useState } from 'react';
-import { ChevronDown, GlobeIcon, FileText, User, CreditCard, MoreHorizontal } from 'lucide-react';
+import React, { useState , useRef } from "react";
+import {
+  ChevronDown,
+  ChevronUp,
+  GlobeIcon,
+  FileText,
+  User,
+  CreditCard,
+  MoreHorizontal,
+} from "lucide-react";
+
+import useClickOutside from "../hooks/useClickOutside";
 
 // Types
 export interface DocumentType {
@@ -17,41 +27,52 @@ export interface Location {
 
 // Constants
 export const documentTypes: DocumentType[] = [
-  { id: 'oci', name: 'OCI', icon: <GlobeIcon className="w-5 h-5" /> },
-  { id: 'visa', name: 'Visa', icon: <FileText className="w-5 h-5" /> },
-  { id: 'passport', name: 'Passport', icon: <User className="w-5 h-5" /> },
-  { id: 'pancard', name: 'Pan Card', icon: <CreditCard className="w-5 h-5" /> },
+  { id: "oci", name: "OCI", icon: <GlobeIcon className="w-5 h-5" /> },
+  { id: "visa", name: "Visa", icon: <FileText className="w-5 h-5" /> },
+  { id: "passport", name: "Passport", icon: <User className="w-5 h-5" /> },
+  { id: "pancard", name: "Pan Card", icon: <CreditCard className="w-5 h-5" /> },
 ];
 
 export const moreOptions: DocumentType[] = [
-  { id: 'driving', name: 'Driving License', icon: <FileText className="w-5 h-5" /> },
-  { id: 'voter', name: 'Voter ID', icon: <FileText className="w-5 h-5" /> },
-  { id: 'aadhar', name: 'Aadhar Card', icon: <FileText className="w-5 h-5" /> },
+  {
+    id: "driving",
+    name: "Driving License",
+    icon: <FileText className="w-5 h-5" />,
+  },
+  { id: "voter", name: "Voter ID", icon: <FileText className="w-5 h-5" /> },
+  { id: "aadhar", name: "Aadhar Card", icon: <FileText className="w-5 h-5" /> },
 ];
 
 export const locations: Location[] = [
-  { id: 'ind', name: 'India' },
-  { id: 'usa', name: 'USA' },
-  { id: 'uk', name: 'United Kingdom' },
+  { id: "ind", name: "India" },
+  { id: "usa", name: "USA" },
+  { id: "uk", name: "United Kingdom" },
 ];
 
 // Dropdown Component
 export const Dropdown = ({ label, options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  useClickOutside(dropdownRef, () => setIsOpen(false));
   return (
-    <div className="relative w-full">
-      <p className="text-sm text-gray-600 mb-2">{label}</p>
+    <div className="relative w-full flex flex-col" ref={dropdownRef} >
       <button
-      
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-4 py-3 text-left bg-white rounded-lg shadow-sm border flex items-center justify-between"
+        className="w-full px-3 py-1 text-left bg-white rounded-2xl shadow-sm border flex flex-col items-start justify-between"
       >
+        <p className="text-sm text-gray-600 mb-1">{label}</p>
+        <div className="flex items-center justify-between w-full">
         <span className="text-gray-500">{value || 'Select'}</span>
-        <ChevronDown className="w-4 h-4 text-gray-400" />
+          {isOpen ? (
+            <ChevronUp className="w-4 h-4 text-gray-400" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-gray-400" />
+          )}
+        </div>
       </button>
-      
+
       {isOpen && (
-        <div className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg">
+        <div className="absolute top-full mt-1 w-full bg-white border rounded-lg shadow-lg z-50">
           {options.map((option) => (
             <button
               key={option.id}
@@ -75,7 +96,7 @@ export const DocumentTypeButton = ({ type, isSelected, onClick }) => (
   <button
     onClick={() => onClick(type)}
     className={`flex items-center gap-2 px-4 py-2 relative ${
-      isSelected ? 'text-blue-600' : 'text-gray-600'
+      isSelected ? "text-blue-600" : "text-gray-600"
     }`}
   >
     {type.icon}
@@ -96,13 +117,12 @@ export const MoreDropdown = ({ options, onSelect }) => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-4 py-2 text-gray-600"
       >
-        {/* <MoreHorizontal className="w-5 h-5" /> */}
         <span>More</span>
         <ChevronDown className="w-4 h-4" />
       </button>
-      
+
       {isOpen && (
-        <div className="absolute z-20 w-48 mt-1 bg-white border rounded-lg shadow-lg">
+        <div className="absolute top-full mt-1 w-48 bg-white border rounded-lg shadow-lg z-50">
           {options.map((option) => (
             <button
               key={option.id}
