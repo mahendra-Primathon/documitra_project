@@ -27,7 +27,7 @@ const ProcessStep = ({ imageSrc, title, isLast = false }: ProcessStepProps) => (
 
       {/* Connecting Line */}
       {!isLast && (
-        <div className="absolute top-12 left-1/2 w-1 h-12 bg-gray-400 -ml-[1px]" />
+        <div className="absolute top-[52px] left-1/2 w-1 h-[25px] bg-gray-400 -ml-[1px]" />
       )}
     </div>
 

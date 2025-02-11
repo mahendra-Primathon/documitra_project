@@ -68,6 +68,12 @@ const services: ServiceProps[] = [
     altText: "Green card Services"
   },
   {
+    title: "Passport",
+    imageUrl: rectangle2,
+    iconUrl: passport,
+    altText: "Passport Services"
+  },
+  {
     title: "NRI",
     imageUrl: rectangle4,
     iconUrl: passport,
@@ -85,13 +91,14 @@ const services: ServiceProps[] = [
     iconUrl: passport,
     altText: "Passport Services"
   },
+  
   // Add more services as needed
 ];
+
 
 const ServiceCard: React.FC<ServiceProps> = ({ title, imageUrl, iconUrl, altText }) => (
   <div className="relative group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
     <div className="aspect-w-4 aspect-h-3 relative">
-      {/* Main image with scaling */}
       <div className="w-full h-full overflow-hidden">
         <Image
           src={imageUrl}
@@ -101,13 +108,9 @@ const ServiceCard: React.FC<ServiceProps> = ({ title, imageUrl, iconUrl, altText
           className="w-full h-full object-cover scale-125 transform transition-transform duration-300 group-hover:scale-135"
         />
       </div>
-      
-      {/* Icon container with white background circle */}
       <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
         <div className="relative">
-          {/* White background circle */}
           <div className="absolute inset-0 bg-white rounded-full p-2" />
-          {/* Blue circle with icon */}
           <div className="relative bg-blue-600 rounded-full p-4">
             <Image
               src={iconUrl}
@@ -120,8 +123,6 @@ const ServiceCard: React.FC<ServiceProps> = ({ title, imageUrl, iconUrl, altText
         </div>
       </div>
     </div>
-    
-    {/* Title */}
     <div className="pt-8 pb-4 text-center">
       <h3 className="text-lg font-semibold">{title}</h3>
     </div>
@@ -139,14 +140,16 @@ const PremiumServices: React.FC = () => {
   );
 
   return (
-    <div className="px-[10vw] mx-auto  lg: py-16">
+    <div className="px-[10vw] mx-auto lg:py-16">
       <h2 className="text-3xl font-bold text-center mb-12">Our Premium services</h2>
       
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {visibleServices.map((service, index) => (
-          <ServiceCard key={index} {...service} />
-        ))}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl mx-auto ">
+          {visibleServices.map((service, index) => (
+            <ServiceCard key={index} {...service} />
+          ))}
+        </div>
       </div>
       
       {/* Navigation Bullets */}
@@ -172,18 +175,17 @@ const PremiumServices: React.FC = () => {
           disabled={currentPage === 0}
           className="p-2 text-primary disabled:opacity-50"
         >
-          {/* <ChevronLeft className="w-6 h-6" /> */}
         </button>
         <button
           onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
           disabled={currentPage === totalPages - 1}
           className="p-2 text-primary disabled:opacity-50"
         >
-          {/* <ChevronRight className="w-6 h-6" /> */}
         </button>
       </div>
     </div>
   );
 };
+
 
 export default PremiumServices;

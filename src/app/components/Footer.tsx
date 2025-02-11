@@ -78,24 +78,24 @@ const Footer = () => {
       <div className="px-[10vw] mx-auto  lg: py-16">
         <div className="flex flex-col md:flex-row justify-between gap-2">
           {/* Company Info */}
-          <div className="flex-1">
+          <div className="flex-1 mr-8">
             <div className="flex items-center gap-2 mb-4">
-              <Image src={logoFooter} alt="Documitra" width={90} height={90} />
+              <Image src={logoFooter} alt="Documitra" width={100} height={120} />
               <div className="space-y-2">
                 <span className="font-semibold text-xl">Documitra</span>
                 <a
                   href="mailto:info@documitra.com"
                   className="flex items-center gap-2"
                 >
-                  <Mail className="w-4 h-4" />
+                  {/* <Mail className="w-4 h-4" /> */}
                   info@documitra.com
                 </a>
                 <a
-                  href="tel:1-877-426-7658"
+                  href="tel:+911234567890"
                   className="flex items-center gap-2"
                 >
-                  <Phone className="w-4 h-4" />
-                  1-877-426-7658
+                  {/* <Phone className="w-4 h-4" /> */}
+                  +91 1234567890
                 </a>
               </div>
             </div>
