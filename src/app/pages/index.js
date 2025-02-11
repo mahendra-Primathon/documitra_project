@@ -8,6 +8,7 @@ import PremiumServices from "../components/PremiumService";
 import ProcessSection from "../components/ProcesSection";
 import FAQSection from "../components/FaqSection";
 import Footer from "../components/Footer";
+import Testimonial from "../components/testimonial";
 
 export default function Page (){
     return (
@@ -19,6 +20,7 @@ export default function Page (){
             <WhyDocuMitra/>
             <PremiumServices/>
             <ProcessSection/>
+            <Testimonial/>
             <FAQSection/>
             <Footer/>
 

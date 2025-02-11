@@ -73,8 +73,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-blue-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="bg-primary text-white">
+      <div className="px-[10vw] mx-auto  lg: py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="1st-row">
@@ -159,7 +159,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-300">© 2025 All rights reserved</p>
           <div className="flex gap-4 text-sm text-gray-300">
-            <FooterLink href="/privacy">Privacy Policy</FooterLink>
+            <FooterLink href="/privacy">Affiliates</FooterLink>
             <FooterLink href="/terms">Terms and Conditions</FooterLink>
             <FooterLink href="/cookies">Cookies</FooterLink>
           </div>
