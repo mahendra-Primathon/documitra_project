@@ -54,16 +54,16 @@ const WhyDocuMitra = () => {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="flex flex-col text-left p-8 bg-white rounded-3xl shadow-lg"
+            className="flex flex-col text-left p-8 bg-white rounded-3xl shadow-lg max-w-xs mx-auto"
           >
-            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-              <div className="text-primary pb-7">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <div className=" pb-7">
                 <Image src={feature.icon} alt="icon" />
               </div>
             </div>
             <div className="w-12 h-1 bg-gray-300  my-6 "></div>
             <div className=" pr-3 text-lg gap-3 mt-6 ">
-              <h3 className="font-semibold text-2xll mb-2">{feature.title}</h3>
+              <h3 className="font-semibold text-2xl mb-2">{feature.title}</h3>
               <p className="text-gray-600 text-lg">{feature.description}</p>
             </div>
           </div>
