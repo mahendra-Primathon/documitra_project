@@ -1,65 +1,81 @@
-// components/Process/ProcessSection.tsx
-import React from 'react';
-import Image from 'next/image';
-import videoImage from '../../..//public/assets/images/Home/Video.png';
-import step1 from '../../../public/assets/images/Home/step1.svg';
-import step2 from '../../../public/assets/images/Home/step2.svg';
-import step3 from '../../../public/assets/images/Home/step3.svg';
-import step4 from '../../../public/assets/images/Home/step4.svg';
+import React from "react";
+import Image from "next/image";
+import { steps } from "../constants/processDAta";
 
 interface ProcessStepProps {
-  stepNumber: number;
+  imageSrc: string;
   title: string;
-  isCompleted?: boolean;
+  isLast?: boolean;
 }
 
-const ProcessStep: React.FC<ProcessStepProps> = ({ stepNumber, title, isCompleted = false }) => (
-  <div className="flex items-start gap-4">
-    <div className={`
-      w-8 h-8 rounded-full flex items-center justify-center
-      ${isCompleted ? 'bg-green-100 text-green-600' : 'bg-primary text-'}
-    `}>
-      {isCompleted ? '✓' : stepNumber}
+const ProcessStep = ({ imageSrc, title, isLast = false }: ProcessStepProps) => (
+  <div className="flex items-start">
+    {/* Icon Circle */}
+    <div className="relative">
+      {isLast ? (
+        <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white">
+          <Image src={imageSrc} alt={title} width={24} height={24} />
+        </div>
+      ) : (
+        <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white">
+          <Image src={imageSrc} alt={title} width={24} height={24} />
+        </div>
+      )}
+
+      {/* Connecting Line */}
+      {!isLast && (
+        <div className="absolute top-[52px] left-1/2 w-1 h-[25px] bg-gray-400 -ml-[1px]" />
+      )}
     </div>
-    <div>
-      <h4 className="font-medium">Step {stepNumber}</h4>
-      <p className="text-gray-600">{title}</p>
+
+    <div className="ml-4 flex items-center pb-12 mt-4">
+      {isLast ? (
+        <h4 className="font-bold text-lg text-green-500 leading-none">{title}</h4>
+      ) : (
+        <h4 className="font-bold text-lg leading-none">{title}</h4>
+      )}
     </div>
   </div>
 );
 
 const ProcessSection = () => {
-  const steps = [
-    { title: "Fill out the required information" },
-    { title: "Submit your documents" },
-    { title: "Track your application" },
-    { title: "Receive document at your doorstep", isCompleted: true }, 
-  ];
+ 
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 className="text-3xl font-bold mb-12">How it works?</h2>
-      
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-8">
-          {steps.map((step, index) => (
-            <ProcessStep
-              key={index}
-              stepNumber={index + 1}
-              title={step.title}
-              isCompleted={step.isCompleted}
-            />
-          ))}
-        </div>
-        
-        <div className="relative">
-          <Image
-            src={videoImage}
-            alt="Process illustration"
-            width={600}
-            height={400}
-            className="rounded-lg"
-          />
+    <div className="bg-gray-50 py-16">
+      <div className="px-[10vw] mx-auto lg:py-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Column - Steps */}
+          <div>
+            <h2 className="text-5xl font-bold mb-4">How it works?</h2>
+            <p className="text-gray-600 mb-8">
+              Effortless Visa and Passport Assistance in Three Simple Steps
+            </p>
+
+            <div className="space-y-0 gap-4">
+              {steps.map((step, index) => (
+                <ProcessStep
+                  key={index}
+                  imageSrc={step.imageSrc}
+                  title={step.title}
+                  isLast={step.isLast}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Video/Image */}
+          <div className="relative mt-16">
+            <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden">
+              <Image
+                src="/assets/images/Home/Video.png"
+                alt="Process Video"
+                width={800}
+                height={450}
+                className="object-cover rounded-2xl"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
