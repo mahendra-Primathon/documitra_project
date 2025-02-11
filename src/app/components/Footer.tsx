@@ -1,4 +1,3 @@
-// components/Footer/Footer.tsx
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,10 +10,7 @@ import {
   Phone,
 } from "lucide-react";
 import logoFooter from "../../../public/assets/images/Home/logoFooter.svg";
-import visa1 from "../../../public/assets/images/Home/visa1.svg";
-import visa2 from "../../../public/assets/images/Home/visa2.svg";
-import visa3 from "../../../public/assets/images/Home/visa3.svg";
-import visa4 from "../../../public/assets/images/Home/visa4.svg";
+import { servicesLinks, documitraLinks, paymentMethods } from "../constants/footerData";
 
 interface FooterLinkProps {
   href: string;
@@ -43,39 +39,16 @@ const FooterColumn: React.FC<FooterColumnProps> = ({ title, children }) => (
 );
 
 const Footer = () => {
-  const servicesLinks = [
-    { text: "OCI Card", href: "/services/oci" },
-    { text: "Renunciation of Indian Passport", href: "/services/renunciation" },
-    { text: "Indian Passport Renewal", href: "/services/passport-renewal" },
-    { text: "Indian Visa", href: "/services/visa" },
-    { text: "Photo enhancement", href: "/services/police-clearance" },
-  ];
-
-  const documitraLinks = [
-    { text: "About Us", href: "/about" },
-    { text: "Blog", href: "/blog" },
-    { text: "Careers", href: "/careers" },
-    { text: "Refer a friend", href: "/partner" },
-  ];
 
   const socialLinks = [
-    { icon: <Facebook className="w-5 h-5" />, href: "#" , text: "Facebook Page"},
-    // { icon: <Facebook className="w-5 h-5" />, href: "#" , text: "Facebook Group"},
+    { icon: <Facebook className="w-5 h-5" />, href: "#", text: "Facebook Page" },
     { icon: <Twitter className="w-5 h-5" />, href: "#" },
     { icon: <Instagram className="w-5 h-5" />, href: "#" },
     { icon: <Youtube className="w-5 h-5" />, href: "#" },
   ];
-
-  const paymentMethods = [
-    { name: "PayPal", image: visa1 },
-    { name: "Visa", image: visa2 },
-    { name: "Mastercard", image: visa1 },
-    { name: "TrustPilot", image: visa4 },
-  ];
-
   return (
     <footer className="bg-primary text-white">
-      <div className="px-[10vw] mx-auto  lg: py-16">
+      <div className="px-[10vw] mx-auto lg:py-16">
         <div className="flex flex-col md:flex-row justify-between gap-2">
           {/* Company Info */}
           <div className="flex-1 mr-8">
@@ -110,7 +83,7 @@ const Footer = () => {
           {/* Services Links */}
           <div className="flex-1">
             <FooterColumn title="Services">
-              {servicesLinks.map((link, index) => (
+              {servicesLinks?.map((link, index) => (
                 <div key={index}>
                   <FooterLink href={link.href}>{link.text}</FooterLink>
                 </div>
@@ -121,7 +94,7 @@ const Footer = () => {
           {/* Documitra Links */}
           <div className="flex-1">
             <FooterColumn title="Documitra">
-              {documitraLinks.map((link, index) => (
+              {documitraLinks?.map((link, index) => (
                 <div key={index}>
                   <FooterLink href={link.href}>{link.text}</FooterLink>
                 </div>
@@ -133,7 +106,7 @@ const Footer = () => {
           <div className="flex-1">
             <FooterColumn title="Connect">
               <div className="flex flex-col gap-4">
-                {socialLinks.map((link, index) => (
+                {socialLinks?.map((link, index) => (
                   <FooterLink key={index} href={link.href}>
                     {link.icon}
                   </FooterLink>
@@ -144,7 +117,7 @@ const Footer = () => {
 
           {/* Payment Methods */}
           <div className="flex-1">
-            <div className=" grid-cols-1 gap-3 flex flex-col mt-4 ">
+            <div className="grid-cols-1 gap-3 flex flex-col mt-4">
               {paymentMethods.map((method, index) => (
                 <Image
                   key={index}

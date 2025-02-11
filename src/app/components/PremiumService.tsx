@@ -1,99 +1,10 @@
 "use client";
 import React, { useState } from 'react';
 // import { ChevronLeft, ChevronRight } from 'lucide-react';
-import rectangle1 from '../../../public/assets/images/Home/Rectangle 1.png';
-import rectangle2 from '../../../public/assets/images/Home/Rectangle2 .svg';
-import rectangle3 from '../../../public/assets/images/Home/Rectangle 3.svg';
-import rectangle4 from '../../../public/assets/images/Home/Rectangle 4.svg';
 
-import passport from '../../../public/assets/images/Home/PsPassport.svg';
-import visa from '../../../public/assets/images/Home/PSvisa.svg';
-import greenCard from '../../../public/assets/images/Home/psGreenVard.svg';
 import Image from 'next/image';
+import { services , ServiceProps } from '../constants/premiumServiceData';
 
-interface ServiceProps {
-  title: string;
-  imageUrl: string;
-  iconUrl: string;
-  altText: string;
-}
-
-const services: ServiceProps[] = [
-  {
-    title: "Visa",
-    imageUrl: rectangle1,
-    iconUrl: visa,
-    altText: "Visa Services"
-  },
-  {
-    title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
-    altText: "Passport Services"
-  },
-  {
-    title: "Green Card",
-    imageUrl: rectangle3,
-    iconUrl: greenCard,
-    altText: "Green card Services"
-  },
-  {
-    title: "NRI",
-    imageUrl: rectangle4,
-    iconUrl: passport,
-    altText: "NRI Services"
-  },
-  {
-    title: "Visa",
-    imageUrl: rectangle1,
-    iconUrl: visa,
-    altText: "Visa Services"
-  },
-  {
-    title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
-    altText: "Passport Services"
-  },
-  {
-    title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
-    altText: "Passport Services"
-  },
-  {
-    title: "Green Card",
-    imageUrl: rectangle3,
-    iconUrl: greenCard,
-    altText: "Green card Services"
-  },
-  {
-    title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
-    altText: "Passport Services"
-  },
-  {
-    title: "NRI",
-    imageUrl: rectangle4,
-    iconUrl: passport,
-    altText: "NRI Services"
-  },
-  {
-    title: "Visa",
-    imageUrl: rectangle1,
-    iconUrl: visa,
-    altText: "Visa Services"
-  },
-  {
-    title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
-    altText: "Passport Services"
-  },
-  
-  // Add more services as needed
-];
 
 
 const ServiceCard: React.FC<ServiceProps> = ({ title, imageUrl, iconUrl, altText }) => (
@@ -134,7 +45,7 @@ const PremiumServices: React.FC = () => {
   const cardsPerPage = 4;
   const totalPages = Math.ceil(services.length / cardsPerPage);
 
-  const visibleServices = services.slice(
+  const visibleServices = services?.slice(
     currentPage * cardsPerPage,
     (currentPage + 1) * cardsPerPage
   );
@@ -146,7 +57,7 @@ const PremiumServices: React.FC = () => {
       {/* Cards Grid */}
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl mx-auto ">
-          {visibleServices.map((service, index) => (
+          {visibleServices?.map((service, index) => (
             <ServiceCard key={index} {...service} />
           ))}
         </div>

@@ -4,50 +4,11 @@ import React, { useState , useRef } from "react";
 import {
   ChevronDown,
   ChevronUp,
-  GlobeIcon,
-  FileText,
-  User,
-  CreditCard,
-  MoreHorizontal,
 } from "lucide-react";
 
 import useClickOutside from "../hooks/useClickOutside";
+import {documentTypes ,moreOptions , locations  } from '../constants/heroData';
 
-// Types
-export interface DocumentType {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-}
-
-export interface Location {
-  id: string;
-  name: string;
-}
-
-// Constants
-export const documentTypes: DocumentType[] = [
-  { id: "oci", name: "OCI", icon: <GlobeIcon className="w-5 h-5" /> },
-  { id: "visa", name: "Visa", icon: <FileText className="w-5 h-5" /> },
-  { id: "passport", name: "Passport", icon: <User className="w-5 h-5" /> },
-  { id: "pancard", name: "Pan Card", icon: <CreditCard className="w-5 h-5" /> },
-];
-
-export const moreOptions: DocumentType[] = [
-  {
-    id: "driving",
-    name: "Driving License",
-    icon: <FileText className="w-5 h-5" />,
-  },
-  { id: "voter", name: "Voter ID", icon: <FileText className="w-5 h-5" /> },
-  { id: "aadhar", name: "Aadhar Card", icon: <FileText className="w-5 h-5" /> },
-];
-
-export const locations: Location[] = [
-  { id: "ind", name: "India" },
-  { id: "usa", name: "USA" },
-  { id: "uk", name: "United Kingdom" },
-];
 
 // Dropdown Component
 export const Dropdown = ({ label, options, value, onChange }) => {
@@ -73,7 +34,7 @@ export const Dropdown = ({ label, options, value, onChange }) => {
 
       {isOpen && (
         <div className="absolute top-full mt-1 w-full bg-white border rounded-lg shadow-lg z-50">
-          {options.map((option) => (
+          {options?.map((option) => (
             <button
               key={option.id}
               className="w-full px-4 py-2 text-left hover:bg-gray-50"
@@ -123,7 +84,7 @@ export const MoreDropdown = ({ options, onSelect }) => {
 
       {isOpen && (
         <div className="absolute top-full mt-1 w-48 bg-white border rounded-lg shadow-lg z-50">
-          {options.map((option) => (
+          {options?.map((option) => (
             <button
               key={option.id}
               className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { User } from "lucide-react";
 import HeroFemale from "../../../public/assets/images/Home/heroFemale.png";
 import heroIcon from "../../../public/assets/images/Home/BestAccuracy.svg";
 import hero_delivered from "../../../public/assets/images/Home/hero_deliverdIcon.svg";
@@ -9,16 +8,8 @@ import hero_IconAwsomeLock from "../../../public/assets/images/Home/Icon-awesome
 import useClickOutside from "../hooks/useClickOutside";
 import GetStartedButton from "./GetStartedButton";
 
-import {
-  DocumentType,
-  Location,
-  documentTypes,
-  moreOptions,
-  locations,
-  Dropdown,
-  DocumentTypeButton,
-  MoreDropdown,
-} from "./HeroComponents";
+import { Dropdown, DocumentTypeButton, MoreDropdown } from "./HeroComponents";
+import { documentTypes, moreOptions, locations, DocumentType, Location } from "../constants/heroData";
 
 const HeroSection = () => {
   const [selectedDoc, setSelectedDoc] = useState(documentTypes[0]);
@@ -29,12 +20,14 @@ const HeroSection = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
-  
 
   // Client-side rendering handler
   const [isClient, setIsClient] = useState(false);
+  
   useEffect(() => {
-    setIsClient(true);
+    if (typeof window !== 'undefined') {
+      setIsClient(true);
+    }
   }, []);
 
   if (!isClient) {
@@ -42,7 +35,7 @@ const HeroSection = () => {
   }
 
   return (
-    <div className=" px-[10vw]  bg-bgBlue  lg:py-16">
+    <div className=" px-[10vw]  bg-secondary  lg:py-16">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-10">
           <div>
@@ -102,11 +95,7 @@ const HeroSection = () => {
               </div>
             </div>
 
-            {/* <button className="px-16 py-3 bg-primary text-white 
-            rounded-full hover:bg-primary transition-colors">
-              Get Started
-            </button> */}
-            <GetStartedButton/>
+            <GetStartedButton />
           </div>
         </div>
 
