@@ -42,7 +42,7 @@ const ProcessSection = () => {
  
 
   return (
-    <div className="bg-gray-50 py-16">
+    <div className="bg-secondary py-16">
       <div className="px-[10vw] mx-auto lg:py-16">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Steps */}
