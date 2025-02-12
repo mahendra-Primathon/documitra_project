@@ -2,6 +2,8 @@ import rectangle1 from '../../../public/assets/images/Home/Rectangle 1.png';
 import rectangle2 from '../../../public/assets/images/Home/Rectangle2 .svg';
 import rectangle3 from '../../../public/assets/images/Home/Rectangle 3.svg';
 import rectangle4 from '../../../public/assets/images/Home/Rectangle 4.svg';
+import rectangle5 from '../../../public/assets/images/Home/rectangle5.svg';
+import rectangle6 from '../../../public/assets/images/Home/rectangle6.svg';
 
 import passport from '../../../public/assets/images/Home/PsPassport.svg';
 import visa from '../../../public/assets/images/Home/PSvisa.svg';
@@ -25,7 +27,7 @@ export const services: ServiceProps[] = [
   {
     title: "Passport",
     imageUrl: rectangle2,
-    iconUrl: passport,
+    iconUrl: greenCard,
     altText: "Passport Services"
   },
   {
@@ -37,19 +39,19 @@ export const services: ServiceProps[] = [
   {
     title: "NRI",
     imageUrl: rectangle4,
-    iconUrl: passport,
+    iconUrl: greenCard,
     altText: "NRI Services"
   },
   {
-    title: "Visa",
-    imageUrl: rectangle1,
+    title: "World",
+    imageUrl: rectangle5,
     iconUrl: visa,
     altText: "Visa Services"
   },
   {
     title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
+    imageUrl: rectangle6,
+    iconUrl: visa,
     altText: "Passport Services"
   },
   {

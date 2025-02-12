@@ -72,7 +72,7 @@ const TrustPilotRating: React.FC<TrustPilotRatingProps> = ({ rating }) => {
             key={index}
             initial={{ scale: 0, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
+            transition={{ duration: 0.5, delay: index * 0.3 }}
             viewport={{ once: true }}
           >
             <Image src={star2} alt="star"  width={25} height={25} />
