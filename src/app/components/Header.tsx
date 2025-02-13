@@ -1,13 +1,15 @@
 "use client";
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "../../../public/assets/images/Home/Box.png";
 import SignUpModal from "./SignUp";
 import LoginModal from "./Login";
-import {auth} from '../constants/firebase';
-import { onAuthStateChanged , signOut } from "firebase/auth";
+import UserProfileModal from "./userProfile";
+import { auth, db } from "../constants/firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 // Navigation links data
 const navLinks = [
@@ -37,11 +39,16 @@ const NavLink = ({ title, path }) => {
 };
 
 // Auth Buttons Component
-const AuthButtons = ({ user , onSignUpClick , onLoginClick , onSignOutClick }) => (
+const AuthButtons = ({ user, userName, onSignUpClick, onLoginClick, onSignOutClick, onProfileClick }) => (
   <div className="flex items-center gap-4">
-     {user ? (
+    {user ? (
       <>
-        <span className="text-gray-600 px-4 py-2 text-sm">{user.displayName || user.email}</span>
+        <button
+          onClick={onProfileClick}
+          className="text-gray-600 px-4 py-2 text-sm"
+        >
+          {userName}
+        </button>
         <button
           onClick={onSignOutClick}
           className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
@@ -82,11 +89,28 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setUserName(
+            userData.fname && userData.lname
+              ? `${userData.fname} ${userData.lname}`
+              : userData.name || currentUser.email
+          );
+        } else {
+          setUserName(currentUser.email);
+        }
+      } else {
+        setUserName("");
+      }
     });
 
     return () => unsubscribe();
@@ -96,9 +120,14 @@ const Header = () => {
     try {
       await signOut(auth);
       setUser(null);
+      setUserName("");
     } catch (error) {
       console.error("Error signing out:", error);
     }
+  };
+
+  const handleUpdateUserName = (updatedUserName: string) => {
+    setUserName(updatedUserName);
   };
 
   return (
@@ -122,11 +151,13 @@ const Header = () => {
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:block">
             <AuthButtons 
-            user={user}
-            onSignUpClick={() => setIsSignUpModalOpen(true)}
-            onLoginClick={()=> setIsLoginModalOpen(true)  }
-            onSignOutClick={handleSignOut}
-          />
+              user={user}
+              userName={userName}
+              onSignUpClick={() => setIsSignUpModalOpen(true)}
+              onLoginClick={() => setIsLoginModalOpen(true)}
+              onSignOutClick={handleSignOut}
+              onProfileClick={() => setIsUserProfileModalOpen(true)}
+            />
           </div>
 
           {/* Mobile Menu Button */}
@@ -145,10 +176,12 @@ const Header = () => {
             ))}
             <div className="mt-4 px-3">
               <AuthButtons 
-              user={user}
-              onSignUpClick={() => setIsSignUpModalOpen(true)}
-              onLoginClick={()=> setIsLoginModalOpen(true)  }
-              onSignOutClick={handleSignOut}
+                user={user}
+                userName={userName}
+                onSignUpClick={() => setIsSignUpModalOpen(true)}
+                onLoginClick={() => setIsLoginModalOpen(true)}
+                onSignOutClick={handleSignOut}
+                onProfileClick={() => setIsUserProfileModalOpen(true)}
               />
             </div>
           </div>
@@ -157,7 +190,8 @@ const Header = () => {
 
       {/* Sign Up Modal */}
       <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />
-        {/* login model */}
+      
+      {/* Login Modal */}
       <LoginModal 
         isOpen={isLoginModalOpen} 
         onClose={() => setIsLoginModalOpen(false)}
@@ -165,6 +199,13 @@ const Header = () => {
           setIsLoginModalOpen(false);
           setIsSignUpModalOpen(true);
         }}
+      />
+
+      {/* User Profile Modal */}
+      <UserProfileModal 
+        isOpen={isUserProfileModalOpen} 
+        onClose={() => setIsUserProfileModalOpen(false)}
+        onUpdateUserName={handleUpdateUserName} // Pass the callback function
       />
     </header>
   );

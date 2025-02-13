@@ -18,7 +18,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
     phone: "",
     password: "",
     rePassword: "",
-    username:"",
+    username:""
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
