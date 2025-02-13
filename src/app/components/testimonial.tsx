@@ -53,6 +53,8 @@ const TestimonialCard = ({ name, rating, comment, imageSrc }: TestimonialProps) 
 
 const TestimonialSection = () => {
   const [isClient, setIsClient] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [animationX, setAnimationX] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
@@ -73,18 +75,28 @@ const TestimonialSection = () => {
         <h2 className="text-4xl font-bold text-center mb-12 text-red">
           Our Customers Love Us
         </h2>
-        
+
         <div className="relative w-full overflow-hidden space-y-6">
           {[row1, row2].map((row, rowIndex) => (
             <motion.div
               key={rowIndex}
               className="flex space-x-6 w-[200%]"
-              animate={{ x: ["0%", "-100%" ] }}
-              transition={{ repeat: Infinity, duration:60, ease: "linear" }}
-              whileHover={{ x: 0 }}
+              animate={{ x: isHovered ? animationX : ["0%", "-100%"] }}
+              transition={isHovered ? {} : { repeat: Infinity, duration: 60, ease: "linear" }}
+              onMouseEnter={(event) => {
+                setIsHovered(true);
+                setAnimationX(event.currentTarget.getBoundingClientRect().x);
+              }}
+              onMouseLeave={() => setIsHovered(false)}
             >
               {row.map((testimonial, index) => (
-                <TestimonialCard key={`${rowIndex}-${index}`} {...testimonial} />
+                <div
+                  key={`${rowIndex}-${index}`}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <TestimonialCard {...testimonial} />
+                </div>
               ))}
             </motion.div>
           ))}

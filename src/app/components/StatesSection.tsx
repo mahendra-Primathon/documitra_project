@@ -51,7 +51,7 @@ const TrustPilotRating: React.FC<TrustPilotRatingProps> = ({ rating }) => {
   return (
     <motion.div
       className="flex items-center gap-4 flex-col"
-      initial={{ opacity: 0, scale: 1 , y:20 }}
+      initial={{ opacity: 0, scale: 1  }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, delay: 0.3 }}
       viewport={{ once: true }}

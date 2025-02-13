@@ -12,7 +12,7 @@ import { Dropdown, DocumentTypeButton, MoreDropdown } from "./HeroComponents";
 import { documentTypes, moreOptions, locations, DocumentType, Location } from "../constants/heroData";
 
 const HeroSection = () => {
-  const [selectedDoc, setSelectedDoc] = useState(documentTypes[0]);
+  const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(null);
   const [citizenship, setCitizenship] = useState<Location | null>(null);
   const [applyingFrom, setApplyingFrom] = useState<Location | null>(null);
   const [destination, setDestination] = useState<Location | null>(null);
@@ -35,7 +35,7 @@ const HeroSection = () => {
   }
 
   return (
-    <div className=" px-[10vw]  bg-secondary  lg:py-16">
+    <div className="px-[10vw] bg-secondary lg:py-16">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-10">
           <div>
@@ -60,12 +60,13 @@ const HeroSection = () => {
                   <DocumentTypeButton
                     key={type.id}
                     type={type}
-                    isSelected={selectedDoc.id === type.id}
+                    isSelected={selectedDoc?.id === type.id}
                     onClick={setSelectedDoc}
                   />
                 ))}
                 <MoreDropdown
                   options={moreOptions}
+                  selectedDoc={selectedDoc}
                   onSelect={setSelectedDoc}
                   isOpen={isDropdownOpen}
                   setIsOpen={setIsDropdownOpen}

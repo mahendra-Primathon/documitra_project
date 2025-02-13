@@ -1,14 +1,9 @@
-// components/DocumentComponents.tsx
 "use client";
-import React, { useState , useRef } from "react";
-import {
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
-
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import useClickOutside from "../hooks/useClickOutside";
-import {documentTypes ,moreOptions , locations  } from '../constants/heroData';
-
+import { documentTypes, moreOptions, locations } from "../constants/heroData";
+import { createPortal } from "react-dom";
 
 // Dropdown Component
 export const Dropdown = ({ label, options, value, onChange }) => {
@@ -16,14 +11,14 @@ export const Dropdown = ({ label, options, value, onChange }) => {
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => setIsOpen(false));
   return (
-    <div className="relative w-full flex flex-col" ref={dropdownRef} >
+    <div className="relative w-full flex flex-col" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-3 py-1 text-left bg-white rounded-2xl shadow-sm border flex flex-col items-start justify-between"
       >
         <p className="text-sm text-gray-600 mb-1">{label}</p>
         <div className="flex items-center justify-between w-full">
-        <span className="text-gray-500">{value || 'Select'}</span>
+          <span className="text-gray-500">{value || "Select"}</span>
           {isOpen ? (
             <ChevronUp className="w-4 h-4 text-gray-400" />
           ) : (
@@ -69,34 +64,45 @@ export const DocumentTypeButton = ({ type, isSelected, onClick }) => (
 );
 
 // More Dropdown Component
-export const MoreDropdown = ({ options, onSelect }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const MoreDropdown = ({ options, selectedDoc, onSelect, isOpen, setIsOpen }) => {
+  const dropdownRef = useRef(null);
+  useClickOutside(dropdownRef, () => setIsOpen(false));
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-4 py-2 text-gray-600"
       >
-        <span>More</span>
-        <ChevronDown className="w-4 h-4" />
+        <span>{selectedDoc?.name || "More"}</span>
+        {isOpen ? (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          </svg>
+        )}
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-1 w-48 bg-white border rounded-lg shadow-lg z-50">
-          {options?.map((option) => (
-            <button
-              key={option.id}
-              className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
-              onClick={() => {
-                onSelect(option);
-                setIsOpen(false);
-              }}
-            >
-              {option.icon}
-              <span>{option.name}</span>
-            </button>
-          ))}
+        <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+          <div className="py-1">
+            {options?.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  onSelect(option);
+                  setIsOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+              >
+                {option.icon}
+                <span>{option.name}</span>
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>
