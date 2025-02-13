@@ -15,6 +15,7 @@
     "@svgr/webpack": "^8.1.0",
     "boxicons": "^2.1.4",
     "ext": "^1.7.0",
+    "firebase": "^11.3.1",
     "framer-motion": "^12.4.2",
     "lucide-react": "^0.474.0",
     "motion": "^12.4.2",

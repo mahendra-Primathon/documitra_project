@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "../../../public/assets/images/Home/Box.png";
+import SignUpModal from "./SignUp";
+import LoginModal from "./Login";
 
 // Navigation links data
 const navLinks = [
@@ -20,7 +22,7 @@ const NavLink = ({ title, path }) => {
   const pathname = usePathname();
   const isActive = pathname === path;
 
-  return ( // ✅ Added return
+  return (
     <Link href={path} className="relative px-4 py-2 text-sm transition-colors duration-300">
       <span className={`text-gray-600 hover:text-#050505 ${isActive ? "text-#050505 font-semibold" : ""}`}>
         {title}
@@ -33,17 +35,20 @@ const NavLink = ({ title, path }) => {
 };
 
 // Auth Buttons Component
-const AuthButtons = () => (
+const AuthButtons = ({ onSignUpClick , onLoginClick }) => (
   <div className="flex items-center gap-4">
-    <Link href="/login" className="text-gray-600 hover:text-blue-600 px-4 py-2 text-sm">
-      Login
-    </Link>
-    <Link
-      href="/signup"
-      className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold "
+    <button 
+        onClick={onLoginClick}
+        className="text-gray-600 hover:text-blue-600 px-4 py-2 text-sm"
+      >
+        Login
+      </button>
+    <button
+      onClick={onSignUpClick}
+      className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
     >
       Signup
-    </Link>
+    </button>
   </div>
 );
 
@@ -59,6 +64,8 @@ const MobileMenuButton = ({ isOpen, setIsOpen }) => (
 // Main Header Component
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   return (
     <header className="bg-secondary">
@@ -67,8 +74,7 @@ const Header = () => {
           {/* Logo Section */}
           <div className="flex items-center ">
             <Link href="/" className="flex items-center">
-              <Image src={logo} alt="DocuMitra Logo"  className="mr-2" />
-              {/* width={200} height={100} */}
+              <Image src={logo} alt="DocuMitra Logo" className="mr-2" />
             </Link>
           </div>
 
@@ -81,7 +87,10 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:block">
-            <AuthButtons />
+            <AuthButtons 
+            onSignUpClick={() => setIsSignUpModalOpen(true)}
+            onLoginClick={()=> setIsLoginModalOpen(true)  }
+          />
           </div>
 
           {/* Mobile Menu Button */}
@@ -99,11 +108,26 @@ const Header = () => {
               </Link>
             ))}
             <div className="mt-4 px-3">
-              <AuthButtons />
+              <AuthButtons 
+              onSignUpClick={() => setIsSignUpModalOpen(true)}
+              onLoginClick={()=> setIsLoginModalOpen(true)  }
+              />
             </div>
           </div>
         </div>
       )}
+
+      {/* Sign Up Modal */}
+      <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />
+        {/* login model */}
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)}
+        onSignUpClick={() => {
+          setIsLoginModalOpen(false);
+          setIsSignUpModalOpen(true);
+        }}
+      />
     </header>
   );
 };
