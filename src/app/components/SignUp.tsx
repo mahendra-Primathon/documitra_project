@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import { Eye, EyeOff } from 'lucide-react';
-import { auth, db } from '../constants/firebase';
-import { log } from 'node:console';
+import React, { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { Eye, EyeOff } from "lucide-react";
+import { auth, db } from "../constants/firebase";
+import { log } from "node:console";
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -12,39 +12,43 @@ interface SignUpModalProps {
 
 const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    rePassword: '',
+    // name: "",
+    fname:"",
+    lname:"",
+    email: "",
+    phone: "",
+    password: "",
+    rePassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
+    const { name, fname , lname ,  value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
+      [fname]: value,
+      [lname]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     if (!agreeToTerms) {
-      setError('Please agree to the Terms of Service and Privacy Policy');
+      setError("Please agree to the Terms of Service and Privacy Policy");
       setLoading(false);
       return;
     }
 
     if (formData.password !== formData.rePassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       setLoading(false);
       return;
     }
@@ -55,19 +59,30 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
         formData.email,
         formData.password
       );
+      const user = auth.currentUser;
+      console.log(user);
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          firstName: fname,
+          lastName: lname,
+        });
+      }
 
-      await setDoc(doc(db, 'users', userCredential.user.uid), {
+      await setDoc(doc(db, "users", userCredential.user.uid), {
         name: formData.name,
+        fname: formData.fname,
+        lname: formData.lname,
         email: formData.email,
         phone: formData.phone,
         createdAt: new Date().toISOString(),
       });
-      console.log('User created successfully');
+      console.log("User created successfully");
       console.log(userCredential);
 
       onClose();
     } catch (err: any) {
-      setError(err.message || 'An error occurred during sign up');
+      setError(err.message || "An error occurred during sign up");
     } finally {
       setLoading(false);
     }
@@ -97,17 +112,31 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm text-gray-600 mb-1">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter"
-              required
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.fname}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-1">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lname}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter"
+                required
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -204,27 +233,22 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
             </label>
           </div>
 
-          {error && (
-            <p className="text-red-500 text-sm">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
           >
-            {loading ? 'Signing up...' : 'Get Packages'}
+            {loading ? "Signing up..." : "Get Packages"}
           </button>
 
-          <button
-            type="button"
-            className="w-full text-blue-700 text-sm"
-          >
+          <button type="button" className="w-full text-blue-700 text-sm">
             I have referral code
           </button>
 
           <div className="text-center text-sm text-gray-600">
-            Already a user?{' '}
+            Already a user?{" "}
             <button
               type="button"
               className="text-blue-700 hover:underline"
