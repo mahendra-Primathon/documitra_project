@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "../../../public/assets/images/Home/Box.png";
 import SignUpModal from "./SignUp";
 import LoginModal from "./Login";
+import {auth} from '../constants/firebase';
+import { onAuthStateChanged , signOut } from "firebase/auth";
 
 // Navigation links data
 const navLinks = [
@@ -35,20 +37,34 @@ const NavLink = ({ title, path }) => {
 };
 
 // Auth Buttons Component
-const AuthButtons = ({ onSignUpClick , onLoginClick }) => (
+const AuthButtons = ({ user , onSignUpClick , onLoginClick , onSignOutClick }) => (
   <div className="flex items-center gap-4">
-    <button 
-        onClick={onLoginClick}
-        className="text-gray-600 hover:text-blue-600 px-4 py-2 text-sm"
-      >
-        Login
-      </button>
-    <button
-      onClick={onSignUpClick}
-      className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
-    >
-      Signup
-    </button>
+     {user ? (
+      <>
+        <span className="text-gray-600 px-4 py-2 text-sm">{user.displayName || user.email}</span>
+        <button
+          onClick={onSignOutClick}
+          className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
+        >
+          Sign Out
+        </button>
+      </>
+    ) : (
+      <>
+        <button
+          onClick={onLoginClick}
+          className="text-gray-600 hover:text-blue-600 px-4 py-2 text-sm"
+        >
+          Login
+        </button>
+        <button
+          onClick={onSignUpClick}
+          className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
+        >
+          Signup
+        </button>
+      </>
+    )}
   </div>
 );
 
@@ -66,6 +82,24 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 
   return (
     <header className="bg-secondary">
@@ -88,8 +122,10 @@ const Header = () => {
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:block">
             <AuthButtons 
+            user={user}
             onSignUpClick={() => setIsSignUpModalOpen(true)}
             onLoginClick={()=> setIsLoginModalOpen(true)  }
+            onSignOutClick={handleSignOut}
           />
           </div>
 
@@ -109,8 +145,10 @@ const Header = () => {
             ))}
             <div className="mt-4 px-3">
               <AuthButtons 
+              user={user}
               onSignUpClick={() => setIsSignUpModalOpen(true)}
               onLoginClick={()=> setIsLoginModalOpen(true)  }
+              onSignOutClick={handleSignOut}
               />
             </div>
           </div>

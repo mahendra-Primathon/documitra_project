@@ -3,7 +3,6 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { Eye, EyeOff } from "lucide-react";
 import { auth, db } from "../constants/firebase";
-import { log } from "node:console";
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -12,13 +11,14 @@ interface SignUpModalProps {
 
 const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
-    // name: "",
-    fname:"",
-    lname:"",
+    name: "",
+    fname: "",
+    lname: "",
     email: "",
     phone: "",
     password: "",
     rePassword: "",
+    username:"",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
@@ -27,12 +27,10 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, fname , lname ,  value } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-      [fname]: value,
-      [lname]: value,
     }));
   };
 
@@ -64,13 +62,13 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
       if (user) {
         await setDoc(doc(db, "users", user.uid), {
           email: user.email,
-          firstName: fname,
-          lastName: lname,
+          firstName: formData.fname,
+          lastName: formData.lname,
         });
       }
 
       await setDoc(doc(db, "users", userCredential.user.uid), {
-        name: formData.name,
+        name: formData.fname + " " + formData.lname,
         fname: formData.fname,
         lname: formData.lname,
         email: formData.email,
@@ -117,7 +115,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
               <label className="block text-sm text-gray-600 mb-1">First Name</label>
               <input
                 type="text"
-                name="firstName"
+                name="fname"
                 value={formData.fname}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -129,7 +127,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
               <label className="block text-sm text-gray-600 mb-1">Last Name</label>
               <input
                 type="text"
-                name="lastName"
+                name="lname"
                 value={formData.lname}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
