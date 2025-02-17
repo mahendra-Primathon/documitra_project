@@ -9,6 +9,8 @@ import StatesSection from "../components/StatesSection";
 import PackageForm from "../components/packageForm";
 import PackageCard from "../components/packageCard";
 import VisaProcess from "../components/packageVisaProcess";
+import ApplicationProcess from "../components/packageApplicationProcess";
+import ApplicationTimeline from "../components/pacakgeApplicationTimeline";
 
 const PackagesPage = () => {
   return (
@@ -20,9 +22,11 @@ const PackagesPage = () => {
         <PackageCard country="usa" />
         <StatesSection />
         <VisaProcess country="usa" />
-
-
+        <ApplicationProcess/>
         <TestimonialSection/>
+        <ApplicationTimeline/>
+
+
         <FAQSection/>
         <Footer/>
 

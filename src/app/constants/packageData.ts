@@ -151,3 +151,75 @@ export const packageData = {
     ]
     // Add more countries as needed
   };
+
+  export const applicationProcessData = [
+    {
+      id:1,
+      title: "United States of America",
+      description: "The United States of America is a country located in North America. It is known for its diverse culture, stunning landscapes, and iconic landmarks. If you are planning to visit the USA for tourism or business purposes, you will need to apply for a visa. The visa application process for the USA can be complex and time-consuming, but with the help of Documitra, you can simplify the process and get your visa quickly and easily."
+    },
+    {
+      id: 2,
+      title: "India",
+      description: "India is a country in South Asia known for its rich history, diverse culture, and vibrant landscapes. If you are planning to visit India for tourism, business, or medical purposes, you will need to apply for an E-Visa. The E-Visa application process for India is straightforward and can be completed online. With the assistance of Documitra, you can ensure a smooth and hassle-free visa application experience."
+    },
+    {
+      id: 3,
+      title: "United Kingdom",
+      description: "The United Kingdom is a country located in Europe, known for its historic landmarks, cultural heritage, and picturesque countryside. If you are planning to visit the UK for tourism, business, or study purposes, you will need to apply for a visa. The visa application process for the UK can be detailed and requires careful preparation. Documitra can help you navigate the process and obtain your visa efficiently."
+    }
+  ];
+
+  // constants/timelineData.ts
+
+export interface TimelineEntry {
+  id: number;
+  applicationType: string;
+  applicationSubmission: string;
+  biometricsSubmitted: string;
+  passportRequestReceived: string;
+  visaReceived: string;
+}
+
+export const visaTimelineData: TimelineEntry[] = [
+  {
+    id: 1,
+    applicationType: "Fresh Visa",
+    applicationSubmission: "dd/mm/yy",
+    biometricsSubmitted: "dd/mm/yy",
+    passportRequestReceived: "dd/mm/yy",
+    visaReceived: "dd/mm/yy"
+  },
+  {
+    id: 2,
+    applicationType: "Visa Renewal",
+    applicationSubmission: "dd/mm/yy",
+    biometricsSubmitted: "dd/mm/yy",
+    passportRequestReceived: "dd/mm/yy",
+    visaReceived: "dd/mm/yy"
+  },
+  {
+    id: 3,
+    applicationType: "Fresh Visa",
+    applicationSubmission: "dd/mm/yy",
+    biometricsSubmitted: "dd/mm/yy",
+    passportRequestReceived: "dd/mm/yy",
+    visaReceived: "dd/mm/yy"
+  },
+  {
+    id: 4,
+    applicationType: "Fresh Visa",
+    applicationSubmission: "dd/mm/yy",
+    biometricsSubmitted: "dd/mm/yy",
+    passportRequestReceived: "dd/mm/yy",
+    visaReceived: "dd/mm/yy"
+  },
+  {
+    id: 5,
+    applicationType: "Fresh Visa",
+    applicationSubmission: "dd/mm/yy",
+    biometricsSubmitted: "dd/mm/yy",
+    passportRequestReceived: "dd/mm/yy",
+    visaReceived: "dd/mm/yy"
+  }
+];
