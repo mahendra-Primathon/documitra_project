@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import StatesSection from "../components/StatesSection";
 import PackageForm from "../components/packageForm";
 import PackageCard from "../components/packageCard";
+import VisaProcess from "../components/packageVisaProcess";
 
 const PackagesPage = () => {
   return (
@@ -16,10 +17,11 @@ const PackagesPage = () => {
         <Header/>
 
         <PackageForm/>
-        <PackageCard/>
-
-
+        <PackageCard country="usa" />
         <StatesSection />
+        <VisaProcess country="usa" />
+
+
         <TestimonialSection/>
         <FAQSection/>
         <Footer/>
