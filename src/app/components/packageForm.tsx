@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { packageData } from '../constants/packageData';
 import { ChevronDown, ChevronUp } from "lucide-react";
 import useClickOutside from "../hooks/useClickOutside";
@@ -19,7 +20,7 @@ const Dropdown = ({ label, options, value, onChange }) => {
       >
         <p className="text-sm text-gray-600 mb-1">{label}</p>
         <div className="flex items-center justify-between w-full">
-          <span className="text-gray-500">{value || "Select"}</span>
+          <span className="text-gray-500">{value?.name || "Select"}</span>
           {isOpen ? (
             <ChevronUp className="w-4 h-4 text-gray-400" />
           ) : (
@@ -49,24 +50,19 @@ const Dropdown = ({ label, options, value, onChange }) => {
 };
 
 const PackageForm = () => {
+  const router = useRouter();
   const [currentPackage, setCurrentPackage] = useState('usa');
   const [citizenship, setCitizenship] = useState(null);
   const [applyingFrom, setApplyingFrom] = useState(null);
   const [destination, setDestination] = useState(null);
 
-  useEffect(() => {
-    // Get the current path
-    const path = window.location.pathname;
-    if (path.includes('/packages/india')) {
-      setCurrentPackage('india');
-    } else if (path.includes('/packages/unitedKingdom')) {
-      setCurrentPackage('unitedKingdom');
-    } else if (path.includes('/packages') || path.includes('/packages/usa')) {
-      setCurrentPackage('usa');
-    }
-  }, []);
-
   const data = packageData[currentPackage];
+
+  const handleSubmit = () => {
+    if (destination) {
+      router.push(`/packages/${destination.name.toLowerCase()}`);
+    }
+  };
 
   return (
     <div className="px-[10vw] mx-auto lg:py-16 bg-secondary ">
@@ -87,7 +83,11 @@ const PackageForm = () => {
             key={index}
             label={field.label}
             options={field.options.map(option => ({ id: option, name: option }))}
-            value={field.fixed ? field.options[0] : null}
+            value={
+              field.label === "Citizenship" ? citizenship :
+              field.label === "Applying From" ? applyingFrom :
+              field.label === "Destination" ? destination : null
+            }
             onChange={(option) => {
               if (field.label === "Citizenship") setCitizenship(option);
               if (field.label === "Applying From") setApplyingFrom(option);
@@ -95,6 +95,14 @@ const PackageForm = () => {
             }}
           />
         ))}
+      </div>
+      <div className='mx-auto px-auto' >
+        <button
+          onClick={handleSubmit}
+          className="mt-6 bg-primary text-white py-3 px-4 rounded-full hover:bg-blue-800 transition-colors font-medium align-center justify-centers"
+        >
+          Apply Now
+        </button>
       </div>
     </div>
   );

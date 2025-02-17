@@ -51,6 +51,19 @@ const TestimonialCard = ({ name, rating, comment, imageSrc }: TestimonialProps) 
   );
 };
 
+// Seed-based shuffle function
+const seedShuffle = (array, seed) => {
+  let m = array.length, t, i;
+  while (m) {
+    i = Math.floor(seed * m--);
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+    seed = (seed * 9301 + 49297) % 233280 / 233280;
+  }
+  return array;
+};
+
 const TestimonialSection = () => {
   const [isClient, setIsClient] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -64,7 +77,8 @@ const TestimonialSection = () => {
     return null;
   }
 
-  const shuffledTestimonials = [...testimonials].sort(() => Math.random() - 0.5);
+  const seed = 0.5; // Use a fixed seed value
+  const shuffledTestimonials = seedShuffle([...testimonials], seed);
   const halfLength = Math.ceil(shuffledTestimonials.length / 2);
   const row1 = [...shuffledTestimonials.slice(0, halfLength), ...shuffledTestimonials.slice(0, halfLength)];
   const row2 = [...shuffledTestimonials.slice(halfLength), ...shuffledTestimonials.slice(halfLength)];

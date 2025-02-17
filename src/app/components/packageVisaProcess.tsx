@@ -16,7 +16,7 @@ const VisaProcess: React.FC<VisaProcessProps> = ({ country = 'usa' }) => {
       <h2 className="text-5xl font-bold mb-20 ">Visa application process</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {steps.map((step) => (
+        {steps?.map((step) => (
           <div 
             key={step.id}
             className="flex gap-0 items-start group"
