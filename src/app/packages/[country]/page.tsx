@@ -12,7 +12,13 @@ import PackageCard from "../../components/packageCard";
 import VisaProcess from "../../components/packageVisaProcess";
 import ApplicationProcess from "../../components/packageApplicationProcess";
 import ApplicationTimeline from "../../components/pacakgeApplicationTimeline";
-import { packageData, packageCard, visaProcessSteps, applicationProcessData, visaTimelineData } from "../../constants/packageData";
+import {
+  packageData,
+  packageCard,
+  visaProcessSteps,
+  applicationProcessData,
+  visaTimelineData,
+} from "../../constants/packageData";
 
 const PackagesPage = () => {
   const params = useParams();
@@ -31,14 +37,17 @@ const PackagesPage = () => {
   const countryData = packageData[country];
   const countryPackageCard = packageCard[country];
   const countryVisaProcessSteps = visaProcessSteps[country];
-  const countryApplicationProcessData = applicationProcessData.find(data => data.title.toLowerCase().includes(country));
-  const countryVisaTimelineData = visaTimelineData.filter(data => data.applicationType.toLowerCase().includes(country));
+  const countryApplicationProcessData = applicationProcessData.find((data) =>
+    data.title.toLowerCase().includes(country)
+  );
+  const countryVisaTimelineData = visaTimelineData.filter((data) =>
+    data.applicationType.toLowerCase().includes(country)
+  );
 
   return (
     <div>
       <Navbar />
       <Header />
-
       <PackageForm />
       <PackageCard country={country} />
       <StatesSection />
@@ -46,11 +55,9 @@ const PackagesPage = () => {
       <ApplicationProcess />
       <TestimonialSection />
       <ApplicationTimeline />
-
       <FAQSection />
       <Footer />
     </div>
   );
 };
-
 export default PackagesPage;

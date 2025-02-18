@@ -1,27 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../constants/firebase';
+import React, { useState, useEffect } from "react";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../constants/firebase";
 
 interface UserProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
   onUpdateUserName: (userName: string) => void; // Add this prop
 }
+interface FormData {
+  fname: string;
+  lname: string;
+  email: string;
+  phone: string;
+}
 
-const UserProfileModal: React.FC<UserProfileModalProps> = ({ isOpen, onClose, onUpdateUserName }) => {
-  const [formData, setFormData] = useState({
-    fname: '',
-    lname: '',
-    email: '',
-    phone: '',
+const UserProfileModal: React.FC<UserProfileModalProps> = ({
+  isOpen,
+  onClose,
+  onUpdateUserName,
+}) => {
+  const [formData, setFormData] = useState<FormData>({
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
       if (auth.currentUser) {
-        const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
+        const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
         if (userDoc.exists()) {
           setFormData(userDoc.data() as any);
         }
@@ -43,17 +53,17 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({ isOpen, onClose, on
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       if (auth.currentUser) {
-        await updateDoc(doc(db, 'users', auth.currentUser.uid), formData);
+        await updateDoc(doc(db, "users", auth.currentUser.uid), formData);
         onUpdateUserName(`${formData.fname} ${formData.lname}`); // Update the userName in the Header component
         onClose();
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred while updating your profile');
+      setError(err.message || "An error occurred while updating your profile");
     } finally {
       setLoading(false);
     }
@@ -85,7 +95,9 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({ isOpen, onClose, on
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-gray-600 mb-1">First Name</label>
+              <label className="block text-sm text-gray-600 mb-1">
+                First Name
+              </label>
               <input
                 type="text"
                 name="fname"
@@ -97,7 +109,9 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({ isOpen, onClose, on
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-600 mb-1">Last Name</label>
+              <label className="block text-sm text-gray-600 mb-1">
+                Last Name
+              </label>
               <input
                 type="text"
                 name="lname"
@@ -144,12 +158,11 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({ isOpen, onClose, on
             disabled={loading}
             className="w-full bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
           >
-            {loading ? 'Updating...' : 'Update Profile'}
+            {loading ? "Updating..." : "Update Profile"}
           </button>
         </form>
       </div>
     </div>
   );
 };
-
 export default UserProfileModal;

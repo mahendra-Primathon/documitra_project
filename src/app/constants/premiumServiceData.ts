@@ -1,13 +1,13 @@
-import rectangle1 from '../../../public/assets/images/Home/Rectangle 1.png';
-import rectangle2 from '../../../public/assets/images/Home/Rectangle2 .svg';
-import rectangle3 from '../../../public/assets/images/Home/Rectangle 3.svg';
-import rectangle4 from '../../../public/assets/images/Home/Rectangle 4.svg';
-import rectangle5 from '../../../public/assets/images/Home/rectangle5.svg';
-import rectangle6 from '../../../public/assets/images/Home/rectangle6.svg';
+import visaImage from '../../../public/assets/images/Home/Rectangle 1.png';
+import passportImage1 from '../../../public/assets/images/Home/Rectangle2 .svg';
+import greenCardImage from '../../../public/assets/images/Home/Rectangle 3.svg';
+import nriImage from '../../../public/assets/images/Home/Rectangle 4.svg';
+import worldImage from '../../../public/assets/images/Home/rectangle5.svg';
+import passportImage2 from '../../../public/assets/images/Home/rectangle6.svg';
 
-import passport from '../../../public/assets/images/Home/PsPassport.svg';
-import visa from '../../../public/assets/images/Home/PSvisa.svg';
-import greenCard from '../../../public/assets/images/Home/psGreenVard.svg';
+import passportIcon from '../../../public/assets/images/Home/PsPassport.svg';
+import visaIcon from '../../../public/assets/images/Home/PSvisa.svg';
+import greenCardIcon from '../../../public/assets/images/Home/psGreenVard.svg';
 
 
 export interface ServiceProps {
@@ -20,74 +20,74 @@ export interface ServiceProps {
 export const services: ServiceProps[] = [
   {
     title: "Visa",
-    imageUrl: rectangle1,
-    iconUrl: visa,
+    imageUrl: visaImage,
+    iconUrl: visaIcon,
     altText: "Visa Services"
   },
   {
     title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: greenCard,
+    imageUrl: passportImage1,
+    iconUrl: greenCardIcon,
     altText: "Passport Services"
   },
   {
     title: "Green Card",
-    imageUrl: rectangle3,
-    iconUrl: greenCard,
+    imageUrl: greenCardImage,
+    iconUrl: greenCardIcon,
     altText: "Green card Services"
   },
   {
     title: "NRI",
-    imageUrl: rectangle4,
-    iconUrl: greenCard,
+    imageUrl: nriImage,
+    iconUrl: greenCardIcon,
     altText: "NRI Services"
   },
   {
     title: "World",
-    imageUrl: rectangle5,
-    iconUrl: visa,
+    imageUrl: worldImage,
+    iconUrl: visaIcon,
     altText: "Visa Services"
   },
   {
     title: "Passport",
-    imageUrl: rectangle6,
-    iconUrl: visa,
+    imageUrl: passportImage2,
+    iconUrl: visaIcon,
     altText: "Passport Services"
   },
   {
     title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
+    imageUrl: passportImage1,
+    iconUrl: passportIcon,
     altText: "Passport Services"
   },
   {
     title: "Green Card",
-    imageUrl: rectangle3,
-    iconUrl: greenCard,
+    imageUrl: greenCardImage,
+    iconUrl: greenCardIcon,
     altText: "Green card Services"
   },
   {
     title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
+    imageUrl: passportImage1,
+    iconUrl: passportIcon,
     altText: "Passport Services"
   },
   {
     title: "NRI",
-    imageUrl: rectangle4,
-    iconUrl: passport,
+    imageUrl: nriImage,
+    iconUrl: passportIcon,
     altText: "NRI Services"
   },
   {
     title: "Visa",
-    imageUrl: rectangle1,
-    iconUrl: visa,
+    imageUrl: visaImage,
+    iconUrl: visaIcon,
     altText: "Visa Services"
   },
   {
     title: "Passport",
-    imageUrl: rectangle2,
-    iconUrl: passport,
+    imageUrl: passportImage1,
+    iconUrl: passportIcon,
     altText: "Passport Services"
   },
   // Add more services as needed

@@ -17,7 +17,6 @@ const PackagesPage = () => {
     <div>
         <Navbar/>
         <Header/>
-
         <PackageForm/>
         <PackageCard country="usa" />
         <StatesSection />
@@ -25,12 +24,8 @@ const PackagesPage = () => {
         <ApplicationProcess/>
         <TestimonialSection/>
         <ApplicationTimeline/>
-
-
         <FAQSection/>
         <Footer/>
-
-     
     </div>
   );
 };

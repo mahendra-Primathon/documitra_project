@@ -18,7 +18,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
     phone: "",
     password: "",
     rePassword: "",
-    username:""
+    username: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
@@ -58,7 +58,6 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
         formData.password
       );
       const user = auth.currentUser;
-      console.log(user);
       if (user) {
         await setDoc(doc(db, "users", user.uid), {
           email: user.email,
@@ -75,8 +74,6 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
         phone: formData.phone,
         createdAt: new Date().toISOString(),
       });
-      console.log("User created successfully");
-      console.log(userCredential);
 
       onClose();
     } catch (err: any) {
@@ -112,7 +109,9 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-gray-600 mb-1">First Name</label>
+              <label className="block text-sm text-gray-600 mb-1">
+                First Name
+              </label>
               <input
                 type="text"
                 name="fname"
@@ -124,7 +123,9 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-600 mb-1">Last Name</label>
+              <label className="block text-sm text-gray-600 mb-1">
+                Last Name
+              </label>
               <input
                 type="text"
                 name="lname"
