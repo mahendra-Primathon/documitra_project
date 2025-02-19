@@ -15,7 +15,7 @@ import { doc, getDoc } from "firebase/firestore";
 const navLinks = [
   { title: "Home", path: "/" },
   { title: "Services", path: "/services" },
-  { title: "Packages", path: "/packages" },
+  // { title: "Packages", path: "/packages" },
   { title: "Photos", path: "/photos" },
   { title: "Blog", path: "/blog" },
   { title: "FAQ's", path: "/faqs" },

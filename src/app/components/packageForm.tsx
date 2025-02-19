@@ -1,37 +1,70 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { packageData } from "../constants/packageData";
 import PackageDropdown from "./PackageDropdown";
-// import packageDropdown from "./PackageDropdown";
 
-const PackageForm = () => {
+const PackageForm = ({ country }) => {
   const router = useRouter();
-  const [currentPackage, setCurrentPackage] = useState("usa");
-  const [citizenship, setCitizenship] = useState<{
-    id: string;
-    name: string;
-  } | null>(null);
-  const [applyingFrom, setApplyingFrom] = useState<{
-    id: string;
-    name: string;
-  } | null>(null);
-  const [destination, setDestination] = useState<{
-    id: string;
-    name: string;
-  } | null>(null);
+  const searchParams = useSearchParams();
 
-  const data = packageData[currentPackage];
+  // Extract query parameters
+  const queryCitizenship = searchParams.get("citizenship") || "";
+  const queryApplyingFrom = searchParams.get("applyingFrom") || "";
+  const queryDestination = searchParams.get("destination") || "";
+  const querySelectedDoc = searchParams.get("selectedDoc") || "";
+
+  // Initialize state with query params (pre-filled)
+  const [citizenship, setCitizenship] = useState(queryCitizenship);
+  const [applyingFrom, setApplyingFrom] = useState(queryApplyingFrom);
+  const [destination, setDestination] = useState(queryDestination);
+  const [selectedDoc, setSelectedDoc] = useState(querySelectedDoc);
+  const [error, setError] = useState("");
+  const [isEditable, setIsEditable] = useState(false); // State to control editability
+
+  // Update state when query params change
+  useEffect(() => {
+    setCitizenship(queryCitizenship);
+    setApplyingFrom(queryApplyingFrom);
+    setDestination(queryDestination);
+    setSelectedDoc(querySelectedDoc);
+  }, [queryCitizenship, queryApplyingFrom, queryDestination, querySelectedDoc]);
+
+  const currentPackage = destination ? destination.toLowerCase() : "";
+  const data = packageData[currentPackage] || {};
 
   const handleSubmit = () => {
-    if (destination) {
-      router.push(`/packages/${destination.name.toLowerCase()}`);
+    setError(""); // Reset error before validation
+
+    // Validate required fields
+    if (!citizenship || !applyingFrom || !destination) {
+      setError("Please fill all 3 details to proceed.");
+      return;
     }
+
+    if (applyingFrom === destination) {
+      setError("Applying From and Destination cannot be the same.");
+      return;
+    }
+
+    // Format destination name (lowercase, no spaces)
+    const formattedDestination = destination.toLowerCase().replace(/\s+/g, "-");
+
+    // Create query parameters
+    const queryParams = new URLSearchParams({
+      citizenship,
+      applyingFrom,
+      destination,
+      selectedDoc: selectedDoc || "",
+    }).toString();
+
+    // Redirect to the package page
+    router.push(`/packages/${formattedDestination}?${queryParams}`);
   };
 
   return (
-    <div className="px-[10vw] mx-auto lg:py-16 bg-secondary ">
+    <div className="px-[10vw] mx-auto lg:py-16 bg-secondary">
       <div className="text-sm text-gray-600 mb-4">
         <Link href="/" className="hover:underline">
           Home
@@ -41,7 +74,7 @@ const PackageForm = () => {
           {" "}
           Packages
         </Link>{" "}
-        /{currentPackage.toUpperCase()}
+        /{country.toUpperCase()}
       </div>
 
       <h1 className="text-3xl font-bold mb-2">{data.title}</h1>
@@ -50,7 +83,7 @@ const PackageForm = () => {
       </p>
 
       <div className="grid md:grid-cols-3 gap-5 mt-5">
-        {data.requirementFields.map((field, index) => (
+        {data?.requirementFields?.map((field, index) => (
           <PackageDropdown
             key={index}
             label={field.label}
@@ -72,20 +105,29 @@ const PackageForm = () => {
               if (field.label === "Applying From") setApplyingFrom(option);
               if (field.label === "Destination") setDestination(option);
             }}
+            disabled={!isEditable} // Disable dropdowns based on isEditable state
           />
         ))}
       </div>
+
+      {error && <p className="text-red-500 mt-4">{error}</p>}
+
       <div className="mx-auto px-auto">
         <button
-          onClick={handleSubmit}
-          className="mt-6 bg-primary text-white py-3 px-4 rounded-full hover:bg-blue-800 transition-colors font-medium align-center justify-centers"
+          onClick={() => {
+            if (isEditable) {
+              setIsEditable(false);
+            } else {
+              router.push("/");
+            }
+          }} // Toggle editability or navigate to home
+          className="mt-6 bg-primary text-white py-3 px-4 rounded-full hover:bg-blue-800 transition-colors font-medium align-center"
         >
-          Apply Now
+          {isEditable ? "Save Details" : "Edit the Details"}
         </button>
       </div>
     </div>
   );
 };
-export default PackageForm;
 
-// Compare this snippet from src/app/components/packageCard.tsx:
+export default PackageForm;

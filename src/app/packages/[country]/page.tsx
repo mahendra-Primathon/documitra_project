@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Header from "../../components/Header";
 import TestimonialSection from "../../components/testimonial";
@@ -22,35 +22,54 @@ import {
 
 const PackagesPage = () => {
   const params = useParams();
+  const searchParams = useSearchParams();
   const country = params?.country;
+
+  const [formData, setFormData] = useState({
+    citizenship: "",
+    applyingFrom: "",
+    destination: "",
+    selectedDoc: "",
+  });
+
+  useEffect(() => {
+    setFormData({
+      citizenship: searchParams.get("citizenship") || "",
+      applyingFrom: searchParams.get("applyingFrom") || "",
+      destination: searchParams.get("destination") || "",
+      selectedDoc: searchParams.get("selectedDoc") || "",
+    });
+  }, [searchParams]);
 
   if (!country) {
     return (
       <div>
         <Navbar />
         <Header />
-        <h1 className="text-5xl">Loading.....</h1>
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+          <div className="flex items-center space-x-2 animate-bounce">
+            <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
+            <div className="w-8 h-8 bg-green-500 rounded-full"></div>
+            <div className="w-8 h-8 bg-red-500 rounded-full"></div>
+          </div>
+          <h1 className="text-5xl font-bold text-gray-800 mt-4">
+            Form data is Loading...
+          </h1>
+        </div>
+        <StatesSection />
+        <TestimonialSection />
+        <FAQSection />
+        <Footer />
       </div>
     );
   }
-
-  const countryData = packageData[country];
-  const countryPackageCard = packageCard[country];
-  const countryVisaProcessSteps = visaProcessSteps[country];
-  const countryApplicationProcessData = applicationProcessData.find((data) =>
-    data.title.toLowerCase().includes(country)
-  );
-  const countryVisaTimelineData = visaTimelineData.filter((data) =>
-    data.applicationType.toLowerCase().includes(country)
-  );
 
   return (
     <div>
       <Navbar />
       <Header />
-      <PackageForm />
+      <PackageForm country={country} formData={formData} />
       <PackageCard country={country} />
-      <StatesSection />
       <VisaProcess country={country} />
       <ApplicationProcess />
       <TestimonialSection />

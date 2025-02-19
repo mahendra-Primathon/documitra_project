@@ -1,33 +1,17 @@
 // src/app/packages/page.tsx
-import React from "react";
-import Navbar from "../components/Navbar";
-import Header from "../components/Header";
-import TestimonialSection from "../components/testimonial";
-import FAQSection from "../components/FaqSection";
-import Footer from "../components/Footer";
-import StatesSection from "../components/StatesSection";
-import PackageForm from "../components/packageForm";
-import PackageCard from "../components/packageCard";
-import VisaProcess from "../components/packageVisaProcess";
-import ApplicationProcess from "../components/packageApplicationProcess";
-import ApplicationTimeline from "../components/pacakgeApplicationTimeline";
+"use client"; // Ensure this runs on the client side
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const PackagesPage = () => {
-  return (
-    <div>
-        <Navbar/>
-        <Header/>
-        <PackageForm/>
-        <PackageCard country="usa" />
-        <StatesSection />
-        <VisaProcess country="usa" />
-        <ApplicationProcess/>
-        <TestimonialSection/>
-        <ApplicationTimeline/>
-        <FAQSection/>
-        <Footer/>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/"); // Redirect to the home page when visiting /packages
+  }, [router]);
+
+  return null; // Since we are redirecting, we don't need to render anything
 };
 
 export default PackagesPage;

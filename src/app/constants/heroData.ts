@@ -56,7 +56,8 @@ export const moreOptions: DocumentType[] = [
 ];
 
 export const locations: Location[] = [
-  { id: "ind", name: "India" },
+  { id: "india", name: "India" },
   { id: "usa", name: "USA" },
-  { id: "uk", name: "United Kingdom" },
+  { id: "london", name: "london" },
+  { id: "canada", name: "Canada" },
 ];

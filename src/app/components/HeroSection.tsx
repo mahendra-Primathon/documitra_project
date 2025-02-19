@@ -7,6 +7,7 @@ import hero_delivered from "../../../public/assets/images/Home/hero_deliverdIcon
 import hero_IconAwsomeLock from "../../../public/assets/images/Home/Icon-awesome-user-lock.svg";
 import useClickOutside from "../hooks/useClickOutside";
 import GetStartedButton from "./GetStartedButton";
+import { useRouter } from "next/navigation";
 
 import { Dropdown, DocumentTypeButton, MoreDropdown } from "./HeroComponents";
 import {
@@ -19,45 +20,67 @@ import {
 
 const HeroSection = () => {
   const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(null);
-  const [moreSelectedDoc, setMoreSelectedDoc] = useState<DocumentType | null>(null);
+  const [moreSelectedDoc, setMoreSelectedDoc] = useState<DocumentType | null>(
+    null
+  );
   const [citizenship, setCitizenship] = useState<Location | null>(null);
   const [applyingFrom, setApplyingFrom] = useState<Location | null>(null);
   const [destination, setDestination] = useState<Location | null>(null);
+  const [error, setError] = useState<string>(""); // Store error message
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
+  const router = useRouter();
 
-  // Client-side rendering handler
-  const [isClient, setIsClient] = useState(false);
+  const handleGetStarted = () => {
+    setError(""); // Reset error before validation
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsClient(true);
+    // Validate required fields
+    if (!citizenship || !applyingFrom || !destination) {
+      setError("Please fill all 3 details to proceed.");
+      return;
     }
-  }, []);
 
-  if (!isClient) {
-    return null;
-  }
+    if (applyingFrom.name === destination.name) {
+      setError(
+        "Applying From and Destination cannot be the same. Please select different locations."
+      );
+      return;
+    }
+
+    // Format destination name (lowercase, no spaces)
+    const formattedDestination = destination.name
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+
+    // Create query parameters for form data
+    const queryParams = new URLSearchParams({
+      citizenship: citizenship.name,
+      applyingFrom: applyingFrom.name,
+      destination: destination.name,
+      selectedDoc: selectedDoc?.name || moreSelectedDoc?.name || "",
+    }).toString();
+
+    // Redirect to dynamic package page with query parameters
+    router.push(`/packages/${formattedDestination}?${queryParams}`);
+  };
 
   return (
     <div className="px-[10vw] bg-secondary lg:py-16">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-10">
-          <div>
-            <h1 className="text-5xl font-bold mb-5">
-              Explore visa info
-              <br />
-              for all nations & <span className="text-primary">apply</span>
-              <br />
-              <span className="text-primary">today.</span>
-            </h1>
-            <p className="text-gray-600">
-              Focus on your journey, not paperwork. Let us help you get your
-              travel documents easily.
-            </p>
-          </div>
+          <h1 className="text-5xl font-bold mb-5">
+            Explore visa info
+            <br />
+            for all nations & <span className="text-primary">apply</span>
+            <br />
+            <span className="text-primary">today.</span>
+          </h1>
+          <p className="text-gray-600">
+            Focus on your journey, not paperwork. Let us help you get your
+            travel documents easily.
+          </p>
 
           <div className="space-y-6">
             {/* Dropdown Container */}
@@ -75,16 +98,14 @@ const HeroSection = () => {
                   />
                 ))}
                 <MoreDropdown
-                  // options={moreOptions}
                   moreSelectedDoc={moreSelectedDoc}
-                  // onSelect={setMoreSelectedDoc}
                   onSelect={(selectedOption) => {
                     setMoreSelectedDoc(selectedOption);
                     setSelectedDoc(null); // Unselect regular dropdown
                   }}
                   isOpen={isDropdownOpen}
                   setIsOpen={setIsDropdownOpen}
-                  width="150px" // Set the desired width here
+                  width="150px"
                 />
               </div>
               <hr className="relative bottom-[2px] w-[130%] h-[2px] bg-gray-300 z-30 " />
@@ -112,7 +133,10 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <GetStartedButton />
+            {/* Show error message above the button */}
+            {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+
+            <GetStartedButton onClick={handleGetStarted} />
           </div>
         </div>
 
