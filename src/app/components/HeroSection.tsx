@@ -67,7 +67,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="px-[10vw] bg-secondary lg:py-16">
+    <div className="px-[8vw] bg-secondary   lg:py-16">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div className="space-y-10">
           <h1 className="text-5xl font-bold mb-5">

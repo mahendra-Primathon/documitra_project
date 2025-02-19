@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { initialFaqData , additionalFaqData } from "../constants/faqData";
+import { initialFaqData, additionalFaqData } from "../constants/faqData";
 
 interface FAQItemProps {
   question: string;
@@ -17,7 +17,7 @@ const FAQItem: React.FC<FAQItemProps> = ({
   isOpen,
   onClick,
 }) => (
-  <div className="mb-4 bg-white rounded-lg shadow-sm">
+  <div className="mb-4 bg-white rounded-lg shadow-sm w-full">
     <button
       className="w-full px-6 py-4 flex justify-between items-center text-left rounded-lg hover:bg-gray-50"
       onClick={onClick}
@@ -41,23 +41,25 @@ const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAllFAQs, setShowAllFAQs] = useState(false);
 
-
   const displayedFAQs = showAllFAQs
     ? [...initialFaqData, ...additionalFaqData]
     : initialFaqData;
 
   return (
-    <div className="w-full bg-secondary py-16">
-      <div className=" px-[10vw] mx-auto  lg: py-16 flex flex-row">
-        <div className=" my-auto mr-10 w-1/3">
-          <h2 className="text-5xl font-bold mb-10">
-            Frequently Asked <br /> Questions
+    <div className="w-full bg-secondary py-16 px-6 md:px-[10vw] overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-10">
+        {/* Left Section (Moves to Top on Small Screens) */}
+        <div className="md:w-1/3 text-center md:text-left">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 md:mb-10">
+            Frequently Asked <br className="hidden md:block" /> Questions
           </h2>
-          <p className="text-gray-600 mb-8">
-            Effortless Visa and Passport Assistance in <br /> Three Simple Steps
+          <p className="text-gray-600 mb-6 md:mb-8">
+            Effortless Visa and Passport Assistance in <br className="hidden md:block" /> Three Simple Steps
           </p>
         </div>
-        <div className="l-5 m w-2/3">
+
+        {/* Right Section (Expands on Larger Screens) */}
+        <div className="md:w-2/3">
           <div className="space-y-2">
             {displayedFAQs?.map((faq, index) => (
               <FAQItem
