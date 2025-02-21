@@ -14,6 +14,7 @@ const FormMain = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     // Load saved form data from localStorage if exists
@@ -33,9 +34,42 @@ const FormMain = () => {
     }));
   };
 
+  const validateStep = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (currentStep === 1) {
+      // Validate Personal Details
+      if (!formData.name) newErrors.name = "Name is required";
+      if (!formData.phoneNumber)
+        newErrors.phoneNumber = "Phone number is required";
+      if (!formData.email) {
+        newErrors.email = "Email is required";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = "Invalid email format";
+      }
+      if (!formData.gender) newErrors.gender = "Gender is required";
+      if (!formData.age) newErrors.age = "Age is required";
+      if (!formData.nationality)
+        newErrors.nationality = "Nationality is required";
+      if (!formData.governmentId)
+        newErrors.governmentId = "Government ID is required";
+    } else if (currentStep === 2) {
+      // Validate Address Details
+      if (!formData.address) newErrors.address = "Address is required";
+      if (!formData.postalCode)
+        newErrors.postalCode = "Pin code / Postal code is required";
+      if (!formData.country) newErrors.country = "Country name  is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
   const saveAndContinue = () => {
-    localStorage.setItem("formData", JSON.stringify(formData));
-    setCurrentStep((prev) => prev + 1);
+    if (validateStep()) {
+      localStorage.setItem("formData", JSON.stringify(formData));
+      setCurrentStep((prev) => prev + 1);
+    }
   };
 
   const goToPrevious = () => {
@@ -87,10 +121,15 @@ const FormMain = () => {
             <PersonalDetailsForm
               formData={formData}
               onChange={handleInputChange}
+              errors={errors}
             />
           )}
           {currentStep === 2 && (
-            <AddressForm formData={formData} onChange={handleInputChange} />
+            <AddressForm
+              formData={formData}
+              onChange={handleInputChange}
+              errors={errors}
+            />
           )}
           {currentStep === 3 && (
             <ReviewForm formData={formData} setIsConfirmed={setIsConfirmed} />
@@ -110,11 +149,19 @@ const FormMain = () => {
             <div className="flex-grow"></div>
             {currentStep < 3 ? (
               <button
-                onClick={saveAndContinue}
-                className="px-4 py-2 bg-primary text-white rounded"
-              >
-                Save & Continue
-              </button>
+              onClick={() => {
+                if (validateStep()) {
+                  saveAndContinue();
+                }
+              }}
+              className={`px-4 py-2 rounded ${
+                Object.keys(errors).length === 0
+                  ? "bg-primary text-white"
+                  : "bg-gray-400 text-gray-700 cursor-not-allowed"
+              }`}
+            >
+              Save & Continue
+            </button>
             ) : (
               <button
                 onClick={handleSubmit}
