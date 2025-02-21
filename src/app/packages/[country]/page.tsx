@@ -66,7 +66,7 @@ const PackagesPage = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Header />
       <PackageForm country={country} formData={formData} />
       <PackageCard country={country} />
