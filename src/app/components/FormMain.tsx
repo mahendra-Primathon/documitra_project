@@ -1,4 +1,4 @@
-// components/MultiStepForm.tsx
+// components/FormMain.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -9,6 +9,12 @@ import {
 } from "../constants/formsData";
 import { ReviewForm, AddressForm, PersonalDetailsForm } from "./FormComponents";
 import { ArrowLeft, Package2, Calendar, Coins } from "lucide-react";
+
+enum FORM_STEP {
+  STEP_ONE = 1,
+  STEP_TWO = 2,
+  STEP_THREE = 3,
+}
 
 const FormMain = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -76,12 +82,26 @@ const FormMain = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isConfirmed) return; // Prevent submission if not confirmed
-    console.log("Final Form Data:", formData);
-    localStorage.removeItem("formData");
-    // Redirect to home page
-    window.location.href = "/";
+
+    try {
+      const response = await fetch("http://localhost:5000/api/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Form data submitted successfully");
+        localStorage.removeItem("formData");
+        window.location.href = "/"; // Redirect to home page
+      } else {
+        console.error("Failed to submit form data");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+    }
   };
 
   return (
@@ -117,21 +137,21 @@ const FormMain = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
         {/* Form */}
         <div className="md:col-span-2 bg-white rounded-2xl shadow-2xl p-6">
-          {currentStep === 1 && (
+          {currentStep === FORM_STEP.STEP_ONE && (
             <PersonalDetailsForm
               formData={formData}
               onChange={handleInputChange}
               errors={errors}
             />
           )}
-          {currentStep === 2 && (
+          {currentStep === FORM_STEP.STEP_TWO && (
             <AddressForm
               formData={formData}
               onChange={handleInputChange}
               errors={errors}
             />
           )}
-          {currentStep === 3 && (
+          {currentStep === FORM_STEP.STEP_THREE && (
             <ReviewForm formData={formData} setIsConfirmed={setIsConfirmed} />
           )}
 
@@ -149,19 +169,19 @@ const FormMain = () => {
             <div className="flex-grow"></div>
             {currentStep < 3 ? (
               <button
-              onClick={() => {
-                if (validateStep()) {
-                  saveAndContinue();
-                }
-              }}
-              className={`px-4 py-2 rounded ${
-                Object.keys(errors).length === 0
-                  ? "bg-primary text-white"
-                  : "bg-gray-400 text-gray-700 cursor-not-allowed"
-              }`}
-            >
-              Save & Continue
-            </button>
+                onClick={() => {
+                  if (validateStep()) {
+                    saveAndContinue();
+                  }
+                }}
+                className={`px-4 py-2 rounded ${
+                  Object.keys(errors).length === 0
+                    ? "bg-primary text-white"
+                    : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                }`}
+              >
+                Save & Continue
+              </button>
             ) : (
               <button
                 onClick={handleSubmit}
