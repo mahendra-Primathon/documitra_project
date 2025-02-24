@@ -1,7 +1,5 @@
-// components/FormMain.tsx
 "use client";
 import { useState, useEffect } from "react";
-
 import {
   INITIAL_FORM_DATA,
   FORM_STEPS,
@@ -24,13 +22,18 @@ enum FORM_STEP {
 
 const FormMain = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [completedStep, setCompletedStep] = useState(0); // ✅ Track completed steps
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formId, setFormId] = useState<string>("");
+  const [formUploadStatus, setFormUploadStatus] = useState({
+    image: false,
+    pdf: false,
+    selectedCategory: "",
+  });
 
   useEffect(() => {
-    // Load saved form data from localStorage if exists
     const savedData = localStorage.getItem("formData");
     if (savedData) {
       setFormData(JSON.parse(savedData));
@@ -55,7 +58,6 @@ const FormMain = () => {
     const newErrors: Record<string, string> = {};
 
     if (currentStep === 1) {
-      // Validate Personal Details
       if (!formData.name) newErrors.name = "Name is required";
       if (!formData.phoneNumber)
         newErrors.phoneNumber = "Phone number is required";
@@ -71,20 +73,20 @@ const FormMain = () => {
       if (!formData.governmentId)
         newErrors.governmentId = "Government ID is required";
     } else if (currentStep === 2) {
-      // Validate Address Details
       if (!formData.address) newErrors.address = "Address is required";
       if (!formData.postalCode)
         newErrors.postalCode = "Pin code / Postal code is required";
-      if (!formData.country) newErrors.country = "Country name  is required";
+      if (!formData.country) newErrors.country = "Country name is required";
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const saveAndContinue = () => {
     if (validateStep()) {
       localStorage.setItem("formData", JSON.stringify(formData));
+      setCompletedStep(currentStep); // ✅ Mark current step as completed
       setCurrentStep((prev) => prev + 1);
     }
   };
@@ -94,7 +96,7 @@ const FormMain = () => {
   };
 
   const handleSubmit = async () => {
-    if (!isConfirmed) return; // Prevent submission if not confirmed
+    if (!isConfirmed) return;
 
     try {
       const response = await fetch("http://localhost:5000/api/submit-form", {
@@ -106,7 +108,7 @@ const FormMain = () => {
       if (response.ok) {
         console.log("Form data submitted successfully");
         localStorage.removeItem("formData");
-        window.location.href = "/"; // Redirect to home page
+        window.location.href = "/";
       } else {
         console.error("Failed to submit form data");
       }
@@ -124,19 +126,19 @@ const FormMain = () => {
             <div key={step.id} className="flex items-center">
               <div
                 className={`
-            w-10 h-10 rounded-full flex items-center justify-center
-            ${currentStep >= step.id ? "bg-primary" : "bg-gray-300"}
-            text-white
-          `}
+                  w-10 h-10 rounded-full flex items-center justify-center
+                  ${completedStep >= step.id ? "bg-primary" : "bg-gray-300"}
+                  text-white
+                `}
               >
                 {step.id}
               </div>
               {index < FORM_STEPS.length - 1 && (
                 <div
                   className={`
-              w-32 h-1 mx-0
-              ${currentStep > step.id ? "bg-primary" : "bg-gray-300"}
-            `}
+                    w-32 h-1 mx-0
+                    ${completedStep >= step.id ? "bg-primary" : "bg-gray-300"}
+                  `}
                 />
               )}
             </div>
@@ -149,15 +151,11 @@ const FormMain = () => {
         {/* Form */}
         <div className="md:col-span-2 bg-white rounded-2xl shadow-2xl p-6">
           {currentStep === FORM_STEP.STEP_ONE && (
-            <>
-            
             <PersonalDetailsForm
               formData={formData}
               onChange={handleInputChange}
               errors={errors}
             />
-            </>
-            
           )}
           {currentStep === FORM_STEP.STEP_TWO && (
             <AddressForm
@@ -170,7 +168,11 @@ const FormMain = () => {
             <FormUploadStep formId={formId} />
           )}
           {currentStep === FORM_STEP.STEP_FOUR && (
-            <ReviewForm formData={formData} setIsConfirmed={setIsConfirmed} />
+            <ReviewForm
+              formData={formData}
+              setIsConfirmed={setIsConfirmed}
+              formUploadStatus={formUploadStatus}
+            />
           )}
 
           {/* Navigation Buttons */}
@@ -185,13 +187,9 @@ const FormMain = () => {
               </button>
             )}
             <div className="flex-grow"></div>
-            {currentStep < 3 ? (
+            {currentStep < 4 ? (
               <button
-                onClick={() => {
-                  if (validateStep()) {
-                    saveAndContinue();
-                  }
-                }}
+                onClick={saveAndContinue}
                 className={`px-4 py-2 rounded ${
                   Object.keys(errors).length === 0
                     ? "bg-primary text-white"
@@ -213,42 +211,6 @@ const FormMain = () => {
                 Final Submit
               </button>
             )}
-          </div>
-        </div>
-
-        {/* Summary Card */}
-        <div className="bg-white rounded-3xl shadow-lg p-6 w-full sm:w-[24rem] md:w-[26rem] lg:w-[27rem] hover:shadow-xl transition-shadow mx-auto self-start">
-          <h3 className="text-2xl font-semibold mb-6">Summary</h3>
-
-          <div className="space-y-4">
-            {/* Number of Entries */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-gray-600">
-                <Package2 className="w-5 h-5 text-primary" />
-                <span>Number of entries</span>
-              </div>
-              <span className="font-medium">Multiple</span>
-            </div>
-            <hr className="border-t border-gray-300 my-4" />
-
-            {/* Duration */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-gray-600">
-                <Calendar className="w-5 h-5 text-primary" />
-                <span>Duration</span>
-              </div>
-              <span className="font-medium">2 Months</span>
-            </div>
-            <hr className="border-t border-gray-300 my-4" />
-
-            {/* Documentation Fees */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-gray-600">
-                <Coins className="w-5 h-5 text-primary" />
-                <span>Documentation Fees</span>
-              </div>
-              <span className="font-medium">$19</span>
-            </div>
           </div>
         </div>
       </div>

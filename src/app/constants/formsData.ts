@@ -1,4 +1,4 @@
-// src/constants/visaFormConstants.ts
+// src/constants/formsData.ts
 export const VISA_FORM_CONSTANTS = {
   routes: {
     HOME: "/",
@@ -30,7 +30,7 @@ export const VISA_FORM_CONSTANTS = {
   },
 } as const;
 
-// constants/formConstants.ts
+
 
 export const COUNTRY_CODES = [
   { code: "+1", country: "USA" },

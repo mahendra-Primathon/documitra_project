@@ -1,5 +1,5 @@
-"client side";
-import { ChevronDown, ChevronUp } from "lucide-react";
+"use client";
+import { ChevronDown, ChevronUp, CheckCircle } from "lucide-react";
 import { FormData } from "../../constants/formsData";
 import { useState } from "react";
 
@@ -7,18 +7,22 @@ interface FormProps {
   formData: FormData;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errors: Record<string, string>;
+  formUploadStatus: {
+    image: false;
+    pdf: false;
+    selectedCategory: "";
+  };
+  setIsConfirmed: (value: boolean) => void;
 }
 
 export const ReviewForm = ({
   formData,
-  setIsConfirmed, // Accept as prop
-}: {
-  formData: FormData;
-  setIsConfirmed: (value: boolean) => void;
-}) => {
+  setIsConfirmed,
+  formUploadStatus,
+}: FormProps) => {
   const [isPersonalOpen, setIsPersonalOpen] = useState(true);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
-  // const [isConfirmed, setIsConfirmed] = useState(false);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
 
   return (
     <div className="space-y-6">
@@ -27,7 +31,7 @@ export const ReviewForm = ({
       {/* Personal Details Section */}
       <div className="border rounded-lg">
         <button
-          className="w-full text-left p-4 font-semibold bg-gray-100 rounded-t flex flex-row "
+          className="w-full text-left p-4 font-semibold bg-gray-100 rounded-t flex flex-row"
           onClick={() => setIsPersonalOpen(!isPersonalOpen)}
         >
           {isPersonalOpen ? (
@@ -35,7 +39,7 @@ export const ReviewForm = ({
           ) : (
             <ChevronDown className="mr-2" />
           )}
-          Personal Details{" "}
+          Personal Details
         </button>
         {isPersonalOpen && (
           <div className="p-4 space-y-4">
@@ -64,10 +68,10 @@ export const ReviewForm = ({
       {/* Address Details Section */}
       <div className="border rounded-lg">
         <button
-          className="w-full text-left p-4 font-semibold bg-gray-100 rounded-t"
+          className="w-full text-left p-4 font-semibold bg-gray-100 rounded-t flex flex-row"
           onClick={() => setIsAddressOpen(!isAddressOpen)}
         >
-          {isPersonalOpen ? (
+          {isAddressOpen ? (
             <ChevronUp className="mr-2" />
           ) : (
             <ChevronDown className="mr-2" />
@@ -89,6 +93,48 @@ export const ReviewForm = ({
                   readOnly
                   className="p-2 border rounded bg-gray-100"
                 />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* File Upload Details Section */}
+      <div className="border rounded-lg">
+        <button
+          className="w-full text-left p-4 font-semibold bg-gray-100 rounded-t flex flex-row"
+          onClick={() => setIsUploadOpen(!isUploadOpen)}
+        >
+          {isUploadOpen ? (
+            <ChevronUp className="mr-2" />
+          ) : (
+            <ChevronDown className="mr-2" />
+          )}
+          Uploaded Documents
+        </button>
+        {isUploadOpen && (
+          <div className="p-4 space-y-4">
+            {Object.entries({
+              "Image Upload Status": formUploadStatus?.image
+                ? "Uploaded"
+                : "Not Uploaded",
+              "PDF Upload Status": formUploadStatus?.pdf
+                ? "Uploaded"
+                : "Not Uploaded",
+            }).map(([key, value]) => (
+              <div key={key} className="grid grid-cols-2 gap-4">
+                <span className="font-medium">{key}</span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={value}
+                    readOnly
+                    className="p-2 border rounded bg-gray-100"
+                  />
+                  {value === "Uploaded" && (
+                    <CheckCircle className="text-green-500" size={24} />
+                  )}
+                </div>
               </div>
             ))}
           </div>
