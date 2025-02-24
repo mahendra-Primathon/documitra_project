@@ -6,7 +6,7 @@ import {
   categoryOptions,
   reasonOptions,
   countryOptions,
-} from "../constants/contactData";
+} from "../../constants/contactData";
 import { InstagramIcon, YoutubeIcon, LinkedinIcon } from "lucide-react";
 
 interface FormData {

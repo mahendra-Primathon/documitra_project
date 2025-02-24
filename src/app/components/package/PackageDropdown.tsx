@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import useClickOutside from "../hooks/useClickOutside";
+import useClickOutside from "../../hooks/useClickOutside";
 import { useSearchParams } from "next/navigation";
 
 interface DropdownProps {
@@ -12,7 +12,13 @@ interface DropdownProps {
   disabled?: boolean; // Add a disabled prop
 }
 
-const PackageDropdown: React.FC<DropdownProps> = ({ label, options, value, onChange, disabled }) => {
+const PackageDropdown: React.FC<DropdownProps> = ({
+  label,
+  options,
+  value,
+  onChange,
+  disabled,
+}) => {
   const searchParams = useSearchParams();
   const queryCitizenship = searchParams.get("citizenship") || "";
   const queryApplyingFrom = searchParams.get("applyingFrom") || "";
@@ -40,7 +46,9 @@ const PackageDropdown: React.FC<DropdownProps> = ({ label, options, value, onCha
       >
         <p className="text-sm text-gray-600 mb-1">{label}</p>
         <div className="flex items-center justify-between w-full">
-          <span className="text-gray-500">{value?.name || getDefaultValue()}</span>
+          <span className="text-gray-500">
+            {value?.name || getDefaultValue()}
+          </span>
           {/* {isOpen ? (
             <ChevronUp className="w-4 h-4 text-gray-400" />
           ) : (
@@ -50,7 +58,7 @@ const PackageDropdown: React.FC<DropdownProps> = ({ label, options, value, onCha
       </button>
 
       {false && (
-      // {isOpen && (
+        // {isOpen && (
         <div className="absolute top-full mt-1 w-full bg-white border rounded-lg shadow-lg z-50">
           {options?.map((option) => (
             <button

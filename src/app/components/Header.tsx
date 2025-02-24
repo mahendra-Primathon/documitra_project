@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "../../../public/assets/images/Home/Box.png";
-import SignUpModal from "./SignUp";
-import LoginModal from "./Login";
-import UserProfileModal from "./userProfile";
+import SignUpModal from "./popUp/SignUp";
+import LoginModal from "./popUp/Login";
+import UserProfileModal from "./popUp/userProfile";
 import { auth, db } from "../constants/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -28,8 +28,15 @@ const NavLink = ({ title, path }) => {
   const isActive = pathname === path;
 
   return (
-    <Link href={path} className="relative px-4 py-2 text-sm transition-colors duration-300">
-      <span className={`text-gray-600 hover:text-#050505 ${isActive ? "text-#050505 font-semibold" : ""}`}>
+    <Link
+      href={path}
+      className="relative px-4 py-2 text-sm transition-colors duration-300"
+    >
+      <span
+        className={`text-gray-600 hover:text-#050505 ${
+          isActive ? "text-#050505 font-semibold" : ""
+        }`}
+      >
         {title}
       </span>
       {isActive && (
@@ -40,7 +47,14 @@ const NavLink = ({ title, path }) => {
 };
 
 // Auth Buttons Component
-const AuthButtons = ({ user, userName, onSignUpClick, onLoginClick, onSignOutClick, onProfileClick }) => (
+const AuthButtons = ({
+  user,
+  userName,
+  onSignUpClick,
+  onLoginClick,
+  onSignOutClick,
+  onProfileClick,
+}) => (
   <div className="flex items-center gap-4">
     {user ? (
       <>
@@ -151,7 +165,7 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:block">
-            <AuthButtons 
+            <AuthButtons
               user={user}
               userName={userName}
               onSignUpClick={() => setIsSignUpModalOpen(true)}
@@ -162,7 +176,10 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <MobileMenuButton isOpen={isMobileMenuOpen} setIsOpen={setIsMobileMenuOpen} />
+          <MobileMenuButton
+            isOpen={isMobileMenuOpen}
+            setIsOpen={setIsMobileMenuOpen}
+          />
         </div>
       </div>
 
@@ -171,12 +188,16 @@ const Header = () => {
         <div className="lg:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
-              <Link key={link.title} href={link.path} className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600">
+              <Link
+                key={link.title}
+                href={link.path}
+                className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600"
+              >
                 {link.title}
               </Link>
             ))}
             <div className="mt-4 px-3">
-              <AuthButtons 
+              <AuthButtons
                 user={user}
                 userName={userName}
                 onSignUpClick={() => setIsSignUpModalOpen(true)}
@@ -190,11 +211,14 @@ const Header = () => {
       )}
 
       {/* Sign Up Modal */}
-      <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />
-      
+      <SignUpModal
+        isOpen={isSignUpModalOpen}
+        onClose={() => setIsSignUpModalOpen(false)}
+      />
+
       {/* Login Modal */}
-      <LoginModal 
-        isOpen={isLoginModalOpen} 
+      <LoginModal
+        isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         onSignUpClick={() => {
           setIsLoginModalOpen(false);
@@ -203,8 +227,8 @@ const Header = () => {
       />
 
       {/* User Profile Modal */}
-      <UserProfileModal 
-        isOpen={isUserProfileModalOpen} 
+      <UserProfileModal
+        isOpen={isUserProfileModalOpen}
         onClose={() => setIsUserProfileModalOpen(false)}
         onUpdateUserName={handleUpdateUserName} // Pass the callback function
       />

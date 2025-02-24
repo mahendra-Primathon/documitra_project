@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import HeroFemale from "../../../public/assets/images/Home/heroFemale.png";
-import heroIcon from "../../../public/assets/images/Home/BestAccuracy.svg";
-import hero_delivered from "../../../public/assets/images/Home/hero_deliverdIcon.svg";
-import hero_IconAwsomeLock from "../../../public/assets/images/Home/Icon-awesome-user-lock.svg";
-import useClickOutside from "../hooks/useClickOutside";
-import GetStartedButton from "./GetStartedButton";
+import HeroFemale from "../../../../public/assets/images/Home/heroFemale.png";
+import heroIcon from "../../../../public/assets/images/Home/BestAccuracy.svg";
+import hero_delivered from "../../../../public/assets/images/Home/hero_deliverdIcon.svg";
+import hero_IconAwsomeLock from "../../../../public/assets/images/Home/Icon-awesome-user-lock.svg";
+import useClickOutside from "../../hooks/useClickOutside";
+import GetStartedButton from "../GetStartedButton";
 import { useRouter } from "next/navigation";
 
 import { Dropdown, DocumentTypeButton, MoreDropdown } from "./HeroComponents";
@@ -16,7 +16,7 @@ import {
   locations,
   DocumentType,
   Location,
-} from "../constants/heroData";
+} from "../../constants/heroData";
 
 const HeroSection = () => {
   const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(null);

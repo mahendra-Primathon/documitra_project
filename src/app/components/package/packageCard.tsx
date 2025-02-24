@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { packageCard } from "../constants/packageData";
+import { packageCard } from "../../constants/packageData";
 import { Calendar, Package2, Coins } from "lucide-react";
 
 const PackageCard = ({ country = "usa" }) => {
@@ -12,7 +12,9 @@ const PackageCard = ({ country = "usa" }) => {
 
   return (
     <div className="w-full py-16 px-6 md:px-[10vw] bg-secondary overflow-hidden">
-      <h2 className="text-4xl font-bold my-8 text-center">Select Your Package</h2>
+      <h2 className="text-4xl font-bold my-8 text-center">
+        Select Your Package
+      </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {packages?.map((pkg) => (
@@ -20,7 +22,9 @@ const PackageCard = ({ country = "usa" }) => {
             key={pkg.id}
             className="bg-white rounded-3xl shadow-lg p-6 max-w-full w-full sm:w-[24rem] md:w-[26rem] lg:w-[27rem] hover:shadow-xl transition-shadow mx-auto"
           >
-            <h3 className="text-2xl font-semibold mb-6 min-h-[4rem]">{pkg.title}</h3>
+            <h3 className="text-2xl font-semibold mb-6 min-h-[4rem]">
+              {pkg.title}
+            </h3>
 
             <div className="space-y-4">
               <div className="flex items-center justify-between">

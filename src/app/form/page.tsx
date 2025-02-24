@@ -1,7 +1,7 @@
-import FormHeader from "../components/FormHeader";
+import FormHeader from "../components/form/FormHeader";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import FormMain from "../components/FormMain";
+import FormMain from "../components/form/FormMain";
 
 const formPage = ()=>{
     return(

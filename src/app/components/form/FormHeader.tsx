@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { VISA_FORM_CONSTANTS } from "../constants/formsData";
+import { VISA_FORM_CONSTANTS } from "../../constants/formsData";
 
 interface VisaFormHeaderProps {
   applicantName?: string;

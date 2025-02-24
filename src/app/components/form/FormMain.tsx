@@ -1,19 +1,25 @@
 // components/FormMain.tsx
 "use client";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+
 import {
   INITIAL_FORM_DATA,
   FORM_STEPS,
   FormData,
-} from "../constants/formsData";
-import { ReviewForm, AddressForm, PersonalDetailsForm } from "./FormComponents";
+} from "../../constants/formsData";
+import { ReviewForm } from "./FormReviewForm";
+import { AddressForm } from "./FormAddressForm";
+import { PersonalDetailsForm } from "./FormPersonalDetailsForm";
+import FormUploadStep from "./FormUploadStep";
+
+import { v4 as uuidv4 } from "uuid";
 import { ArrowLeft, Package2, Calendar, Coins } from "lucide-react";
 
 enum FORM_STEP {
   STEP_ONE = 1,
   STEP_TWO = 2,
   STEP_THREE = 3,
+  STEP_FOUR = 4,
 }
 
 const FormMain = () => {
@@ -21,6 +27,7 @@ const FormMain = () => {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formId, setFormId] = useState<string>("");
 
   useEffect(() => {
     // Load saved form data from localStorage if exists
@@ -28,6 +35,10 @@ const FormMain = () => {
     if (savedData) {
       setFormData(JSON.parse(savedData));
     }
+  }, []);
+
+  useEffect(() => {
+    setFormId(uuidv4());
   }, []);
 
   const handleInputChange = (
@@ -107,25 +118,25 @@ const FormMain = () => {
   return (
     <div className="min-h-screen bg-secondary py-10 px-10 sm:px-6 lg:px-8">
       {/* Progress Steps */}
-      <div className="max-w-md mx-auto mb-8">
+      <div className="max-w-sm mx-auto left-10 mb-8 mt-16">
         <div className="flex justify-between items-center">
           {FORM_STEPS.map((step, index) => (
             <div key={step.id} className="flex items-center">
               <div
                 className={`
-                w-10 h-10 rounded-full flex items-center justify-center
-                ${currentStep >= step.id ? "bg-primary" : "bg-gray-300"}
-                text-white
-              `}
+            w-10 h-10 rounded-full flex items-center justify-center
+            ${currentStep >= step.id ? "bg-primary" : "bg-gray-300"}
+            text-white
+          `}
               >
                 {step.id}
               </div>
               {index < FORM_STEPS.length - 1 && (
                 <div
                   className={`
-                  w-44 h-1 mx-0
-                  ${currentStep > step.id ? "bg-primary" : "bg-gray-300"}
-                `}
+              w-32 h-1 mx-0
+              ${currentStep > step.id ? "bg-primary" : "bg-gray-300"}
+            `}
                 />
               )}
             </div>
@@ -138,11 +149,15 @@ const FormMain = () => {
         {/* Form */}
         <div className="md:col-span-2 bg-white rounded-2xl shadow-2xl p-6">
           {currentStep === FORM_STEP.STEP_ONE && (
+            <>
+            
             <PersonalDetailsForm
               formData={formData}
               onChange={handleInputChange}
               errors={errors}
             />
+            </>
+            
           )}
           {currentStep === FORM_STEP.STEP_TWO && (
             <AddressForm
@@ -151,12 +166,15 @@ const FormMain = () => {
               errors={errors}
             />
           )}
-          {currentStep === FORM_STEP.STEP_THREE && (
+          {currentStep === FORM_STEP.STEP_THREE && formId && (
+            <FormUploadStep formId={formId} />
+          )}
+          {currentStep === FORM_STEP.STEP_FOUR && (
             <ReviewForm formData={formData} setIsConfirmed={setIsConfirmed} />
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between mt-6">
+          <div className="flex justify-between mt-14">
             {currentStep > 1 && (
               <button
                 onClick={goToPrevious}

@@ -39,16 +39,16 @@ const ViewFormData = () => {
         <tbody>
           {formData.map((data, index) => (
             <tr key={index} className="hover:bg-gray-100">
-              <td className="p-2 border">{data.name}</td>
-              <td className="p-2 border">{data.age}</td>
-              <td className="p-2 border">{data.gender}</td>
-              <td className="p-2 border">{data.phoneNumber}</td>
-              <td className="p-2 border">{data.email}</td>
-              <td className="p-2 border">{data.nationality}</td>
-              <td className="p-2 border">{data.governmentId}</td>
-              <td className="p-2 border">{data.address}</td>
-              <td className="p-2 border">{data.postalCode}</td>
-              <td className="p-2 border">{data.country}</td>
+              <td className="p-2 border">{data?.name}</td>
+              <td className="p-2 border">{data?.age}</td>
+              <td className="p-2 border">{data?.gender}</td>
+              <td className="p-2 border">{data?.phoneNumber}</td>
+              <td className="p-2 border">{data?.email}</td>
+              <td className="p-2 border">{data?.nationality}</td>
+              <td className="p-2 border">{data?.governmentId}</td>
+              <td className="p-2 border">{data?.address}</td>
+              <td className="p-2 border">{data?.postalCode}</td>
+              <td className="p-2 border">{data?.country}</td>
             </tr>
           ))}
         </tbody>

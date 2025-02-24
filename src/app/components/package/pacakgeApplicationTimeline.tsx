@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { visaTimelineData } from "../constants/packageData";
+import { visaTimelineData } from "../../constants/packageData";
 
 const ApplicationTimeline = () => {
   return (
@@ -31,7 +31,10 @@ const ApplicationTimeline = () => {
           </thead>
           <tbody>
             {visaTimelineData.map((entry) => (
-              <tr key={entry.id} className="border-b border-l border-r border-gray-300 hover:bg-gray-50">
+              <tr
+                key={entry.id}
+                className="border-b border-l border-r border-gray-300 hover:bg-gray-50"
+              >
                 <td className="p-4">{entry.applicationType}</td>
                 <td className="p-4">{entry.applicationSubmission}</td>
                 <td className="p-4">{entry.biometricsSubmitted}</td>
@@ -47,7 +50,9 @@ const ApplicationTimeline = () => {
       <div className="md:hidden space-y-4">
         {visaTimelineData.map((entry) => (
           <div key={entry.id} className="bg-white rounded-lg shadow-md p-4">
-            <div className="font-semibold text-lg mb-2">{entry.applicationType}</div>
+            <div className="font-semibold text-lg mb-2">
+              {entry.applicationType}
+            </div>
             <div className="space-y-2">
               <div>
                 <span className="text-gray-600">Application Submission:</span>

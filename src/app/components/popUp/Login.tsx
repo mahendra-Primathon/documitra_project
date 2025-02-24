@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { Eye, EyeOff } from 'lucide-react';
-import { auth } from '../constants/firebase';
+import React, { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Eye, EyeOff } from "lucide-react";
+import { auth } from "../../constants/firebase";
+import ForgetPasswordModal from "./ForgetPassword";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -9,38 +10,39 @@ interface LoginModalProps {
   onSignUpClick: () => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSignUpClick }) => {
+const LoginModal: React.FC<LoginModalProps> = ({
+  isOpen,
+  onClose,
+  onSignUpClick,
+}) => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isForgetPasswordOpen, setIsForgetPasswordOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
-      console.log('User logged in successfully');
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      console.log("User logged in successfully");
       onClose();
     } catch (err: any) {
-      setError('Invalid email or password');
+      setError("Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -107,31 +109,26 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSignUpClick 
             </button>
           </div>
 
-          {error && (
-            <p className="text-red-500 text-sm">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading ? "Signing in..." : "Sign in"}
           </button>
 
           <button
             type="button"
             className="w-full text-blue-700 text-sm hover:underline"
-            onClick={() => {
-              // Handle forgot password
-              console.log('Forgot password clicked');
-            }}
+            onClick={() => setIsForgetPasswordOpen(true)}
           >
             Forgot Password
           </button>
 
           <div className="text-center text-sm text-gray-600">
-            Don't have account?{' '}
+            Don't have account?{" "}
             <button
               type="button"
               className="text-blue-700 hover:underline"
@@ -145,6 +142,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSignUpClick 
           </div>
         </form>
       </div>
+      <ForgetPasswordModal
+        isOpen={isForgetPasswordOpen}
+        onClose={() => setIsForgetPasswordOpen(false)}
+      />
     </div>
   );
 };

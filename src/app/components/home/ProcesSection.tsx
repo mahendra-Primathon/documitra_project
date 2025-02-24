@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { steps } from "../constants/processDAta";
+import { steps } from "../../constants/processDAta";
 
 interface ProcessStepProps {
   imageSrc: string;
@@ -30,7 +30,9 @@ const ProcessStep = ({ imageSrc, title, isLast = false }: ProcessStepProps) => (
 
     <div className="ml-4 flex items-center pb-12 mt-4">
       {isLast ? (
-        <h4 className="font-bold text-lg text-green-500 leading-none">{title}</h4>
+        <h4 className="font-bold text-lg text-green-500 leading-none">
+          {title}
+        </h4>
       ) : (
         <h4 className="font-bold text-lg leading-none">{title}</h4>
       )}
@@ -39,8 +41,6 @@ const ProcessStep = ({ imageSrc, title, isLast = false }: ProcessStepProps) => (
 );
 
 const ProcessSection = () => {
- 
-
   return (
     <div className="bg-secondary py-16">
       <div className="px-[10vw] mx-auto lg:py-16">
