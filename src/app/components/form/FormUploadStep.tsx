@@ -44,22 +44,21 @@ const FormUploadStep = ({ formId }: { formId: string }) => {
 
   // Upload handler
   const handleUpload = async (file: File, fileType: "image" | "pdf") => {
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      try {
-        await axios.post("/api/upload", {
-          file: reader.result,
-          fileType: fileType,
-          formId: formId,
-        });
-        setUploadStatus((prev) => ({ ...prev, [fileType]: true }));
-      } catch (error) {
-        console.error("Upload Error:", error);
-        setErrorMessage(`Failed to upload ${fileType.toUpperCase()}`);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await axios.post("/api/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    console.log(response.data);
+    setUploadStatus((prev) => ({ ...prev, [fileType]: true }));
+  } catch (error) {
+    console.error("Upload Error:", error);
+    setErrorMessage(`Failed to upload ${fileType.toUpperCase()}`);
+  }
+};
+  
 
   // Submit handler
   const handleSubmit = async () => {
