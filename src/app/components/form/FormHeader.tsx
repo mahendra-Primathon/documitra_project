@@ -1,8 +1,11 @@
 "use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { VISA_FORM_CONSTANTS } from "../../constants/formsData";
+import AddMemberForm from "../popUp/AddMemberForm";
+import ManageMembers from "../popUp/ManageMember";
 
 interface VisaFormHeaderProps {
   applicantName?: string;
@@ -16,12 +19,23 @@ const FormHeader = ({
   onAddMember,
 }: VisaFormHeaderProps) => {
   const router = useRouter();
+  const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
+  const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
+  const [members, setMembers] = useState<{ name: string; age: number }[]>([]);
 
   const handleSaveAndExit = () => {
     if (onSaveAndExit) {
       onSaveAndExit();
     }
     router.push(VISA_FORM_CONSTANTS.routes.HOME);
+  };
+
+  const handleAddMember = (member: { name: string; age: number }) => {
+    setMembers((prev) => [...prev, member]);
+  };
+
+  const handleRemoveMember = (index: number) => {
+    setMembers((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -78,7 +92,7 @@ const FormHeader = ({
                   </span>
                 </div>
                 <button
-                  onClick={onAddMember}
+                  onClick={() => setIsAddMemberOpen(true)}
                   className="ml-4 text-white hover:text-white/90 flex items-center space-x-2 transition-colors"
                 >
                   <svg
@@ -95,6 +109,12 @@ const FormHeader = ({
                     />
                   </svg>
                   <span>Add Members</span>
+                </button>
+                <button
+                  onClick={() => setIsManageMembersOpen(true)}
+                  className="ml-4 text-white hover:text-white/90 flex items-center space-x-2 transition-colors"
+                >
+                  <span>Manage Members</span>
                 </button>
               </div>
             </div>
@@ -122,6 +142,17 @@ const FormHeader = ({
           </div>
         </div>
       </div>
+      <AddMemberForm
+        isOpen={isAddMemberOpen}
+        onClose={() => setIsAddMemberOpen(false)}
+        onSaveMember={handleAddMember}
+      />
+      <ManageMembers
+        isOpen={isManageMembersOpen}
+        onClose={() => setIsManageMembersOpen(false)}
+        members={members}
+        onRemoveMember={handleRemoveMember}
+      />
     </div>
   );
 };
