@@ -1,5 +1,11 @@
+//  ./src/app/components/form/FormReviewForm.tsx
 "use client";
-import { ChevronDown, ChevronUp, CheckCircle } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  // CheckCircle,
+  ExternalLink,
+} from "lucide-react";
 import { FormData } from "../../constants/formsData";
 import { useState } from "react";
 
@@ -8,11 +14,14 @@ interface FormProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errors: Record<string, string>;
   formUploadStatus: {
-    image: false;
-    pdf: false;
-    selectedCategory: "";
+    image: boolean;
+    pdf: boolean;
   };
   setIsConfirmed: (value: boolean) => void;
+  fileUrls: {
+    imageUrl?: string;
+    pdfUrl?: string;
+  };
 }
 
 export const ReviewForm = ({
@@ -23,7 +32,7 @@ export const ReviewForm = ({
   const [isPersonalOpen, setIsPersonalOpen] = useState(true);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-
+console.log(formData);
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold mb-6">Review Your Information</h2>
@@ -109,30 +118,43 @@ export const ReviewForm = ({
             <ChevronUp className="mr-2" />
           ) : (
             <ChevronDown className="mr-2" />
-          )}
+          )}{" "}
           Uploaded Documents
         </button>
         {isUploadOpen && (
           <div className="p-4 space-y-4">
-            {Object.entries({
-              "Image Upload Status": formUploadStatus?.image
-                ? "Uploaded"
-                : "Not Uploaded",
-              "PDF Upload Status": formUploadStatus?.pdf
-                ? "Uploaded"
-                : "Not Uploaded",
-            }).map(([key, value]) => (
-              <div key={key} className="grid grid-cols-2 gap-4">
-                <span className="font-medium">{key}</span>
+            {[
+              {
+                label: "Photo",
+                fileName: formData.imageUrl?.split("/").pop(),
+                fileUrl: formUploadStatus.image ? formData.imageUrl : "",
+              },
+              {
+                label: "Government ID",
+                fileName: formData.pdfUrl?.split("/").pop(),
+                fileUrl: formUploadStatus.pdf ? formData.pdfUrl : "",
+              },
+            ].map(({ label, fileName, fileUrl }) => (
+              <div key={label} className="grid grid-cols-2 gap-4 items-center">
+                <span className="font-medium">{label}</span>
                 <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={value}
-                    readOnly
-                    className="p-2 border rounded bg-gray-100"
-                  />
-                  {value === "Uploaded" && (
-                    <CheckCircle className="text-green-500" size={24} />
+                  <span className="text-gray-700">
+                    {fileName || "Not Uploaded"}
+                  </span>
+                  {fileUrl ? (
+                    <button
+                      onClick={() =>
+                        window.open(
+                          `http://localhost:5000/${fileUrl}`,
+                          "_blank"
+                        )
+                      }
+                      className="text-blue-500 hover:underline flex items-center"
+                    >
+                      <ExternalLink size={16} /> Click to View
+                    </button>
+                  ) : (
+                    <span className="text-red-500">No File Uploaded</span>
                   )}
                 </div>
               </div>

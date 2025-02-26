@@ -1,4 +1,51 @@
 // src/constants/formsData.ts
+
+export interface FormData {
+  // Page 1 data
+  name: string;
+  age: string;
+  phoneNumber: string;
+  gender: string;
+  countryCode: string;
+  email: string;
+  nationality: string;
+  governmentId: string;
+
+  // Page 2 data
+  address: string;
+  postalCode: string;
+  country: string;
+
+  // Page 3 data
+  imageUrl: string; // Add this line
+  pdfUrl: string;   // Add this line
+}
+
+export const INITIAL_FORM_DATA: FormData = {
+  name: "",
+  age: "",
+  gender: "",
+  phoneNumber: "",
+  countryCode: "+91",
+  email: "",
+  nationality: "",
+  governmentId: "",
+  address: "",
+  postalCode: "",
+  country: "",
+  imageUrl: "",
+  pdfUrl: ""
+};
+
+export const FORM_STEPS = [
+  { id: 1, label: "Personal Details" },
+  { id: 2, label: "Address Details" },
+  { id: 3, label: "File Upload" },
+  // { id: 4, label: "Review" },
+];
+
+
+
 export const VISA_FORM_CONSTANTS = {
   routes: {
     HOME: "/",
@@ -31,7 +78,6 @@ export const VISA_FORM_CONSTANTS = {
 } as const;
 
 
-
 export const COUNTRY_CODES = [
   { code: "+1", country: "USA" },
   { code: "+7", country: "Russia" },
@@ -48,42 +94,4 @@ export const COUNTRY_CODES = [
   { code: "+86", country: "China" },
   { code: "+91", country: "India" },
   { code: "+971", country: "UAE" },
-];
-
-export interface FormData {
-  // Page 1 data
-  name: string;
-  age: string;
-  phoneNumber: string;
-  gender: string;
-  countryCode: string;
-  email: string;
-  nationality: string;
-  governmentId: string;
-
-  // Page 2 data
-  address: string;
-  postalCode: string;
-  country: string;
-}
-
-export const INITIAL_FORM_DATA: FormData = {
-  name: "",
-  age: "",
-  gender: "",
-  phoneNumber: "",
-  countryCode: "+91",
-  email: "",
-  nationality: "",
-  governmentId: "",
-  address: "",
-  postalCode: "",
-  country: "",
-};
-
-export const FORM_STEPS = [
-  { id: 1, label: "Personal Details" },
-  { id: 2, label: "Address Details" },
-  { id: 3, label: "File Upload" },
-  // { id: 4, label: "Review" },
 ];

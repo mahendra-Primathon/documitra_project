@@ -34,6 +34,9 @@ const ViewFormData = () => {
             <th className="p-2 border">Address</th>
             <th className="p-2 border">Postal Code</th>
             <th className="p-2 border">Country</th>
+            <th className="p-2 border">Photo </th>
+            <th className="p-2 border">Govermnet - ID</th>
+
           </tr>
         </thead>
         <tbody>
@@ -49,6 +52,8 @@ const ViewFormData = () => {
               <td className="p-2 border">{data?.address}</td>
               <td className="p-2 border">{data?.postalCode}</td>
               <td className="p-2 border">{data?.country}</td>
+              <td className="p-2 border">{data?.pdfUrl}</td>
+              <td className="p-2 border">{data?.imageUrl}</td>
             </tr>
           ))}
         </tbody>
