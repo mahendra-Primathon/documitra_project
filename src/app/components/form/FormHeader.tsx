@@ -23,19 +23,35 @@ const FormHeader = ({
   const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
   const [members, setMembers] = useState<{ name: string; age: number }[]>([]);
 
+  console.log("FormHeader component rendered");
+  console.log("Current members:", members);
+
   const handleSaveAndExit = () => {
+    console.log("Save & Exit button clicked");
     if (onSaveAndExit) {
+      console.log("Calling onSaveAndExit callback");
       onSaveAndExit();
     }
+    console.log("Navigating to home page");
     router.push(VISA_FORM_CONSTANTS.routes.HOME);
   };
 
   const handleAddMember = (member: { name: string; age: number }) => {
-    setMembers((prev) => [...prev, member]);
+    console.log("Adding new member:", member);
+    setMembers((prev) => {
+      const updatedMembers = [...prev, member];
+      console.log("Updated members list:", updatedMembers);
+      return updatedMembers;
+    });
   };
 
   const handleRemoveMember = (index: number) => {
-    setMembers((prev) => prev.filter((_, i) => i !== index));
+    console.log("Removing member at index:", index);
+    setMembers((prev) => {
+      const updatedMembers = prev.filter((_, i) => i !== index);
+      console.log("Updated members list after removal:", updatedMembers);
+      return updatedMembers;
+    });
   };
 
   return (
@@ -92,7 +108,10 @@ const FormHeader = ({
                   </span>
                 </div>
                 <button
-                  onClick={() => setIsAddMemberOpen(true)}
+                  onClick={() => {
+                    console.log("Add Members button clicked");
+                    setIsAddMemberOpen(true);
+                  }}
                   className="ml-4 text-white hover:text-white/90 flex items-center space-x-2 transition-colors"
                 >
                   <svg
@@ -110,12 +129,15 @@ const FormHeader = ({
                   </svg>
                   <span>Add Members</span>
                 </button>
-                <button
-                  onClick={() => setIsManageMembersOpen(true)}
+                {/* <button
+                  onClick={() => {
+                    console.log("Manage Members button clicked");
+                    setIsManageMembersOpen(true);
+                  }}
                   className="ml-4 text-white hover:text-white/90 flex items-center space-x-2 transition-colors"
                 >
                   <span>Manage Members</span>
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -144,14 +166,28 @@ const FormHeader = ({
       </div>
       <AddMemberForm
         isOpen={isAddMemberOpen}
-        onClose={() => setIsAddMemberOpen(false)}
+        onClose={() => {
+          console.log("AddMemberForm closed");
+          setIsAddMemberOpen(false);
+        }}
         onSaveMember={handleAddMember}
+        onOpenManageMembers={() => {
+          console.log("Opening Manage Members from AddMemberForm");
+          setIsManageMembersOpen(true);
+        }}
       />
       <ManageMembers
-        isOpen={isManageMembersOpen}
-        onClose={() => setIsManageMembersOpen(false)}
-        members={members}
+        // members={members}
         onRemoveMember={handleRemoveMember}
+        isOpen={isManageMembersOpen}
+        onClose={() => {
+          console.log("ManageMembers closed");
+          setIsManageMembersOpen(false);
+        }}
+        onAddNewMember={() => {
+          console.log("Opening Add Member from ManageMembers");
+          setIsAddMemberOpen(true);
+        }}
       />
     </div>
   );
