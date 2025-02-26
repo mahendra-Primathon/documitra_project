@@ -36,7 +36,6 @@ const ViewFormData = () => {
             <th className="p-2 border">Country</th>
             <th className="p-2 border">Photo </th>
             <th className="p-2 border">Govermnet - ID</th>
-
           </tr>
         </thead>
         <tbody>
@@ -52,8 +51,24 @@ const ViewFormData = () => {
               <td className="p-2 border">{data?.address}</td>
               <td className="p-2 border">{data?.postalCode}</td>
               <td className="p-2 border">{data?.country}</td>
-              <td className="p-2 border">{data?.pdfUrl}</td>
-              <td className="p-2 border">{data?.imageUrl}</td>
+              <td className="p-2 border text-primary">
+                <a
+                  href={data?.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Click to view PDF
+                </a>
+              </td>
+              <td className="p-2 border text-primary ">
+                <a
+                  href={data?.imageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Click to view photo
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
