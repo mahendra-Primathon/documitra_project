@@ -32,7 +32,7 @@ export const ReviewForm = ({
   const [isPersonalOpen, setIsPersonalOpen] = useState(true);
   const [isAddressOpen, setIsAddressOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-console.log(formData);
+  console.log(formData);
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold mb-6">Review Your Information</h2>
@@ -145,7 +145,7 @@ console.log(formData);
                     <button
                       onClick={() =>
                         window.open(
-                          `http://localhost:5000/${fileUrl}`,
+                          `${fileUrl}`,
                           "_blank"
                         )
                       }

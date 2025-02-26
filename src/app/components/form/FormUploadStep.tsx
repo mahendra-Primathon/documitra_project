@@ -91,7 +91,7 @@ const FormUploadStep = ({
       console.log("Upload Response:", response.data);
 
       // Convert relative file path to full URL
-      const uploadedUrl = `http://localhost:5000${response.data.filePath}`;
+      const uploadedUrl = `http://localhost:3000${response.data.filePath}`;
 
       setFileUrls((prev: { imageUrl?: string; pdfUrl?: string }) => {
         const updatedUrls = {
