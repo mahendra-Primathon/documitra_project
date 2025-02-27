@@ -26,9 +26,9 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
   // onOpenManageMembers(); // Open Manage Members
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted"); // Log when the form is submitted
+    // console.log("Form submitted"); // Log when the form is submitted
     if (name && age) {
-      console.log("Name and age are valid:", { name, age }); // Log name and age values
+      // console.log("Name and age are valid:", { name, age }); // Log name and age values
       try {
         console.log("Sending request to: http://localhost:5000/api/members"); // Log the API endpoint
         const response = await fetch("http://localhost:5000/api/members", {
@@ -38,13 +38,19 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
           },
           body: JSON.stringify({ name, age }),
         });
-        console.log("Response received:", response); // Log the entire response object
+        // console.log("Response received:", response); // Log the entire response object
         if (response.ok) {
           console.log("Member saved successfully"); // Log success message
+          setName(""); // Clear the name field
+          setAge(""); // Clear the age field
           onClose();
           onOpenManageMembers();
         } else {
-          console.error("Failed to save member:", response.status, response.statusText); // Log error status
+          console.error(
+            "Failed to save member:",
+            response.status,
+            response.statusText
+          ); // Log error status
           const errorData = await response.json();
           console.error("Error details:", errorData); // Log error details from the response
         }

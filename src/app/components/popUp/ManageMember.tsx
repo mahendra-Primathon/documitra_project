@@ -4,7 +4,7 @@ import Image from "next/image";
 import PersonIcon from "../../../../public/assets/images/Form/PersonIcon.svg";
 
 interface ManageMemberProps {
-  onSelect: (index: number) => void;
+  onSelect: (name: string) => void;
   onRemove: (index: number) => void;
   isOpen: boolean;
   onClose: () => void;
@@ -32,16 +32,13 @@ const ManageMember: React.FC<ManageMemberProps> = ({
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        console.log("Fetching members...");
-        const response = await fetch("http://localhost:5000/api/members"); // Update this URL
-        console.log("Response received:", response);
+        const response = await fetch("http://localhost:5000/api/members");
         if (!response.ok) {
           throw new Error(
             `Failed to fetch members: ${response.status} ${response.statusText}`
           );
         }
         const data = await response.json();
-        console.log("Members fetched successfully:", data);
         setMembers(data);
       } catch (error) {
         console.error("Error fetching members:", error);
@@ -56,29 +53,27 @@ const ManageMember: React.FC<ManageMemberProps> = ({
   }, [isOpen]);
 
   const handleRemoveMember = async (id: string, index: number) => {
-    console.log(`Attempting to remove member with ID: ${id} at index: ${index}`);
     try {
-      const response = await fetch(`http://localhost:5000/api/members/${id}`, { // Update this URL
-        method: 'DELETE',
+      const response = await fetch(`http://localhost:5000/api/members/${id}`, {
+        method: "DELETE",
       });
-      console.log("Remove member response:", response);
       if (!response.ok) {
-        throw new Error(`Failed to remove member: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Failed to remove member: ${response.status} ${response.statusText}`
+        );
       }
-      // Remove the member from the local state
       setMembers((prev) => prev.filter((_, i) => i !== index));
-      console.log("Member removed successfully");
     } catch (error) {
       console.error("Error removing member:", error);
     }
   };
 
-  if (!isOpen) {
-    console.log("ManageMember is not open, returning null");
-    return null;
-  }
+  const handleSelectMember = (name: string) => {
+    onSelect(name);
+    onClose();
+  };
 
-  console.log("ManageMember is open, rendering component");
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -89,35 +84,33 @@ const ManageMember: React.FC<ManageMemberProps> = ({
         >
           ✕
         </button>
-        
 
-        <div className="flex flex-row items-center justify-center space-x-2 ">
-          <div className=" bg-primary rounded-full p-2 flex items-center ">
-          <Image src={PersonIcon}  alt="logo"  />
+        <div className="flex flex-row items-center justify-center space-x-2">
+          <div className="bg-primary rounded-full p-2 flex items-center">
+            <Image src={PersonIcon} alt="logo" />
           </div>
           <div>
-            <h2 className="text-3xl font-extrabold mb-6  pt-5  ">
+            <h2 className="text-3xl font-extrabold mb-6 pt-5">
               Add/Manage Member
             </h2>
           </div>
         </div>
 
-        <div className="px-4 pb-6 bg-white rounded-xl ">
+        <div className="px-4 pb-6 bg-white rounded-xl">
           {loading ? (
             <p className="text-center py-4">Loading members...</p>
           ) : members.length === 0 ? (
             <p className="text-center py-4">No members found.</p>
           ) : (
-            <ul className="divide-y divide-gray-200  ">
+            <ul className="divide-y divide-gray-200">
               {members.map((member, index) => (
                 <li
                   key={member._id}
                   className="py-4 flex items-center justify-between"
                 >
                   <div className="flex items-center">
-                  <p className="pr-6 text-sm" >{index+1}.</p>
+                    <p className="pr-6 text-sm">{index + 1}.</p>
                     <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-3">
-                      
                       <svg
                         viewBox="0 0 24 24"
                         width="24"
@@ -135,20 +128,32 @@ const ManageMember: React.FC<ManageMemberProps> = ({
                       </p>
                     </div>
                   </div>
-                  <button
-                    onClick={() =>
-                      index === 0
-                        ? onSelect(index)
-                        : handleRemoveMember(member._id, index)
-                    }
-                    className={`px-4 py-1.5 rounded text-sm font-medium cursor-pointer ${
-                      index === 0
-                        ? "bg-primary text-white"
-                        : "bg-gray-500 text-white"
-                    }` }
-                  >
-                    {index === 0 ? "Select" : "Remove"}
-                  </button>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleSelectMember(member.name)}
+                      className={`px-4 py-1.5 rounded text-sm font-medium ${
+                        index === 0
+                          ? "bg-white text-white"
+                          : "bg-primary text-white cursor-pointer"
+                      } `}
+                    >
+                      {index === 0 ? "" : "Select"}
+                    </button>
+                    <button
+                      onClick={() =>
+                        index === 0
+                          ? console.log("Cannot remove the primary member")
+                          : handleRemoveMember(member._id, index)
+                      }
+                      className={`px-4 py-1.5 rounded text-sm font-medium ${
+                        index === 0
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-500 text-white cursor-pointer"
+                      }`}
+                    >
+                      {index === 0 ? "Main User" : "Remove"}
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -157,10 +162,8 @@ const ManageMember: React.FC<ManageMemberProps> = ({
 
         <button
           onClick={() => {
-            console.log("Closing Manage Members Popup");
-            onClose(); // Close Manage Members Popup
-            console.log("Opening Add Member Popup");
-            onAddNewMember(); // Open Add Member Popup
+            onClose();
+            onAddNewMember();
           }}
           className="w-full bottom-0 py-3 my-1 bg-primary text-white rounded-md font-medium flex items-center justify-center"
         >
