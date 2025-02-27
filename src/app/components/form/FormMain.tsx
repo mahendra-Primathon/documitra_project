@@ -33,6 +33,7 @@ const FormMain = () => {
     pdf: false,
     selectedCategory: "",
   });
+  const [uploadError, setUploadError] = useState<string>("");
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
@@ -118,6 +119,9 @@ const FormMain = () => {
     }
   };
 
+  const isUploadStepValid =
+    formUploadStatus.image && formUploadStatus.pdf && !uploadError;
+
   return (
     <div className="min-h-screen bg-secondary py-10 px-10 sm:px-6 lg:px-8">
       {/* Progress Steps */}
@@ -171,6 +175,7 @@ const FormMain = () => {
               uploadStatus={formUploadStatus}
               setUploadStatus={setFormUploadStatus}
               setFileUrls={setFormData}
+              setUploadError={setUploadError} // Pass the setUploadError function
             />
           )}
           {currentStep === FORM_STEP.STEP_FOUR && (
@@ -196,8 +201,17 @@ const FormMain = () => {
             {currentStep < 4 ? (
               <button
                 onClick={saveAndContinue}
+                disabled={
+                  currentStep === FORM_STEP.STEP_THREE
+                    ? !isUploadStepValid
+                    : Object.keys(errors).length !== 0
+                }
                 className={`px-4 py-2 rounded ${
-                  Object.keys(errors).length === 0
+                  currentStep === FORM_STEP.STEP_THREE
+                    ? isUploadStepValid
+                      ? "bg-primary text-white"
+                      : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                    : Object.keys(errors).length === 0
                     ? "bg-primary text-white"
                     : "bg-gray-400 text-gray-700 cursor-not-allowed"
                 }`}
@@ -221,7 +235,6 @@ const FormMain = () => {
         </div>
         {/* Summary Card */}
         <FormSummaryCard />
-        
       </div>
     </div>
   );

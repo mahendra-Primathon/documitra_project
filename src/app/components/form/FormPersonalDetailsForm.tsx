@@ -1,4 +1,3 @@
-
 "client side";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { FormData, COUNTRY_CODES } from "../../constants/formsData";
@@ -27,7 +26,7 @@ export const PersonalDetailsForm = ({
         onChange={onChange}
         className="w-full px-2 py-3 border rounded-md "
       />
-      <div className="h-3">
+      <div className="h-1">
         {errors.name && <p className="text-red-500 text-sm ">{errors.name}</p>}
       </div>
     </div>
@@ -49,7 +48,7 @@ export const PersonalDetailsForm = ({
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-        <div className="h-3">
+        <div className="h-1">
           {errors.gender && (
             <p className="text-red-500 text-sm">{errors.gender}</p>
           )}
@@ -65,9 +64,9 @@ export const PersonalDetailsForm = ({
           value={formData.age}
           onChange={onChange}
           placeholder="Enter Age"
-          className="w-full px-2  py-3 border rounded-md "
+          className="w-full px-2  py-3 border rounded-md hide-number-spinners "
         />
-        <div className="h-3">
+        <div className="h-1">
           {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
         </div>
       </div>
@@ -75,7 +74,7 @@ export const PersonalDetailsForm = ({
 
     <div className="flex flex-row gap-4 w-full px-4">
       {/* Phone Number Input */}
-      <div className="flex-1 space-y-2 w-[50%] ">
+      <div className="flex-1 space-y-2 w-[50%]">
         <label className="block">Phone Number</label>
         <div className="flex flex-col gap-2">
           <div className="flex w-full gap-1">
@@ -92,15 +91,15 @@ export const PersonalDetailsForm = ({
               ))}
             </select>
             <input
-              type="tel"
+              type="number"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={onChange}
               placeholder="Enter"
-              className="p-3 border rounded flex-1 "
+              className="p-3 border rounded flex-1 hide-number-spinners"
             />
           </div>
-          <div className="h-3">
+          <div className="h-1">
             {errors.phoneNumber && (
               <p className="text-red-500 text-sm">{errors.phoneNumber}</p>
             )}
@@ -119,7 +118,7 @@ export const PersonalDetailsForm = ({
           placeholder="Enter"
           className="w-full p-3 border rounded"
         />
-        <div className="h-3">
+        <div className="h-1">
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email}</p>
           )}
@@ -139,7 +138,7 @@ export const PersonalDetailsForm = ({
           placeholder="Enter"
           className="w-full p-3 border rounded"
         />
-        <div className="h-3">
+        <div className="h-1">
           {errors.nationality && (
             <p className="text-red-500 text-sm">{errors.nationality}</p>
           )}
@@ -157,7 +156,7 @@ export const PersonalDetailsForm = ({
           placeholder="Enter"
           className="w-full p-3 border rounded"
         />
-        <div className="h-3">
+        <div className="h-1">
           {errors.governmentId && (
             <p className="text-red-500 text-sm">{errors.governmentId}</p>
           )}

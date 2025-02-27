@@ -3,11 +3,13 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { CheckCircle } from "lucide-react";
 
+
 const FormUploadStep = ({
   // formId,
   uploadStatus,
   setUploadStatus,
   setFileUrls, // Add this prop to update the uploaded URLs
+  setUploadError,
 }: {
   formId: string;
   uploadStatus: { image: boolean; pdf: boolean };
@@ -17,6 +19,7 @@ const FormUploadStep = ({
   setFileUrls: React.Dispatch<
     React.SetStateAction<{ imageUrl?: string; pdfUrl?: string }>
   >;
+  setUploadError: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -49,23 +52,28 @@ const FormUploadStep = ({
         setErrorMessage(
           "Invalid image format. Only JPG, JPEG, or PNG allowed."
         );
+        setUploadError("Invalid image format. Only JPG, JPEG, or PNG allowed.");
         return false;
       }
       if (file.size > 2 * 1024 * 1024) {
         setErrorMessage("Image file size must be less than 2MB.");
+        setUploadError("Image file size must be less than 2MB.");
         return false;
       }
     } else if (type === "pdf") {
       if (file.type !== "application/pdf") {
         setErrorMessage("Only PDF files are allowed for government ID.");
+        setUploadError("Only PDF files are allowed for government ID.");
         return false;
       }
       if (file.size > 5 * 1024 * 1024) {
         setErrorMessage("PDF file size must be less than 5MB.");
+        setUploadError("PDF file size must be less than 5MB.");
         return false;
       }
     }
     setErrorMessage(""); // Clear errors if valid
+    setUploadError("");
     return true;
   };
 
@@ -106,9 +114,11 @@ const FormUploadStep = ({
         ...prev,
         [fileType]: true,
       }));
+      setUploadError("");
     } catch (error) {
       console.error("Upload Error:", error);
       setErrorMessage(`Failed to upload ${fileType.toUpperCase()}`);
+      setUploadError(`Failed to upload ${fileType.toUpperCase()}`);
     } finally {
       setIsUploading(false);
     }
