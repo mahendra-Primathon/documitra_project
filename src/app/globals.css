@@ -22,4 +22,20 @@
   .no-scroll-y {
     overflow-y: hidden;
   }
+
+  
+  /* for up down icon in type integer start  */
+  @layer utilities {
+    .hide-number-spinners {
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
+  
+    .hide-number-spinners::-webkit-outer-spin-button,
+    .hide-number-spinners::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  /* for up down icon in type integer end */
   
