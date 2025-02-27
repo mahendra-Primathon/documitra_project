@@ -96,7 +96,7 @@ const FormUploadStep = ({
       const response = await axios.post("/api/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log("Upload Response:", response.data);
+      // console.log("Upload Response:", response.data);
 
       // Convert relative file path to full URL
       const uploadedUrl = `http://localhost:3000${response.data.filePath}`;
@@ -106,7 +106,7 @@ const FormUploadStep = ({
           ...prev,
           [fileType === "image" ? "imageUrl" : "pdfUrl"]: uploadedUrl,
         };
-        console.log("New File URLs after Upload:", updatedUrls); // Log the URLs here
+        // console.log("New File URLs after Upload:", updatedUrls); // Log the URLs here
         return updatedUrls;
       });
 

@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import useClickOutside from "../../hooks/useClickOutside";
-import { documentTypes, moreOptions, locations } from "../../constants/heroData";
 import { createPortal } from "react-dom";
 
 // Dropdown Component

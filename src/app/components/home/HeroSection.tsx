@@ -20,9 +20,7 @@ import {
 
 const HeroSection = () => {
   const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(null);
-  const [moreSelectedDoc, setMoreSelectedDoc] = useState<DocumentType | null>(
-    null
-  );
+  const [moreSelectedDoc, setMoreSelectedDoc] = useState<DocumentType | null>( null);
   const [citizenship, setCitizenship] = useState<Location | null>(null);
   const [applyingFrom, setApplyingFrom] = useState<Location | null>(null);
   const [destination, setDestination] = useState<Location | null>(null);
@@ -39,6 +37,10 @@ const HeroSection = () => {
     // Validate required fields
     if (!citizenship || !applyingFrom || !destination) {
       setError("Please fill all 3 details to proceed.");
+      return;
+    }
+    if(!selectedDoc && !moreSelectedDoc) {
+      setError("Please select a document type to proceed.");
       return;
     }
 

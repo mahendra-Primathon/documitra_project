@@ -12,7 +12,7 @@ import { PersonalDetailsForm } from "./FormPersonalDetailsForm";
 import FormUploadStep from "./FormUploadStep";
 
 import { v4 as uuidv4 } from "uuid";
-import { ArrowLeft, Package2, Calendar, Coins } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 enum FORM_STEP {
   STEP_ONE = 1,
@@ -54,6 +54,39 @@ const FormMain = () => {
       ...prev,
       [name]: value,
     }));
+
+    // Dynamically validate the field as the user types
+    const newErrors = { ...errors };
+    if (value) {
+      delete newErrors[name]; // Clear the error if the field is filled
+    } else {
+      // Add the error if the field is empty
+      if (currentStep === 1) {
+        if (name === "name") newErrors.name = "Name is required";
+        if (name === "phoneNumber")
+          newErrors.phoneNumber = "Phone number is required";
+        if (name === "email") {
+          if (!value) {
+            newErrors.email = "Email is required";
+          } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            newErrors.email = "Invalid email format";
+          }
+        }
+        if (name === "gender") newErrors.gender = "Gender is required";
+        if (name === "age") newErrors.age = "Age is required";
+        if (name === "nationality")
+          newErrors.nationality = "Nationality is required";
+        if (name === "governmentId")
+          newErrors.governmentId = "Government ID is required";
+      } else if (currentStep === 2) {
+        if (name === "address") newErrors.address = "Address is required";
+        if (name === "postalCode")
+          newErrors.postalCode = "Pin code / Postal code is required";
+        if (name === "country") newErrors.country = "Country name is required";
+      }
+    }
+
+    setErrors(newErrors);
   };
 
   const validateStep = () => {
@@ -108,7 +141,7 @@ const FormMain = () => {
       });
 
       if (response.ok) {
-        console.log("Form data submitted successfully");
+        // console.log("Form data submitted successfully");
         localStorage.removeItem("formData");
         window.location.href = "/";
       } else {
@@ -183,20 +216,33 @@ const FormMain = () => {
               formData={formData}
               setIsConfirmed={setIsConfirmed}
               formUploadStatus={formUploadStatus}
+              onChange={function (
+                e: React.ChangeEvent<HTMLInputElement>
+              ): void {
+                throw new Error("Function not implemented.");
+              }}
+              errors={undefined}
+              fileUrls={{
+                imageUrl: undefined,
+                pdfUrl: undefined,
+              }}
             />
           )}
 
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-14">
-            {currentStep > 1 && (
-              <button
-                onClick={goToPrevious}
-                className="px-4 py-2 rounded flex items-center space-x-2 bg-secondary text-black"
-              >
-                <ArrowLeft size={18} />
-                <span>Previous</span>
-              </button>
-            )}
+            <div>
+              {currentStep > 1 && (
+                <button
+                  onClick={goToPrevious}
+                  className="px-4 py-2 rounded-md flex items-center space-x-2 bg-secondary text-black"
+                >
+                  <ArrowLeft size={18} />
+                  <span>Previous</span>
+                </button>
+              )}
+            </div>
+
             <div className="flex-grow"></div>
             {currentStep < 4 ? (
               <button
@@ -206,15 +252,17 @@ const FormMain = () => {
                     ? !isUploadStepValid
                     : Object.keys(errors).length !== 0
                 }
-                className={`px-4 py-2 rounded ${
-                  currentStep === FORM_STEP.STEP_THREE
-                    ? isUploadStepValid
+                className={`px-4 py-2 rounded   
+                  ${
+                    currentStep === FORM_STEP.STEP_THREE
+                      ? isUploadStepValid
+                        ? "bg-primary text-white"
+                        : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                      : Object.keys(errors).length === 0
                       ? "bg-primary text-white"
                       : "bg-gray-400 text-gray-700 cursor-not-allowed"
-                    : Object.keys(errors).length === 0
-                    ? "bg-primary text-white"
-                    : "bg-gray-400 text-gray-700 cursor-not-allowed"
-                }`}
+                  }
+                `}
               >
                 Save & Continue
               </button>
