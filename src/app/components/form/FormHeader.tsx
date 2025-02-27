@@ -88,7 +88,7 @@ const FormHeader = ({
                 <div
                   className={`px-10 py-3 rounded-md ${
                     selectedMember && selectedMember.length > 0
-                      ? "opacity-[30%]"
+                      ? " text-white "
                       : "bg-secondary text-black "
                   }`}
                 >
