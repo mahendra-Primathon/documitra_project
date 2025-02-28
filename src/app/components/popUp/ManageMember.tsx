@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import PersonIcon from "../../../../public/assets/images/Form/PersonIcon.svg";
+import addIconPerson from "../../../../public/assets/images/Form//AddIcon.svg";
+
 
 interface ManageMemberProps {
   onSelect: (name: string) => void;
@@ -86,8 +88,8 @@ const ManageMember: React.FC<ManageMemberProps> = ({
         </button>
 
         <div className="flex flex-row items-center justify-center space-x-2">
-          <div className="bg-primary rounded-full p-2 flex items-center">
-            <Image src={PersonIcon} alt="logo" />
+          <div className="bg-primary rounded-full p-3 flex items-center">
+            <Image src={addIconPerson} alt="logo" />
           </div>
           <div>
             <h2 className="text-3xl font-extrabold mb-6 pt-5">

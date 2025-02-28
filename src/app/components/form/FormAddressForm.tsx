@@ -14,7 +14,7 @@ export const AddressForm = ({
 }: FormProps & { errors: Record<string, string> }) => {
   // Log errors if they exist
   if (Object.keys(errors).length > 0) {
-    console.error("Form errors:", errors);
+    console.log("Form errors:", errors);
   }
 
   return (

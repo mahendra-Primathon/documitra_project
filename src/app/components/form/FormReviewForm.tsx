@@ -12,7 +12,7 @@ import { useState } from "react";
 interface FormProps {
   formData: FormData;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  errors: Record<string, string>;
+  // errors: Record<string, string>;
   formUploadStatus: {
     image: boolean;
     pdf: boolean;
@@ -141,6 +141,7 @@ export const ReviewForm = ({
                   <span className="text-gray-700">
                     {fileName || "Not Uploaded"}
                   </span>
+                  
                   {fileUrl ? (
                     <button
                       onClick={() =>
@@ -154,8 +155,29 @@ export const ReviewForm = ({
                       <ExternalLink size={16} /> Click to View
                     </button>
                   ) : (
-                    <span className="text-red-500">No File Uploaded</span>
+                    <button
+                      
+                      className="text-blue-500 hover:underline flex items-center"
+                    >
+                      <ExternalLink size={16} /> Click to View
+                    </button>
                   )}
+
+                  {/* {fileUrl ? (
+                    <button
+                      onClick={() =>
+                        window.open(
+                          `${fileUrl}`,
+                          "_blank"
+                        )
+                      }
+                      className="text-blue-500 hover:underline flex items-center"
+                    >
+                      <ExternalLink size={16} /> Click to View
+                    </button>
+                  ) : (
+                    <span className="text-red-500">No File Uploaded</span>
+                  )} */}
                 </div>
               </div>
             ))}

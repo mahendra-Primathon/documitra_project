@@ -41,7 +41,7 @@ export const FORM_STEPS = [
   { id: 1, label: "Personal Details" },
   { id: 2, label: "Address Details" },
   { id: 3, label: "File Upload" },
-  // { id: 4, label: "Review" },
+  { id: 4, label: "Review" },
 ];
 
 

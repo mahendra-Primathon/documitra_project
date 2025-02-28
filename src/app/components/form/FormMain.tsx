@@ -34,6 +34,10 @@ const FormMain = () => {
     selectedCategory: "",
   });
   const [uploadError, setUploadError] = useState<string>("");
+  const [uploadedFiles, setUploadedFiles] = useState<{
+    image: string | null;
+    pdf: string | null;
+  }>({ image: null, pdf: null }); // Track uploaded file names
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
@@ -121,7 +125,7 @@ const FormMain = () => {
   const saveAndContinue = () => {
     if (validateStep()) {
       localStorage.setItem("formData", JSON.stringify(formData));
-      setCompletedStep(currentStep); // ✅ Mark current step as completed
+      setCompletedStep(currentStep + 1); // ✅ Mark current step as completed
       setCurrentStep((prev) => prev + 1);
     }
   };
@@ -152,21 +156,21 @@ const FormMain = () => {
     }
   };
 
-  const isUploadStepValid =
-    formUploadStatus.image && formUploadStatus.pdf && !uploadError;
+  // Check if both files are uploaded
+  const isUploadStepValid = uploadedFiles.image && uploadedFiles.pdf;
 
   return (
     <div className="min-h-screen bg-secondary py-10 px-10 sm:px-6 lg:px-8">
       {/* Progress Steps */}
-      <div className="max-w-sm mx-auto left-10 mb-8 mt-16">
+      <div className="max-w-sm mx-auto left-10 mb-8 ">
         <div className="flex justify-between items-center">
           {FORM_STEPS.map((step, index) => (
             <div key={step.id} className="flex items-center">
               <div
                 className={`
                   w-10 h-10 rounded-full flex items-center justify-center
-                  ${completedStep >= step.id ? "bg-primary" : "bg-gray-300"}
-                  text-white
+          ${step.id <= currentStep ? "bg-primary" : "bg-gray-300"}
+          text-white
                 `}
               >
                 {step.id}
@@ -175,7 +179,7 @@ const FormMain = () => {
                 <div
                   className={`
                     w-32 h-1 mx-0
-                    ${completedStep >= step.id ? "bg-primary" : "bg-gray-300"}
+                    ${completedStep > step.id ? "bg-primary" : "bg-gray-300"}
                   `}
                 />
               )}
@@ -208,7 +212,9 @@ const FormMain = () => {
               uploadStatus={formUploadStatus}
               setUploadStatus={setFormUploadStatus}
               setFileUrls={setFormData}
-              setUploadError={setUploadError} // Pass the setUploadError function
+              setUploadError={setUploadError}
+              fileUrls={formData}
+              setUploadedFiles={setUploadedFiles} // Pass setUploadedFiles to FormUploadStep
             />
           )}
           {currentStep === FORM_STEP.STEP_FOUR && (
@@ -221,11 +227,7 @@ const FormMain = () => {
               ): void {
                 throw new Error("Function not implemented.");
               }}
-              errors={undefined}
-              fileUrls={{
-                imageUrl: undefined,
-                pdfUrl: undefined,
-              }}
+              fileUrls={formData}
             />
           )}
 
@@ -247,19 +249,21 @@ const FormMain = () => {
             {currentStep < 4 ? (
               <button
                 onClick={saveAndContinue}
-                disabled={
-                  currentStep === FORM_STEP.STEP_THREE
-                    ? !isUploadStepValid
-                    : Object.keys(errors).length !== 0
-                }
+                // disabled={
+                //   currentStep === FORM_STEP.STEP_THREE
+                //     ? !uploadedFiles.image && !uploadedFiles.pdf
+                //     : Object.keys(errors).length !== 0
+                // }
                 className={`px-4 py-2 rounded   
                   ${
                     currentStep === FORM_STEP.STEP_THREE
-                      ? isUploadStepValid
-                        ? "bg-primary text-white"
-                        : "bg-gray-400 text-gray-700 cursor-not-allowed"
-                      : Object.keys(errors).length === 0
-                      ? "bg-primary text-white"
+                      ? 
+                      // !isUploadStepValid ?
+                         "bg-primary text-white cursor-pointer"
+                        // : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                      :
+                       Object.keys(errors).length === 0
+                      ? "bg-primary text-white cursor-pointer "
                       : "bg-gray-400 text-gray-700 cursor-not-allowed"
                   }
                 `}
@@ -272,7 +276,7 @@ const FormMain = () => {
                 disabled={!isConfirmed}
                 className={`px-4 py-2 rounded ${
                   isConfirmed
-                    ? "bg-green-500 text-white"
+                    ? "bg-green-500 text-white cursor-pointer"
                     : "bg-gray-400 text-gray-700 cursor-not-allowed"
                 }`}
               >
