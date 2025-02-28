@@ -61,3 +61,21 @@ export const locations: Location[] = [
   { id: "london", name: "london" },
   { id: "canada", name: "Canada" },
 ];
+
+export const options  = [
+  {
+    id: "driving",
+    name: "Driving License",
+    // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+  {
+    id: "voter",
+    name: "Voter ID",
+    // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+  {
+    id: "aadhar",
+    name: "Aadhar Card",
+    // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+]

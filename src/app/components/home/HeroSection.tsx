@@ -19,7 +19,7 @@ import {
 } from "../../constants/heroData";
 
 const HeroSection = () => {
-  const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(null);
+  const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(documentTypes[0]);
   const [moreSelectedDoc, setMoreSelectedDoc] = useState<DocumentType | null>( null);
   const [citizenship, setCitizenship] = useState<Location | null>(null);
   const [applyingFrom, setApplyingFrom] = useState<Location | null>(null);

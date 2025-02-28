@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { createPortal } from "react-dom";
+import { options } from "@/app/constants/heroData";
 
 // Dropdown Component
 export const Dropdown = ({ label, options, value, onChange }) => {
@@ -95,23 +96,23 @@ export const MoreDropdown = ({
     setIsOpen(false);
   };
 
-  const options = [
-    {
-      id: "driving",
-      name: "Driving License",
-      // icon: React.createElement(FileText, { className: "w-5 h-5" }),
-    },
-    {
-      id: "voter",
-      name: "Voter ID",
-      // icon: React.createElement(FileText, { className: "w-5 h-5" }),
-    },
-    {
-      id: "aadhar",
-      name: "Aadhar Card",
-      // icon: React.createElement(FileText, { className: "w-5 h-5" }),
-    },
-  ];
+  // const options = [
+  //   {
+  //     id: "driving",
+  //     name: "Driving License",
+  //     // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  //   },
+  //   {
+  //     id: "voter",
+  //     name: "Voter ID",
+  //     // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  //   },
+  //   {
+  //     id: "aadhar",
+  //     name: "Aadhar Card",
+  //     // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  //   },
+  // ];
 
   return (
     <>

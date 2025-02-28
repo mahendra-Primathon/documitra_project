@@ -256,15 +256,18 @@ const FormMain = () => {
                 // }
                 className={`px-4 py-2 rounded   
                   ${
-                    currentStep === FORM_STEP.STEP_THREE
-                      ? 
-                      // !isUploadStepValid ?
-                         "bg-primary text-white cursor-pointer"
-                        // : "bg-gray-400 text-gray-700 cursor-not-allowed"
-                      :
-                       Object.keys(errors).length === 0
+                    Object.keys(errors).length === 0
                       ? "bg-primary text-white cursor-pointer "
                       : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                    // currentStep === FORM_STEP.STEP_THREE
+                    //   ? 
+                    //   // !isUploadStepValid ?
+                    //      "bg-primary text-white cursor-pointer"
+                    //     // : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                    //   :
+                    //    Object.keys(errors).length === 0
+                    //   ? "bg-primary text-white cursor-pointer "
+                    //   : "bg-gray-400 text-gray-700 cursor-not-allowed"
                   }
                 `}
               >
