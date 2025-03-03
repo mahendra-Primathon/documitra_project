@@ -7,7 +7,8 @@ import { VISA_FORM_CONSTANTS } from "../../constants/formsData";
 import AddMemberForm from "../popUp/AddMemberForm";
 import ManageMembers from "../popUp/ManageMember";
 import { Menu, X } from "lucide-react";
-
+import useClickOutside from "@/app/hooks/useClickOutside";
+import { useRef } from "react";
 interface VisaFormHeaderProps {
   applicantName?: string;
   onSaveAndExit?: () => void;
@@ -24,6 +25,8 @@ const FormHeader = ({
   const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  useClickOutside(menuRef, () => setIsMenuOpen(false));
 
   const handleSaveAndExit = () => {
     if (onSaveAndExit) onSaveAndExit();
@@ -111,7 +114,10 @@ const FormHeader = ({
               )}
             </button>
             {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md p-2 z-50">
+              <div
+                ref={menuRef}
+                className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md p-2 z-50"
+              >
                 <button
                   onClick={() => setIsManageMembersOpen(true)}
                   className="block w-full text-left px-2 py-1 text-xs sm:text-sm hover:bg-gray-100"
