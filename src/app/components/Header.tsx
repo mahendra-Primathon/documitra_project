@@ -57,33 +57,37 @@ const AuthButtons = ({
   <div className="flex items-center gap-4">
     {user ? (
       <>
-        <button
-          onClick={onProfileClick}
-          className="text-gray-600 px-4 py-2 text-sm"
-        >
-          {userName}
-        </button>
-        <button
-          onClick={onSignOutClick}
-          className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
-        >
-          Sign Out
-        </button>
+        <div className=" flex flex-col lg:flex-row ">
+          <button
+            onClick={onProfileClick}
+            className="text-gray-600 mx-2 py-3 text-sm left-0 "
+          >
+            {userName}
+          </button>
+          <button
+            onClick={onSignOutClick}
+            className="bg-primary text-white px-12 py-2 my-2 left-0 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
+          >
+            Sign Out
+          </button>
+        </div>
       </>
     ) : (
       <>
-        <button
-          onClick={onLoginClick}
-          className="text-gray-600 hover:text-blue-600 px-4 py-2 text-sm"
-        >
-          Login
-        </button>
-        <button
-          onClick={onSignUpClick}
-          className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
-        >
-          Signup
-        </button>
+        <div className=" flex flex-col lg:flex-row">
+          <button
+            onClick={onLoginClick}
+            className="text-gray-600 hover:text-primary  px-4 py-2 text-sm"
+          >
+            Login
+          </button>
+          <button
+            onClick={onSignUpClick}
+            className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-primary transition-colors duration-300 font-bold"
+          >
+            Signup
+          </button>
+        </div>
       </>
     )}
   </div>
@@ -197,34 +201,52 @@ const Header = () => {
       {/* // Mobile Menu Content */}
       {isMobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
-          {/* Background Blur */}
-          <div
-            className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm"
-            onClick={() => setIsMobileMenuOpen(false)}
-          ></div>
-
           {/* Mobile Menu Content */}
-          <div className="fixed top-16 right-0 w-80 max-w-[90vw] bg-white shadow-lg rounded-l-lg ml-4 p-4">
-            <div className="space-y-4">
+          <div className="fixed top-0 right-0 w-64 bg-white shadow-lg h-full p-4">
+            {/* Close Button (Cross Icon) */}
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-4 right-4 p-1 text-gray-600 hover:text-primary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Menu Links */}
+            <div className="mt-12 space-y-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.title}
                   href={link.path}
-                  className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600"
+                  className="block px-2 py-1.5 text-sm font-medium text-gray-600 hover:text-primary"
                 >
                   {link.title}
                 </Link>
               ))}
-              <div className="mt-4">
-                <AuthButtons
-                  user={user}
-                  userName={userName}
-                  onSignUpClick={() => setIsSignUpModalOpen(true)}
-                  onLoginClick={() => setIsLoginModalOpen(true)}
-                  onSignOutClick={handleSignOut}
-                  onProfileClick={() => setIsUserProfileModalOpen(true)}
-                />
-              </div>
+            </div>
+
+            {/* Auth Buttons */}
+            <div className="mt-6">
+              <AuthButtons
+                user={user}
+                userName={userName}
+                onSignUpClick={() => setIsSignUpModalOpen(true)}
+                onLoginClick={() => setIsLoginModalOpen(true)}
+                onSignOutClick={handleSignOut}
+                onProfileClick={() => setIsUserProfileModalOpen(true)}
+              />
             </div>
           </div>
         </div>

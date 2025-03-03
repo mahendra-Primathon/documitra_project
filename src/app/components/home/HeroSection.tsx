@@ -19,8 +19,12 @@ import {
 } from "../../constants/heroData";
 
 const HeroSection = () => {
-  const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(documentTypes[0]);
-  const [moreSelectedDoc, setMoreSelectedDoc] = useState<DocumentType | null>(null);
+  const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(
+    documentTypes[0]
+  );
+  const [moreSelectedDoc, setMoreSelectedDoc] = useState<DocumentType | null>(
+    null
+  );
   const [citizenship, setCitizenship] = useState<Location | null>(null);
   const [applyingFrom, setApplyingFrom] = useState<Location | null>(null);
   const [destination, setDestination] = useState<Location | null>(null);
@@ -158,24 +162,32 @@ const HeroSection = () => {
           </div>
 
           {/* Best Accuracy */}
-          <div className="absolute bottom-40 lg:bottom-56 -left-4 lg:-left-10 bg-white pl-4 pr-6 lg:pl-6 lg:pr-8 py-3 lg:py-4 rounded-t-2xl lg:rounded-t-3xl rounded-bl-2xl lg:rounded-bl-3xl shadow-lg flex items-center gap-2 lg:gap-3 z-40">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center">
+          <div className="absolute bottom-40 lg:bottom-56 -left-4 lg:-left-10 bg-white pl-3 pr-4 lg:pl-6 lg:pr-8 py-2 lg:py-4 rounded-t-2xl lg:rounded-t-3xl rounded-bl-2xl lg:rounded-bl-3xl shadow-lg flex items-center gap-2 lg:gap-3 z-40">
+            <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-full flex items-center justify-center">
               <Image src={heroIcon} alt="Hero Icon" />
             </div>
             <div>
-              <p className="text-lg lg:text-xl  font-bold text-primary mb-0">Best</p>
-              <p className="text-base lg:text-lg font-bold text-primary mt-0">Accuracy</p>
+              <p className="text-base lg:text-xl font-bold text-primary mb-0">
+                Best
+              </p>
+              <p className="text-sm lg:text-lg font-bold text-primary mt-0">
+                Accuracy
+              </p>
             </div>
           </div>
 
           {/* Delivered On-Time */}
-          <div className="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 bg-white pl-4 pr-6 lg:pl-6 lg:pr-8 py-3 lg:py-4 rounded-tl-2xl lg:rounded-tl-3xl rounded-r-2xl lg:rounded-r-3xl shadow-lg flex items-center gap-2 lg:gap-3 z-40">
-            <div className="w-6 h-6 lg:w-8 lg:h-8 bg-green-100 rounded-full flex items-center justify-center">
+          <div className="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 bg-white pl-3 pr-4 lg:pl-6 lg:pr-8 py-2 lg:py-4 rounded-tl-2xl lg:rounded-tl-3xl rounded-r-2xl lg:rounded-r-3xl shadow-lg flex items-center gap-2 lg:gap-3 z-40">
+            <div className="w-5 h-5 lg:w-8 lg:h-8 bg-green-100 rounded-full flex items-center justify-center">
               <Image src={hero_delivered} alt="Hero Icon" />
             </div>
             <div>
-              <p className="text-lg lg:text-xl font-bold text-primary">Delivered</p>
-              <p className="text-base lg:text-lg font-bold text-primary">On-Time</p>
+              <p className="text-base lg:text-xl font-bold text-primary">
+                Delivered
+              </p>
+              <p className="text-sm lg:text-lg font-bold text-primary">
+                On-Time
+              </p>
             </div>
           </div>
         </div>
