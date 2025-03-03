@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { createPortal } from "react-dom";
-import { options } from "@/app/constants/heroData";
+import { options, documentTypes, moreOptions } from "@/app/constants/heroData";
 
 // Dropdown Component
 export const Dropdown = ({ label, options, value, onChange }) => {
@@ -66,11 +66,13 @@ export const DocumentTypeButton = ({ type, isSelected, onClick }) => (
 // More Dropdown Component
 
 export const MoreDropdown = ({
+
   moreSelectedDoc,
   onSelect,
   isOpen,
   setIsOpen,
   width,
+  
 }) => {
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
@@ -173,5 +175,54 @@ export const MoreDropdown = ({
           document.body
         )}
     </>
+  );
+};
+
+export const DocumentTypeSelector = () => {
+  const [visibleDocs, setVisibleDocs] = useState(documentTypes);
+  const [moreDocs, setMoreDocs] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        // Move last two items to more dropdown
+        setVisibleDocs(documentTypes.slice(0, 2));
+        setMoreDocs(documentTypes.slice(2));
+      } else {
+        // Show all items normally
+        setVisibleDocs(documentTypes);
+        setMoreDocs([]);
+      }
+    };
+
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {visibleDocs.map((type) => (
+        <DocumentTypeButton
+          key={type.id}
+          type={type}
+          isSelected={false}
+          onClick={() => {}}
+        />
+      ))}
+
+      {moreDocs.length > 0 && (
+        <MoreDropdown
+          moreSelectedDoc={null}
+          onSelect={() => {}}
+          isOpen={isDropdownOpen}
+          setIsOpen={setIsDropdownOpen}
+          width="200px"
+          // options={moreDocs} // Pass hidden docs to dropdown
+        />
+      )}
+    </div>
   );
 };

@@ -34,13 +34,13 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu Toggle (Only on small screens) */}
-        <button
+        {/* <button
           className="md:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        </button> */}
 
         {/* Social Icons - Desktop View */}
         <div className="hidden md:flex items-center space-x-6">
@@ -60,10 +60,17 @@ const Navbar: React.FC = () => {
             </span>
           </Link>
         </div>
+
+        {/* WhatsApp Icon - Mobile View (Only on small screens) */}
+        <div className="md:hidden">
+          <Link href="/" className="hover:text-blue-200">
+            <Image src={whatsappLogo} alt="WhatsApp" className="w-6 h-6" />
+          </Link>
+        </div>
       </div>
 
       {/* Mobile Menu - Appears when isOpen is true */}
-      {isOpen && (
+      {/* {isOpen && (
         <div className="fixed top-0 left-0 h-full w-full bg-primary p-6 z-50 flex flex-col items-center space-y-4 mt-3">
           <Link href="/" className="hover:text-blue-200">
             <Image src={facebookLogo} alt="Facebook" className="w-6 h-6" />
@@ -79,7 +86,7 @@ const Navbar: React.FC = () => {
             <span className="font-semibold underline">Chat with us</span>
           </Link>
         </div>
-      )}
+      )} */}
     </nav>
   );
 };

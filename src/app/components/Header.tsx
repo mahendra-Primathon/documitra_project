@@ -15,7 +15,6 @@ import { doc, getDoc } from "firebase/firestore";
 const navLinks = [
   { title: "Home", path: "/" },
   { title: "Services", path: "/services" },
-  // { title: "Packages", path: "/packages" },
   { title: "Photos", path: "/photos" },
   { title: "Blog", path: "/blog" },
   { title: "FAQ's", path: "/faqs" },
@@ -91,11 +90,23 @@ const AuthButtons = ({
 );
 
 // Mobile Menu Button Component
+// Mobile Menu Button Component
 const MobileMenuButton = ({ isOpen, setIsOpen }) => (
   <button className="lg:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
-    <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
-    <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
-    <div className="w-6 h-0.5 bg-gray-600"></div>
+    {isOpen ? (
+      // Cross (X) icon when menu is open
+      <div className="relative w-6 h-6">
+        <div className="absolute w-6 h-0.5 bg-gray-600 transform rotate-45"></div>
+        <div className="absolute w-6 h-0.5 bg-gray-600 transform -rotate-45"></div>
+      </div>
+    ) : (
+      // Hamburger icon when menu is closed
+      <>
+        <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
+        <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
+        <div className="w-6 h-0.5 bg-gray-600"></div>
+      </>
+    )}
   </button>
 );
 
@@ -141,7 +152,7 @@ const Header = () => {
     }
   };
 
-  const handleUpdateUserName = (updatedUserName: string) => {
+  const handleUpdateUserName = (updatedUserName) => {
     setUserName(updatedUserName);
   };
 
@@ -150,7 +161,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}
-          <div className="flex items-center ">
+          <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <Image src={logo} alt="DocuMitra Logo" className="mr-2" />
             </Link>
@@ -182,40 +193,47 @@ const Header = () => {
           />
         </div>
       </div>
-
       {/* Mobile Menu */}
+      {/* // Mobile Menu Content */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.path}
-                className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600"
-              >
-                {link.title}
-              </Link>
-            ))}
-            <div className="mt-4 px-3">
-              <AuthButtons
-                user={user}
-                userName={userName}
-                onSignUpClick={() => setIsSignUpModalOpen(true)}
-                onLoginClick={() => setIsLoginModalOpen(true)}
-                onSignOutClick={handleSignOut}
-                onProfileClick={() => setIsUserProfileModalOpen(true)}
-              />
+        <div className="lg:hidden fixed inset-0 z-50">
+          {/* Background Blur */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          ></div>
+
+          {/* Mobile Menu Content */}
+          <div className="fixed top-16 right-0 w-80 max-w-[90vw] bg-white shadow-lg rounded-l-lg ml-4 p-4">
+            <div className="space-y-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.title}
+                  href={link.path}
+                  className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600"
+                >
+                  {link.title}
+                </Link>
+              ))}
+              <div className="mt-4">
+                <AuthButtons
+                  user={user}
+                  userName={userName}
+                  onSignUpClick={() => setIsSignUpModalOpen(true)}
+                  onLoginClick={() => setIsLoginModalOpen(true)}
+                  onSignOutClick={handleSignOut}
+                  onProfileClick={() => setIsUserProfileModalOpen(true)}
+                />
+              </div>
             </div>
           </div>
         </div>
       )}
-
       {/* Sign Up Modal */}
       <SignUpModal
         isOpen={isSignUpModalOpen}
         onClose={() => setIsSignUpModalOpen(false)}
       />
-
       {/* Login Modal */}
       <LoginModal
         isOpen={isLoginModalOpen}
@@ -225,12 +243,11 @@ const Header = () => {
           setIsSignUpModalOpen(true);
         }}
       />
-
       {/* User Profile Modal */}
       <UserProfileModal
         isOpen={isUserProfileModalOpen}
         onClose={() => setIsUserProfileModalOpen(false)}
-        onUpdateUserName={handleUpdateUserName} // Pass the callback function
+        onUpdateUserName={handleUpdateUserName}
       />
     </header>
   );
