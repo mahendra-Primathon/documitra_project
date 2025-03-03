@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-// import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
 import { packageCard } from "../../constants/packageData";
 import { Calendar, Package2, Coins } from "lucide-react";
@@ -9,9 +8,9 @@ const PackageCard = ({ country = "usa" }) => {
   const packages = packageCard[country];
   const router = useRouter();
 
-  const handleApply = (packageId) => {
-    console.log(`Applying for package ${packageId}`);
-    router.push(`/form`);
+  const handleApply = (pkg) => {
+    console.log(`Applying for package ${pkg.id} in ${country}`);
+    router.push(`/form?country=${country}&packageId=${pkg.id}`);
   };
 
   return (
@@ -71,7 +70,7 @@ const PackageCard = ({ country = "usa" }) => {
             </div>
 
             <button
-              onClick={() => handleApply(pkg.id)}
+              onClick={() => handleApply(pkg)}
               className="w-full mt-6 bg-primary text-white py-3 px-4 rounded-full hover:bg-blue-800 transition-colors font-medium"
             >
               Apply Now
