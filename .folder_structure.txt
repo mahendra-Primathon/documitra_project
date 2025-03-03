@@ -1,5 +1,4 @@
-frontend/
-├── .blackboxrules
+/home/mahendra/Primathon/DocuMitra/frontend
 ├── .gitignore
 ├── eslint.config.mjs
 ├── next.config.ts
@@ -10,80 +9,152 @@ frontend/
 ├── roughdata
 ├── tailwind.config.ts
 ├── tsconfig.json
-├── public/
-│   ├── assets/
-│   │   └── images/
-│   └── uploads/
-└── src/
-    ├── form.js
-    ├── app/
-    │   ├── globals.css
-    │   ├── layout.tsx
-    │   ├── page.tsx
-    │   ├── admin/
-    │   │   └── page.tsx
-    │   ├── api/
-    │   │   ├── test-connection/
-    │   │   │   └── route.ts
-    │   │   └── upload/
-    │   │       └── route.ts
-    │   └── components/
-    │       ├── FaqSection.tsx
-    │       ├── Footer.tsx
-    │       ├── GetStartedButton.tsx
-    │       ├── Header.tsx
-    │       ├── PremiumService.tsx
-    │       ├── StatesSection.tsx
-    │       ├── testimonial.tsx
-    │       ├── VisaServices.tsx
-    │       └── WhyDocuMitra.tsx
-    │       └── contact/
-    │           └── contact.tsx
-    │       └── form/
-    │           ├── FormAddressForm.tsx
-    │           ├── FormFileView.tsx
-    │           ├── FormHeader.tsx
-    │           ├── FormMain.tsx
-    │           ├── FormPersonalDetailsForm.tsx
-    │           ├── FormReviewForm.tsx
-    │           └── FormUploadStep.tsx
-    │       └── home/
-    │           ├── HeroComponents.tsx
-    │           ├── HeroSection.tsx
-    │           └── Navbar.tsx
-    │       └── package/
-    │           ├── pacakgeApplicationTimeline.tsx
-    │           ├── packageApplicationProcess.tsx
-    │           ├── packageCard.tsx
-    │           ├── PackageDropdown.tsx
-    │           ├── packageForm.tsx
-    │           └── packageVisaProcess.tsx
-    │       └── popUp/
-    │           ├── ForgetPassword.tsx
-    │           ├── Login.tsx
-    │           ├── SignUp.tsx
-    │           └── userProfile.tsx
-    │       └── constants/
-    │           ├── contactData.ts
-    │           ├── faqData.ts
-    │           ├── firebase.ts
-    │           ├── footerData.ts
-    │           ├── formsData.ts
-    │           ├── heroData.ts
-    │           ├── packageData.ts
-    │           ├── premiumServiceData.ts
-    │           └── processDAta.ts
-    │           └── testimonialData.ts
-    │       └── contact/
-    │           └── page.tsx
-    │       └── form/
-    │           └── page.tsx
-    │       └── hooks/
-    │           └── useClickOutside.ts
-    │       └── packages/
-    │           └── page.tsx
-    │       └── packages/
-    │           └── [country]/
-    │               └── page.tsx
-    │       └── pages/
-    │           ├── index.js
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── contact/
+│   │   │   │   └── contact.tsx
+│   │   │   ├── form/
+│   │   │   │   ├── FormAddressForm.tsx
+│   │   │   │   ├── FormFileView.tsx
+│   │   │   │   ├── FormHeader.tsx
+│   │   │   │   ├── FormMain.tsx
+│   │   │   │   ├── FormPersonalDetailsForm.tsx
+│   │   │   │   ├── FormReviewForm.tsx
+│   │   │   │   ├── FormSummaryCard.jsx
+│   │   │   │   └── FormUploadStep.tsx
+│   │   │   ├── home/
+│   │   │   │   ├── HeroComponents.tsx
+│   │   │   │   ├── HeroSection.tsx
+│   │   │   │   ├── Navbar.tsx
+│   │   │   │   └── ProcesSection.tsx
+│   │   │   ├── package/
+│   │   │   │   ├── pacakgeApplicationTimeline.tsx
+│   │   │   │   ├── packageApplicationProcess.tsx
+│   │   │   │   ├── packageCard.tsx
+│   │   │   │   ├── PackageDropdown.tsx
+│   │   │   │   ├── packageForm.tsx
+│   │   │   │   └── packageVisaProcess.tsx
+│   │   │   ├── popUp/
+│   │   │   │   ├── AddMemberForm.tsx
+│   │   │   │   ├── ForgetPassword.tsx
+│   │   │   │   ├── Login.tsx
+│   │   │   │   ├── ManageMember.tsx
+│   │   │   │   ├── SignUp.tsx
+│   │   │   │   └── userProfile.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── GetStartedButton.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── PremiumService.tsx
+│   │   │   ├── StatesSection.tsx
+│   │   │   ├── testimonial.tsx
+│   │   │   └── WhyDocuMitra.tsx
+│   │   ├── constants/
+│   │   │   ├── contactData.ts
+│   │   │   ├── faqData.ts
+│   │   │   ├── firebase.ts
+│   │   │   ├── footerData.ts
+│   │   │   ├── formsData.ts
+│   │   │   ├── heroData.ts
+│   │   │   ├── packageData.ts
+│   │   │   ├── premiumServiceData.ts
+│   │   │   ├── processDAta.ts
+│   │   │   └── testimonialData.ts
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+<create_file>
+<path>.folder_structure.txt</path>
+<content>
+/home/mahendra/Primathon/DocuMitra/frontend
+├── .gitignore
+├── eslint.config.mjs
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── roughdata
+├── tailwind.config.ts
+├── tsconfig.json
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── contact/
+│   │   │   │   └── contact.tsx
+│   │   │   ├── form/
+│   │   │   │   ├── FormAddressForm.tsx
+│   │   │   │   ├── FormFileView.tsx
+│   │   │   │   ├── FormHeader.tsx
+│   │   │   │   ├── FormMain.tsx
+│   │   │   │   ├── FormPersonalDetailsForm.tsx
+│   │   │   │   ├── FormReviewForm.tsx
+│   │   │   │   ├── FormSummaryCard.jsx
+│   │   │   │   └── FormUploadStep.tsx
+│   │   │   ├── home/
+│   │   │   │   ├── HeroComponents.tsx
+│   │   │   │   ├── HeroSection.tsx
+│   │   │   │   ├── Navbar.tsx
+│   │   │   │   └── ProcesSection.tsx
+│   │   │   ├── package/
+│   │   │   │   ├── pacakgeApplicationTimeline.tsx
+│   │   │   │   ├── packageApplicationProcess.tsx
+│   │   │   │   ├── packageCard.tsx
+│   │   │   │   ├── PackageDropdown.tsx
+│   │   │   │   ├── packageForm.tsx
+│   │   │   │   └── packageVisaProcess.tsx
+│   │   │   ├── popUp/
+│   │   │   │   ├── AddMemberForm.tsx
+│   │   │   │   ├── ForgetPassword.tsx
+│   │   │   │   ├── Login.tsx
+│   │   │   │   ├── ManageMember.tsx
+│   │   │   │   ├── SignUp.tsx
+│   │   │   │   └── userProfile.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── GetStartedButton.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── PremiumService.tsx
+│   │   │   ├── StatesSection.tsx
+│   │   │   ├── testimonial.tsx
+│   │   │   └── WhyDocuMitra.tsx
+│   │   ├── constants/
+│   │   │   ├── contactData.ts
+│   │   │   ├── faqData.ts
+│   │   │   ├── firebase.ts
+│   │   │   ├── footerData.ts
+│   │   │   ├── formsData.ts
+│   │   │   ├── heroData.ts
+│   │   │   ├── packageData.ts
+│   │   │   ├── premiumServiceData.ts
+│   │   │   ├── processDAta.ts
+│   │   │   └── testimonialData.ts
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── admin/
+│   │   │   ├── members/
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── api/
+│   │   │   ├── test-connection/
+│   │   │   │   └── route.ts
+│   │   │   └── upload/
+│   │   │       └── route.ts
+│   │   ├── hooks/
+│   │   │   └── useClickOutside.ts
+│   │   ├── contact/
+│   │   │   └── page.tsx
+│   │   ├── form/
+│   │   │   └── page.tsx
+│   │   ├── packages/
+│   │   │   ├── [country]/
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── services/
+│   │   │   └── page.tsx
+│   │   └── pages/
+│   │       ├── api/
+│   │       │   └── get-files.ts
+│   │       └── index.js
+│   ├── lib/
+│   │   └── mongodb.ts
+│   └── pages/

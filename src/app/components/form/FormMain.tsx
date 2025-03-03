@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   INITIAL_FORM_DATA,
   FORM_STEPS,
@@ -13,6 +14,7 @@ import FormUploadStep from "./FormUploadStep";
 
 import { v4 as uuidv4 } from "uuid";
 import { ArrowLeft } from "lucide-react";
+import { packageCard } from "../../constants/packageData";
 
 enum FORM_STEP {
   STEP_ONE = 1,
@@ -38,6 +40,20 @@ const FormMain = () => {
     image: string | null;
     pdf: string | null;
   }>({ image: null, pdf: null }); // Track uploaded file names
+
+  const searchParams = useSearchParams();
+  const country = searchParams.get("country");
+  const packageId = searchParams.get("packageId");
+
+  const [selectedPackage, setSelectedPackage] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && country && packageId) {
+      const packages = packageCard[country];
+      const pkg = packages.find((p) => p.id === parseInt(packageId));
+      setSelectedPackage(pkg);
+    }
+  }, [country, packageId]);
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
@@ -157,7 +173,7 @@ const FormMain = () => {
   };
 
   // Check if both files are uploaded
-  const isUploadStepValid = uploadedFiles.image && uploadedFiles.pdf;
+  // const isUploadStepValid = uploadedFiles.image && uploadedFiles.pdf;
 
   return (
     <div className="min-h-screen bg-secondary py-10 px-10 sm:px-6 lg:px-8">
@@ -260,7 +276,7 @@ const FormMain = () => {
                       ? "bg-primary text-white cursor-pointer "
                       : "bg-gray-400 text-gray-700 cursor-not-allowed"
                     // currentStep === FORM_STEP.STEP_THREE
-                    //   ? 
+                    //   ?
                     //   // !isUploadStepValid ?
                     //      "bg-primary text-white cursor-pointer"
                     //     // : "bg-gray-400 text-gray-700 cursor-not-allowed"
@@ -289,7 +305,7 @@ const FormMain = () => {
           </div>
         </div>
         {/* Summary Card */}
-        <FormSummaryCard />
+        <FormSummaryCard pkg={selectedPackage} />
       </div>
     </div>
   );

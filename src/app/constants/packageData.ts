@@ -325,7 +325,7 @@ export const visaProcessSteps = {
   ],
 };
 
-export default visaProcessSteps;
+// export default visaProcessSteps;
 
 
 export const applicationProcessData = [
