@@ -6,7 +6,7 @@ import Image from "next/image";
 import { VISA_FORM_CONSTANTS } from "../../constants/formsData";
 import AddMemberForm from "../popUp/AddMemberForm";
 import ManageMembers from "../popUp/ManageMember";
-import addImage from "../../../../public/assets/images/Form/AddIcon.svg";
+import { Menu, X } from "lucide-react";
 
 interface VisaFormHeaderProps {
   applicantName?: string;
@@ -23,18 +23,11 @@ const FormHeader = ({
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
   const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSaveAndExit = () => {
     if (onSaveAndExit) onSaveAndExit();
     router.push(VISA_FORM_CONSTANTS.routes.HOME);
-  };
-
-  const handleAddMember = (member: { name: string; age: number }) => {
-    setMembers((prev) => [...prev, member]);
-  };
-
-  const handleRemoveMember = (index: number) => {
-    setMembers((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSelectMember = (name: string) => {
@@ -46,7 +39,7 @@ const FormHeader = ({
   };
 
   return (
-    <div className="relative w-full h-48">
+    <div className="relative w-full h-52 sm:h-44">
       <div className="absolute inset-0 w-full h-full">
         <Image
           src="/assets/images/Form/Mask_group.svg"
@@ -58,11 +51,13 @@ const FormHeader = ({
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="py-4">
-          <div className="flex items-center space-x-2 text-sm text-white/90">
+        <nav className="py-3">
+          <div className="flex flex-wrap items-center space-x-2 text-xs sm:text-sm text-white/90">
             {VISA_FORM_CONSTANTS.breadcrumbs.map((item, index) => (
               <div key={item.path} className="flex items-center">
-                {index > 0 && <span className="mx-2 text-white/70">/</span>}
+                {index > 0 && (
+                  <span className="mx-1 sm:mx-2 text-white/70">/</span>
+                )}
                 <Link
                   href={item.path}
                   className="hover:text-white transition-colors duration-200"
@@ -74,83 +69,95 @@ const FormHeader = ({
           </div>
         </nav>
 
-        <div className="pt-4">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-white mb-2">
-              {VISA_FORM_CONSTANTS.usa.title}
-            </h1>
-            <p className="text-white/90">{VISA_FORM_CONSTANTS.usa.subtitle}</p>
-          </div>
+        <div className="pt-2">
+          <h1 className="text-lg sm:text-xl font-bold text-white mb-1">
+            {VISA_FORM_CONSTANTS.usa.title}
+          </h1>
+          <p className="text-xs sm:text-sm text-white/90">
+            {VISA_FORM_CONSTANTS.usa.subtitle}
+          </p>
+        </div>
 
-          <div className="flex justify-between items-center">
-            <div className="flex items-center ">
-              <div className="flex items-center gap-2 ">
-                <div
-                  className={`px-10 py-3 rounded-md ${
-                    selectedMember && selectedMember.length > 0
-                      ? " text-white "
-                      : "bg-secondary text-black "
-                  }`}
-                >
-                  <span className=" font-medium  ">{applicantName}</span>
-                </div>
-
-                {selectedMember && (
-                  <div className="bg-secondary px-6  flex flex-row justify-between py-3 rounded-md">
-                    <span className="text-black font-medium">
-                      {selectedMember}
-                    </span>
-                    <button
-                      onClick={handleDeselectMember}
-                      className="ml-2 text-black  hover:bg-black/10 transition-colors"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                )}
-
-                <button
-                  onClick={() => setIsManageMembersOpen(true)}
-                  className="ml-4 text-white hover:text-white/90 flex items-center space-x-2 gap-2 transition-colors"
-                >
-                  <span> Add / Manage Members</span>
-                </button>
-              </div>
+        {/* Name Badge & Member Selection */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div className="flex items-center gap-2 translate-y-14 md:translate-y-11">
+            <div className="px-3 py-2 bg-secondary text-black rounded-md text-xs sm:text-sm font-medium">
+              {applicantName}
             </div>
 
+            {selectedMember && (
+              <div className="bg-secondary px-3 py-1 rounded-md flex items-center gap-2 text-xs sm:text-sm">
+                <span className="text-black font-medium">{selectedMember}</span>
+                <button
+                  onClick={handleDeselectMember}
+                  className="text-black hover:bg-black/10 transition-colors p-1 rounded-md"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Button (Only for Mobile) */}
+          <div className="sm:hidden absolute right-0 translate-y-14 md:translate-y-11">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-white p-2 focus:outline-none"
+            >
+              {isMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+            {isMenuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md p-2 z-50">
+                <button
+                  onClick={() => setIsManageMembersOpen(true)}
+                  className="block w-full text-left px-2 py-1 text-xs sm:text-sm hover:bg-gray-100"
+                >
+                  Add / Manage Members
+                </button>
+                <button
+                  onClick={handleSaveAndExit}
+                  className="block w-full text-left px-2 py-1 text-xs sm:text-sm hover:bg-gray-100"
+                >
+                  Save & Exit
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Buttons (Only for Desktop) */}
+          <div className="hidden sm:flex gap-2 items-center translate-y-14 md:translate-y-11">
+            <button
+              onClick={() => setIsManageMembersOpen(true)}
+              className="text-xs sm:text-sm text-white hover:text-white/90 transition-colors"
+            >
+              Add / Manage Members
+            </button>
             <button
               onClick={handleSaveAndExit}
-              className="px-8 py-3 bg-secondary text-blue-700 rounded-md hover:bg-white/90 transition-colors duration-200 flex items-center space-x-2"
+              className="px-4 py-2 bg-secondary text-blue-700 rounded-md text-xs sm:text-sm hover:bg-white/90 transition-colors"
             >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
-                />
-              </svg>
-              <span>Save & Exit</span>
+              Save & Exit
             </button>
           </div>
         </div>
       </div>
+
+      {/* Popups */}
       <AddMemberForm
         isOpen={isAddMemberOpen}
         onClose={() => setIsAddMemberOpen(false)}
-        onSaveMember={handleAddMember}
+        onSaveMember={() => {}}
         onOpenManageMembers={() => setIsManageMembersOpen(true)}
       />
       <ManageMembers
-        onSelect={handleSelectMember}
-        onRemove={handleRemoveMember}
         isOpen={isManageMembersOpen}
         onClose={() => setIsManageMembersOpen(false)}
+        onSelect={handleSelectMember}
+        onRemove={() => {}}
         onAddNewMember={() => setIsAddMemberOpen(true)}
       />
     </div>
