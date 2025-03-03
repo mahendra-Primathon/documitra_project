@@ -48,32 +48,38 @@ const Footer = () => {
   ];
   return (
     <footer className="bg-primary text-white">
-      <div className="px-4 sm:px-6 lg:px-8 py-8 mx-auto">
+      <div className="px-4 sm:px-6 lg:px-6 py-8 mx-auto max-w-[100rem] ">
         {/* Main Footer Content */}
         <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-4">
           {/* Company Info */}
 
-          
-          <div className="flex-1">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-4 mb-6">
-              <Image src={logoFooter} alt="Documitra" width={80} height={100} />
-              <div className="space-y-2 text-center md:text-left">
+          <div className="max-w-xl">
+            <div className="flex flex-row md:flex-row items-center md:items-start gap-4 mb-6 mx-auto text-left ">
+              <div className="flex">
+                <Image
+                  src={logoFooter}
+                  alt="Documitra"
+                  width={80}
+                  height={100}
+                />
+              </div>
+              <div className=" flex flex-col space-y-2 text-left md:text-left">
                 <span className="font-semibold text-xl">Documitra</span>
                 <a
                   href="mailto:info@documitra.com"
-                  className="flex items-center justify-center md:justify-start gap-2"
+                  className="flex  md:justify-start gap-2"
                 >
                   info@documitra.com
                 </a>
                 <a
                   href="tel:+911234567890"
-                  className="flex items-center justify-center md:justify-start gap-2"
+                  className="flex  md:justify-start gap-2"
                 >
                   +91 1234567890
                 </a>
               </div>
             </div>
-            <p className="text-sm text-gray-300 text-center md:text-left">
+            <p className="text-sm text-gray-300 text-left md:text-left">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
               quaerat officiis aliquam animi minus nulla aspernatur voluptate,
               ipsam iusto nemo, Lorem ipsum dolor sit amet consectetur,
@@ -82,7 +88,7 @@ const Footer = () => {
           </div>
 
           {/* Services Links */}
-          <div className="flex-1">
+          <div className="max-w-lg">
             <FooterColumn title="Services">
               {servicesLinks?.map((link, index) => (
                 <div key={index}>
@@ -93,7 +99,7 @@ const Footer = () => {
           </div>
 
           {/* Documitra Links */}
-          <div className="flex-1">
+          <div className="max-w-[50rem]">
             <FooterColumn title="Documitra">
               <div className="grid grid-cols-2 md:grid-cols-1 gap-3">
                 {documitraLinks?.map((link, index) => (
@@ -106,7 +112,7 @@ const Footer = () => {
           </div>
 
           {/* Connect Section */}
-          <div className="flex-1">
+          <div className=" max-w-md ">
             <FooterColumn title="Connect">
               <div className="flex flex-row md:flex-col gap-4">
                 {socialLinks?.map((link, index) => (
@@ -119,7 +125,7 @@ const Footer = () => {
           </div>
 
           {/* Payment Methods */}
-          <div className="flex-1">
+          <div className="max-w-lg">
             <div className="grid grid-cols-2 md:flex flex-col gap-3 mt-4">
               {paymentMethods.map((method, index) => (
                 <Image

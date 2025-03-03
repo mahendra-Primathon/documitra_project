@@ -163,7 +163,7 @@ const HeroSection = () => {
               <Image src={heroIcon} alt="Hero Icon" />
             </div>
             <div>
-              <p className="text-lg lg:text-xl font-bold text-primary mb-0">Best</p>
+              <p className="text-lg lg:text-xl  font-bold text-primary mb-0">Best</p>
               <p className="text-base lg:text-lg font-bold text-primary mt-0">Accuracy</p>
             </div>
           </div>

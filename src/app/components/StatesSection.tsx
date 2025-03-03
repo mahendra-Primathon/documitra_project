@@ -26,7 +26,7 @@ const StatItem: React.FC<StatItemProps> = ({ value, label, icon }) => {
 
   return (
     <motion.div
-      className="flex items-center gap-6 border-r-2 border-gray-300 pr-16 last:border-r-0 md:border-r-2 md:pr-16 max-md:border-r-0 max-md:pr-0 "
+      className="flex items-center gap-6 border-r-2 border-gray-300 pr-16 last:border-r-0 md:border-r-2 md:pr-16 max-md:border-r-0 max-md:pr-0 max-md:border-b-2 max-md:pb-6 "
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 0.3 }}
