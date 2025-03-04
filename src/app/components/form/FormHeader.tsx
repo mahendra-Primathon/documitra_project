@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,6 +9,10 @@ import ManageMembers from "../popUp/ManageMember";
 import { Menu, X } from "lucide-react";
 import useClickOutside from "@/app/hooks/useClickOutside";
 import { useRef } from "react";
+import { useSearchParams } from "next/navigation";
+import { packageCard } from "../../constants/packageData";
+import AddIcon from "../../../../public/assets/images/Form/AddIcon.svg";
+
 interface VisaFormHeaderProps {
   applicantName?: string;
   onSaveAndExit?: () => void;
@@ -24,6 +28,7 @@ const FormHeader = ({
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
   const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<any>(null); // Adjust type as necessary
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   useClickOutside(menuRef, () => setIsMenuOpen(false));
@@ -40,6 +45,18 @@ const FormHeader = ({
   const handleDeselectMember = () => {
     setSelectedMember(null);
   };
+
+  const searchParams = useSearchParams();
+  const country = searchParams.get("country");
+  const packageId = searchParams.get("packageId");
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && country && packageId) {
+      const packages = packageCard[country];
+      const pkg = packages.find((p) => p.id === parseInt(packageId));
+      setSelectedPackage(pkg);
+    }
+  }, [country, packageId]);
 
   return (
     <div className="relative w-full h-52 sm:h-44">
@@ -74,10 +91,14 @@ const FormHeader = ({
 
         <div className="pt-2">
           <h1 className="text-lg sm:text-xl font-bold text-white mb-1">
-            {VISA_FORM_CONSTANTS.usa.title}
+            {selectedPackage
+              ? selectedPackage.title
+              : VISA_FORM_CONSTANTS.usa.title}
           </h1>
           <p className="text-xs sm:text-sm text-white/90">
-            {VISA_FORM_CONSTANTS.usa.subtitle}
+            {selectedPackage
+              ? selectedPackage.title
+              : VISA_FORM_CONSTANTS.usa.subtitle}
           </p>
         </div>
 
@@ -99,6 +120,17 @@ const FormHeader = ({
                 </button>
               </div>
             )}
+
+            {/* Add / Manage Members Button */}
+            <button
+              onClick={() => setIsManageMembersOpen(true)}
+              className="hidden lg:flex text-xs sm:text-sm text-white hover:text-white/90 transition-colors ml-3 gap-1"
+            >
+              {/* <div className="rounded-full  flex items-center">
+              </div> */}
+                <Image src={AddIcon} width={20} height={20} alt="logo"   />
+              Add Members
+            </button>
           </div>
 
           {/* Mobile Menu Button (Only for Mobile) */}
@@ -136,12 +168,6 @@ const FormHeader = ({
 
           {/* Desktop Buttons (Only for Desktop) */}
           <div className="hidden sm:flex gap-2 items-center translate-y-14 md:translate-y-11">
-            <button
-              onClick={() => setIsManageMembersOpen(true)}
-              className="text-xs sm:text-sm text-white hover:text-white/90 transition-colors"
-            >
-              Add / Manage Members
-            </button>
             <button
               onClick={handleSaveAndExit}
               className="px-4 py-2 bg-secondary text-blue-700 rounded-md text-xs sm:text-sm hover:bg-white/90 transition-colors"

@@ -178,36 +178,34 @@ const FormMain = () => {
   return (
     <div className="min-h-screen bg-secondary py-10 px-10 sm:px-6 lg:px-8">
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-        {/* Summary Card */}
-        <div className="md:col-span-1 order-1 md:order-none">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Summary Card (Top on Mobile, Right on Larger Screens) */}
+        <div className="lg:col-span-1 order-1 lg:order-2">
           <FormSummaryCard pkg={selectedPackage} />
         </div>
 
-        {/* Form */}
-        <div className="md:col-span-2 bg-white rounded-2xl shadow-2xl px-2 py-4 md:p-6 order-3 md:order-none">
+        {/* Form (Centered in larger screens) */}
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-2xl px-2 py-4 md:p-6 order-2 lg:order-1">
           {/* Progress Steps */}
-          <div className="max-w-sm mx-auto  mb-4 my-4 ">
-            <div className="flex justify-between items-center">
+          {/* Progress Steps */}
+          <div className="flex justify-center items-center max-w-sm mx-auto mb-4 my-4">
+            <div className="flex justify-between items-center w-full">
               {FORM_STEPS.map((step, index) => (
                 <div key={step.id} className="flex items-center">
                   <div
                     className={`
-                      w-6 h-6 md:h-10 md:w-10 rounded-full flex items-center justify-center
-                      ${step.id <= currentStep ? "bg-primary" : "bg-gray-300"}
-                      text-white text-sm sm:text-base
-                    `}
+            w-8 h-8 md:h-10 md:w-10 rounded-full flex items-center justify-center
+            ${step.id <= currentStep ? "bg-primary" : "bg-gray-300"}
+            text-white text-sm sm:text-base
+          `}
                   >
                     {step.id}
                   </div>
                   {index < FORM_STEPS.length - 1 && (
                     <div
-                      className={`
-                        w-20 h-1 md:w-32 mx-0
-                        ${
-                          completedStep > step.id ? "bg-primary" : "bg-gray-300"
-                        }
-                      `}
+                      className={`h-1 mx-1 w-12 md:w-32 ${
+                        completedStep > step.id ? "bg-primary" : "bg-gray-300"
+                      }`}
                     />
                   )}
                 </div>
@@ -237,7 +235,7 @@ const FormMain = () => {
               setFileUrls={setFormData}
               setUploadError={setUploadError}
               fileUrls={formData}
-              setUploadedFiles={setUploadedFiles} // Pass setUploadedFiles to FormUploadStep
+              setUploadedFiles={setUploadedFiles}
             />
           )}
           {currentStep === FORM_STEP.STEP_FOUR && (
@@ -245,40 +243,32 @@ const FormMain = () => {
               formData={formData}
               setIsConfirmed={setIsConfirmed}
               formUploadStatus={formUploadStatus}
-              onChange={function (
-                e: React.ChangeEvent<HTMLInputElement>
-              ): void {
-                throw new Error("Function not implemented.");
-              }}
+              onChange={(e) => {}}
               fileUrls={formData}
             />
           )}
 
           {/* Navigation Buttons */}
           <div className="flex justify-between mt-14">
-            <div>
-              {currentStep > 1 && (
-                <button
-                  onClick={goToPrevious}
-                  className="px-4 py-2 rounded-md flex items-center space-x-2 bg-secondary text-black"
-                >
-                  <ArrowLeft size={18} />
-                  <span>Previous</span>
-                </button>
-              )}
-            </div>
+            {currentStep > 1 && (
+              <button
+                onClick={goToPrevious}
+                className="px-4 py-2 rounded-md flex items-center space-x-2 bg-secondary text-black"
+              >
+                <ArrowLeft size={18} />
+                <span>Previous</span>
+              </button>
+            )}
 
             <div className="flex-grow"></div>
             {currentStep < 4 ? (
               <button
                 onClick={saveAndContinue}
-                className={`px-4 py-2 rounded   
-                  ${
-                    Object.keys(errors).length === 0
-                      ? "bg-primary text-white cursor-pointer "
-                      : "bg-gray-400 text-gray-700 cursor-not-allowed"
-                  }
-                `}
+                className={`px-4 py-2 rounded ${
+                  Object.keys(errors).length === 0
+                    ? "bg-primary text-white cursor-pointer"
+                    : "bg-gray-400 text-gray-700 cursor-not-allowed"
+                }`}
               >
                 Save & Continue
               </button>
