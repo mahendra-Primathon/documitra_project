@@ -73,17 +73,31 @@ const FormHeader = ({
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="py-3">
           <div className="flex flex-wrap items-center space-x-2 text-xs sm:text-sm text-white/90">
-            {VISA_FORM_CONSTANTS.breadcrumbs.map((item, index) => (
+            {[
+              ...VISA_FORM_CONSTANTS.breadcrumbs.slice(0, 2), // Take first two static items
+              {
+                label: country || VISA_FORM_CONSTANTS.breadcrumbs[2].label, // Use country param or fallback
+                path: country
+                  ? `/packages/${country.toUpperCase()}`
+                  : VISA_FORM_CONSTANTS.breadcrumbs[2].path,
+              },
+            ].map((item, index, arr) => (
               <div key={item.path} className="flex items-center">
                 {index > 0 && (
                   <span className="mx-1 sm:mx-2 text-white/70">/</span>
                 )}
-                <Link
-                  href={item.path}
-                  className="hover:text-white transition-colors duration-200"
-                >
-                  {item.label}
-                </Link>
+                {index === arr.length - 1 ? (
+                  <span className="text-white">
+                    {item.label.toUpperCase()}
+                    </span>
+                ) : (
+                  <Link
+                    href={item.path}
+                    className="hover:text-white transition-colors duration-200"
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </div>
             ))}
           </div>
@@ -97,15 +111,15 @@ const FormHeader = ({
           </h1>
           <p className="text-xs sm:text-sm text-white/90">
             {selectedPackage
-              ? selectedPackage.title
+              ? `Visa for India - ${country}`
               : VISA_FORM_CONSTANTS.usa.subtitle}
           </p>
         </div>
 
         {/* Name Badge & Member Selection */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-          <div className="flex items-center gap-2 translate-y-14 md:translate-y-11">
-            <div className="px-3 py-2 bg-secondary text-black rounded-md text-xs sm:text-sm font-medium">
+          <div className="flex items-center gap-2 translate-y-20 md:translate-y-11 ">
+            <div className="px-3 py-2 bg-secondary text-black rounded-t-md text-xs sm:text-sm font-medium">
               {applicantName}
             </div>
 
@@ -124,17 +138,17 @@ const FormHeader = ({
             {/* Add / Manage Members Button */}
             <button
               onClick={() => setIsManageMembersOpen(true)}
-              className="hidden lg:flex text-xs sm:text-sm text-white hover:text-white/90 transition-colors ml-3 gap-1"
+              className="hidden lg:flex text-xs sm:text-sm text-white hover:text-white/90 transition-colors ml-3  gap-1"
             >
               {/* <div className="rounded-full  flex items-center">
               </div> */}
-                <Image src={AddIcon} width={20} height={20} alt="logo"   />
+              <Image src={AddIcon} width={25} height={25} alt="logo" />
               Add Members
             </button>
           </div>
 
           {/* Mobile Menu Button (Only for Mobile) */}
-          <div className="sm:hidden absolute right-0 translate-y-12 mr-2 md:translate-y-11">
+          <div className="sm:hidden absolute right-0  mr-2 translate-y-20  md:translate-y-11">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-white p-2 focus:outline-none"
