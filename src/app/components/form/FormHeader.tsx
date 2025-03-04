@@ -102,21 +102,21 @@ const FormHeader = ({
           </div>
 
           {/* Mobile Menu Button (Only for Mobile) */}
-          <div className="sm:hidden absolute right-0 translate-y-14 md:translate-y-11">
+          <div className="sm:hidden absolute right-0 translate-y-12 mr-2 md:translate-y-11">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-white p-2 focus:outline-none"
             >
               {isMenuOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-7 h-7" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <Menu className="w-9 h-7" />
               )}
             </button>
             {isMenuOpen && (
               <div
                 ref={menuRef}
-                className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md p-2 z-50"
+                className="absolute right-0 mt-0 w-40 bg-secondary shadow-md rounded-md p-2 z-50"
               >
                 <button
                   onClick={() => setIsManageMembersOpen(true)}
