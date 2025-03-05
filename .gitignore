@@ -41,7 +41,10 @@ yarn-error.log*
 next-env.d.ts
 
 # ignore upload folder inside public
-/public/upload
+/public/upload*
+/public/upload/
+/public/upload/*
+
 
 
 # include folder_structure.txt

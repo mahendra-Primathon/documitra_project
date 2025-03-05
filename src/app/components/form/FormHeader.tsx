@@ -111,7 +111,7 @@ const FormHeader = ({
           </h1>
           <p className="text-xs sm:text-sm text-white/90">
             {selectedPackage
-              ? `Visa for India - ${country}`
+              ? `Visa for - ${country}`
               : VISA_FORM_CONSTANTS.usa.subtitle}
           </p>
         </div>
