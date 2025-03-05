@@ -1,15 +1,18 @@
 import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import faqMain from '../components/faq/faqMain'
+import FaqMain from '../components/faq/FaqMain'
+import FAQHeader from '../components/faq/FaqHeader'
 
 function page() {
   return (
-    <div>
+    <div  >
+        <div className="bg-secondary">
         <Header/>
-        {/* <Faqheader/> */}
-        <faqMain/>
+        <FAQHeader/>
+        <FaqMain/>
         <Footer/>
+        </div>
       
     </div>
   )
