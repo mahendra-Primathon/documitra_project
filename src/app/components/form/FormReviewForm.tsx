@@ -1,9 +1,5 @@
 "use client";
-import {
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
 import { FormData } from "../../constants/formsData";
 import { useState } from "react";
 
@@ -30,9 +26,15 @@ export const ReviewForm = ({
   const [isAddressOpen, setIsAddressOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
 
+  // console.log("Image URL:", formData.imageUrl);
+  // console.log("PDF URL:", formData.pdfUrl);
+  // console.log("formUploadStatus :", formUploadStatus);
+
   return (
     <div className="space-y-4 md:space-y-6">
-      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Review Your Information</h2>
+      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">
+        Review Your Information
+      </h2>
 
       {/* Personal Details Section */}
       <div className="border rounded-lg">
@@ -57,7 +59,10 @@ export const ReviewForm = ({
               Nationality: formData.nationality,
               "Government ID": formData.governmentId,
             }).map(([key, value]) => (
-              <div key={key} className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+              <div
+                key={key}
+                className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4"
+              >
                 <span className="font-medium text-sm md:text-base">{key}</span>
                 <input
                   type="text"
@@ -91,7 +96,10 @@ export const ReviewForm = ({
               "Postal Code": formData.postalCode,
               Country: formData.country,
             }).map(([key, value]) => (
-              <div key={key} className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+              <div
+                key={key}
+                className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4"
+              >
                 <span className="font-medium text-sm md:text-base">{key}</span>
                 <input
                   type="text"
@@ -124,16 +132,21 @@ export const ReviewForm = ({
               {
                 label: "Photo",
                 fileName: formData.imageUrl?.split("/").pop(),
-                fileUrl: formUploadStatus.image ? formData.imageUrl : "",
+                fileUrl: formData.imageUrl 
               },
               {
                 label: "Government ID",
                 fileName: formData.pdfUrl?.split("/").pop(),
-                fileUrl: formUploadStatus.pdf ? formData.pdfUrl : "",
+                fileUrl: formData.pdfUrl 
               },
             ].map(({ label, fileName, fileUrl }) => (
-              <div key={label} className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 items-center">
-                <span className="font-medium text-sm md:text-base">{label}</span>
+              <div
+                key={label}
+                className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 items-center"
+              >
+                <span className="font-medium text-sm md:text-base">
+                  {label}
+                </span>
                 <div className="flex items-center gap-2">
                   <span className="text-gray-700 text-sm md:text-base truncate">
                     {fileName || "Not Uploaded"}
@@ -141,7 +154,7 @@ export const ReviewForm = ({
                   {fileUrl && (
                     <button
                       onClick={() => window.open(`${fileUrl}`, "_blank")}
-                      className="text-blue-500 hover:underline flex items-center gap-1"
+                      className="text-primary hover:underline flex items-center gap-1"
                     >
                       <ExternalLink className="w-4 h-4" />
                       <span className="hidden md:inline">Click to View</span>
