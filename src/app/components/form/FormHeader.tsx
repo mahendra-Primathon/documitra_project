@@ -50,6 +50,18 @@ const FormHeader = ({
   const country = searchParams.get("country");
   const packageId = searchParams.get("packageId");
 
+  const generateBreadcrumbs = (country: string | null) => {
+    return [
+      ...VISA_FORM_CONSTANTS.breadcrumbs.slice(0, 2), // Take first two static items
+      {
+        label: country || VISA_FORM_CONSTANTS.breadcrumbs[2].label, // Use country param or fallback
+        path: country
+          ? `/packages/${country.toUpperCase()}`
+          : VISA_FORM_CONSTANTS.breadcrumbs[2].path,
+      },
+    ];
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined" && country && packageId) {
       const packages = packageCard[country];
@@ -57,6 +69,7 @@ const FormHeader = ({
       setSelectedPackage(pkg);
     }
   }, [country, packageId]);
+  const breadcrumbs = generateBreadcrumbs(country);
 
   return (
     <div className="relative w-full h-52 sm:h-44">
@@ -73,23 +86,13 @@ const FormHeader = ({
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="py-3">
           <div className="flex flex-wrap items-center space-x-2 text-xs sm:text-sm text-white/90">
-            {[
-              ...VISA_FORM_CONSTANTS.breadcrumbs.slice(0, 2), // Take first two static items
-              {
-                label: country || VISA_FORM_CONSTANTS.breadcrumbs[2].label, // Use country param or fallback
-                path: country
-                  ? `/packages/${country.toUpperCase()}`
-                  : VISA_FORM_CONSTANTS.breadcrumbs[2].path,
-              },
-            ].map((item, index, arr) => (
+            {breadcrumbs?.map((item, index, arr) => (
               <div key={item.path} className="flex items-center">
                 {index > 0 && (
                   <span className="mx-1 sm:mx-2 text-white/70">/</span>
                 )}
                 {index === arr.length - 1 ? (
-                  <span className="text-white">
-                    {item.label.toUpperCase()}
-                    </span>
+                  <span className="text-white">{item.label.toUpperCase()}</span>
                 ) : (
                   <Link
                     href={item.path}

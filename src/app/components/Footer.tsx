@@ -127,7 +127,7 @@ const Footer = () => {
           {/* Payment Methods */}
           <div className="max-w-lg">
             <div className="grid grid-cols-2 md:flex flex-col gap-3 mt-4">
-              {paymentMethods.map((method, index) => (
+              {paymentMethods?.map((method, index) => (
                 <Image
                   key={index}
                   src={method.image}
