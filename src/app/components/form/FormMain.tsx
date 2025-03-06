@@ -141,13 +141,14 @@ const FormMain = () => {
   const saveAndContinue = () => {
     if (validateStep()) {
       localStorage.setItem("formData", JSON.stringify(formData));
-      setCompletedStep(currentStep + 1); // ✅ Mark current step as completed
+      setCompletedStep((prev) => Math.max(prev, currentStep + 1)); // ✅ Track highest step reached
       setCurrentStep((prev) => prev + 1);
     }
   };
 
   const goToPrevious = () => {
     setCurrentStep((prev) => prev - 1);
+    setCompletedStep((prev) => Math.max(prev, currentStep - 1)); // ✅ Prevent decreasing completedStep
   };
 
   const handleSubmit = async () => {
@@ -187,7 +188,6 @@ const FormMain = () => {
         {/* Form (Centered in larger screens) */}
         <div className="lg:col-span-2 bg-white rounded-2xl shadow-2xl px-2 py-4 md:p-6 order-2 lg:order-1">
           {/* Progress Steps */}
-          {/* Progress Steps */}
           <div className="flex justify-center items-center max-w-sm mx-auto mb-4 my-4">
             <div className="flex justify-between items-center w-full">
               {FORM_STEPS.map((step, index) => (
@@ -203,9 +203,10 @@ const FormMain = () => {
                   </div>
                   {index < FORM_STEPS.length - 1 && (
                     <div
-                      className={`h-1 mx-1 w-12 md:w-32 ${
-                        completedStep > step.id ? "bg-primary" : "bg-gray-300"
-                      }`}
+                      className={`h-1 mx-1 w-12 md:w-32 
+                        ${step.id < currentStep ? "bg-primary" : "bg-gray-300"}
+                        
+                      `}
                     />
                   )}
                 </div>
