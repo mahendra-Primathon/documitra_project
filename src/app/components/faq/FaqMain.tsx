@@ -17,32 +17,16 @@ const FaqMain: React.FC = () => {
   });
 
   const toggleAccordion = (id: string) => {
-    // Close all other accordions
-    const newVisibleQuestionsMap: { [key: string]: number } = {};
-    const newOpenQuestions: { [key: string]: boolean[] } = {};
-
-    FAQ_ACCORDION_DATA.forEach((service) => {
-      newVisibleQuestionsMap[service.id] = service.id === id ? 5 : 5;
-      newOpenQuestions[service.id] = new Array(5).fill(false);
-    });
-
     setActiveAccordion(id);
-    setVisibleQuestionsMap(newVisibleQuestionsMap);
-    setOpenQuestions(newOpenQuestions);
+    setVisibleQuestionsMap({ [id]: 5 });
+    setOpenQuestions({ [id]: new Array(5).fill(false) });
   };
 
   const toggleQuestion = (serviceId: string, questionIndex: number) => {
-    // Reset all questions in this service first
-    setOpenQuestions((prev) => {
-      const currentService = prev[serviceId] || [];
-      const updatedQuestions = new Array(currentService.length).fill(false);
-      updatedQuestions[questionIndex] = true;
-
-      return {
-        ...prev,
-        [serviceId]: updatedQuestions,
-      };
-    });
+    setOpenQuestions((prev) => ({
+      ...prev,
+      [serviceId]: prev[serviceId]?.map((_, i) => i === questionIndex),
+    }));
   };
 
   const handleReadMore = (id: string) => {
@@ -53,7 +37,6 @@ const FaqMain: React.FC = () => {
         5,
     }));
 
-    // Initialize open questions for all questions, keeping only first closed
     setOpenQuestions((prev) => ({
       ...prev,
       [id]: new Array(
@@ -62,49 +45,67 @@ const FaqMain: React.FC = () => {
     }));
   };
 
-  // Ensure OCI is open by default
+  const handleWhatsappLink = () => {
+    window.open("https://wa.me/1234567890", "_blank");
+  };
+
   useEffect(() => {
     setActiveAccordion("oci");
   }, []);
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-6  bg-secondary ">
+    <div className="container max-w-7xl mx-auto px-4 py-6 bg-secondary">
       <div className="grid grid-cols-12 gap-4">
-        {/* Sidebar Navigation */}
-        <div className="col-span-12 md:col-span-3 lg:col-span-2 space-y-2 mt-2 md:mt-10">
-          {FAQ_ACCORDION_DATA.map((service) => (
-            <button
-              key={service.id}
-              onClick={() => toggleAccordion(service.id)}
-              className={`w-full text-left pr-8 py-2 transition-colors border-b-2 ${
-                activeAccordion === service.id
-                  ? "text-primary font-extrabold border-b-primary"
-                  : "text-black border-b-gray-200 "
-              }`}
+        {/* Sidebar for larger screens, Dropdown for Mobile */}
+        <div className="col-span-12 md:col-span-3 lg:col-span-2 mt-2 md:mt-10">
+          <div className="md:hidden mb-4">
+            <select
+              className="w-full p-2 border  rounded-lg"
+              value={activeAccordion || ""}
+              onChange={(e) => toggleAccordion(e.target.value)}
             >
-              {service.title}
-            </button>
-          ))}
+              {FAQ_ACCORDION_DATA.map((service) => (
+                <option key={service.id} value={service.id}>
+                  {service.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="hidden md:block space-y-2">
+            {FAQ_ACCORDION_DATA.map((service) => (
+              <button
+                key={service.id}
+                onClick={() => toggleAccordion(service.id)}
+                className={`w-full text-left pr-8 py-2 transition-colors border-b-2 ${
+                  activeAccordion === service.id
+                    ? "text-primary font-extrabold border-b-primary"
+                    : "text-black border-b-gray-200"
+                }`}
+              >
+                {service.title}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Accordion Content */}
-        <div className="col-span-12 md:col-span-9  lg:col-span-10">
+        <div className="col-span-12 md:col-span-9 lg:col-span-10">
           {FAQ_ACCORDION_DATA.map(
             (service) =>
               activeAccordion === service.id && (
-                <div key={service.id} className="rounded-lg p-6">
-                  {/* <h2 className="text-2xl font-bold mb-4">{service.title}</h2> */}
+                <div key={service.id} className="rounded-lg p-4 md:p-6">
                   <div className="gap-4">
                     {service.questions
                       .slice(0, visibleQuestionsMap[service.id] || 5)
                       .map((item, index) => (
                         <div key={index} className="pb-2">
-                          <div className="border-b py-4 px-4 mb-1 rounded-t-3xl shadow-lg last:border-b-0 bg-white">
+                          <div className="border-b py-4 px-3 md:px-4 mb-1 rounded-t-3xl shadow-lg last:border-b-0 bg-white">
                             <div
                               className="flex justify-between items-center cursor-pointer"
                               onClick={() => toggleQuestion(service.id, index)}
                             >
-                              <h3 className="font-semibold flex-grow">
+                              <h3 className="font-semibold flex-grow text-sm md:text-base">
                                 {item.question}
                               </h3>
                               {openQuestions[service.id]?.[index] ? (
@@ -115,18 +116,19 @@ const FaqMain: React.FC = () => {
                             </div>
 
                             {openQuestions[service.id]?.[index] && (
-                              <p className="mt-2 text-gray-600">
+                              <p className="mt-2 text-gray-600 text-sm md:text-base">
                                 {item.answer}
                               </p>
                             )}
                           </div>
                           {openQuestions[service.id]?.[index] && (
-                            <div className="flex justify-between mx-3 mr-10 pb-10 mt-3">
-                              <button className="px-10 py-1 ml-5 bg-primary text-white rounded-full hover:bg-primary transition-colors">
+                            <div className="flex flex-row items-center justify-between mx-2 pb-3 mt-2">
+                              <button className="px-4 py-1.5 bg-primary text-white rounded-full hover:bg-primary transition-colors text-xs">
                                 Get Started
                               </button>
-                              <p className="flex flex-row gap-1">
-                                <MessageCircleMore />
+                              <p className="flex flex-row items-center gap-0.5 text-xs" 
+                              onClick={handleWhatsappLink} >
+                                <MessageCircleMore size={14} />
                                 Chat with us
                               </p>
                             </div>
@@ -143,13 +145,13 @@ const FaqMain: React.FC = () => {
                             ? handleReadMore(service.id)
                             : toggleAccordion(service.id)
                         }
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 hover:underline text-sm md:text-base"
                       >
                         {visibleQuestionsMap[service.id] === 5
                           ? "Show All Questions"
                           : "Show Less Questions"}
                       </button>
-                      <span className="text-gray-500">
+                      <span className="text-gray-500 text-sm md:text-base">
                         {visibleQuestionsMap[service.id] || 5} of{" "}
                         {service.questions.length} questions
                       </span>
