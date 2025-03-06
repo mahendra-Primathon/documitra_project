@@ -2,6 +2,16 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, MessageCircleMore } from "lucide-react";
 import { FAQ_ACCORDION_DATA } from "@/app/constants/faqPage";
+import PackageGetStartedButton from "../popUp/PackageGetStartedButton";
+
+type DocumentType =
+  | "oci"
+  | "visa"
+  | "passport"
+  | "pancard"
+  | "driving-license"
+  | "voter-id"
+  | "aadhar-card";
 
 const FaqMain: React.FC = () => {
   const [activeAccordion, setActiveAccordion] = useState<string | null>("oci");
@@ -10,16 +20,21 @@ const FaqMain: React.FC = () => {
   }>({
     oci: 5, // Default to 5 questions for OCI
   });
+
   const [openQuestions, setOpenQuestions] = useState<{
     [key: string]: boolean[];
   }>({
     oci: new Array(5).fill(false),
   });
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const toggleAccordion = (id: string) => {
     setActiveAccordion(id);
     setVisibleQuestionsMap({ [id]: 5 });
     setOpenQuestions({ [id]: new Array(5).fill(false) });
+    if (isPopupOpen) {
+      setIsPopupOpen(false);
+    }
   };
 
   const toggleQuestion = (serviceId: string, questionIndex: number) => {
@@ -49,6 +64,43 @@ const FaqMain: React.FC = () => {
     window.open("https://wa.me/1234567890", "_blank");
   };
 
+  const handleGetStarted = () => {
+    setIsPopupOpen(true);
+  };
+
+  // Function to handle form submission from popup
+  const handleApply = (data: {
+    citizenship: string;
+    applyingFrom: string;
+    destination: string;
+    documentType: DocumentType;
+  }) => {
+    console.log("Form submitted:", data);
+    // Process the data as needed
+    setIsPopupOpen(false);
+  };
+
+  const getDocumentType = (): DocumentType => {
+    console.log("Current activeAccordion:", activeAccordion);
+    switch (activeAccordion) {
+      case "oci":
+        return "OCI";
+      case "visa":
+        return "Visa";
+      case "passport":
+        return "Passport";
+      case "pancard":
+        return "Pan Card";
+      case "driving-license":
+        return "Driving License";
+      case "voter-id":
+        return "Voter ID";
+      case "aadhar-card":
+        return "Aadhar Card";
+      default:
+        return "OCI"; // Default document type
+    }
+  };
   useEffect(() => {
     setActiveAccordion("oci");
   }, []);
@@ -123,11 +175,16 @@ const FaqMain: React.FC = () => {
                           </div>
                           {openQuestions[service.id]?.[index] && (
                             <div className="flex flex-row items-center justify-between mx-2 pb-3 mt-2">
-                              <button className="px-4 py-1.5 bg-primary text-white rounded-full hover:bg-primary transition-colors text-xs">
+                              <button
+                                className="px-4 py-1.5 bg-primary text-white rounded-full hover:bg-primary transition-colors text-xs"
+                                onClick={handleGetStarted}
+                              >
                                 Get Started
                               </button>
-                              <p className="flex flex-row items-center gap-0.5 text-xs" 
-                              onClick={handleWhatsappLink} >
+                              <p
+                                className="flex flex-row items-center gap-0.5 text-xs"
+                                onClick={handleWhatsappLink}
+                              >
                                 <MessageCircleMore size={14} />
                                 Chat with us
                               </p>
@@ -162,6 +219,14 @@ const FaqMain: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Document Service Popup */}
+      <PackageGetStartedButton
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        documentType={getDocumentType()}
+        onApply={handleApply}
+      />
     </div>
   );
 };

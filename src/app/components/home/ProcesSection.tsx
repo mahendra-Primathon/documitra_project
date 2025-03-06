@@ -35,11 +35,11 @@ const ProcessSection = () => {
           {/* Left Column - Steps */}
           <div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">How it works?</h2>
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 mb-10">
               Effortless Visa and Passport Assistance in Three Simple Steps
             </p>
 
-            <div className="space-y-0 gap-4">
+            <div className="space-y-0 gap-8">
               {steps.map((step, index) => (
                 <ProcessStep key={index} imageSrc={step.imageSrc} title={step.title} isLast={step.isLast} />
               ))}
@@ -47,7 +47,7 @@ const ProcessSection = () => {
           </div>
 
           {/* Right Column - Video/Image */}
-          <div className="relative mt-8 lg:mt-16">
+          <div className="relative mt-1 lg:mt-2">
             {/* Thumbnail */}
             {!isVideoPlaying && (
               <button
@@ -57,16 +57,16 @@ const ProcessSection = () => {
                 <Image
                   src={YTvideo}
                   alt="Process Video"
-                  className="object-cover rounded-2xl w-full h-auto"
+                  className="object-cover rounded-3xl w-full h-auto"
                 />
               </button>
             )}
 
             {/* Video (Now Responsive & Properly Aligned) */}
             {isVideoPlaying && (
-              <div className="relative w-full mt-4 -translate-y-5 ">
+              <div className="relative w-full mt-4  ">
                 <iframe
-                  className="w-full aspect-video rounded-2xl shadow-lg"
+                  className="w-full aspect-video rounded-3xl shadow-lg"
                   src="https://www.youtube-nocookie.com/embed/vZE0j_WCRvI?si=HBs0dXI2qd4eEbYj&controls=0&start=78"
                   title="YouTube video player"
                   frameBorder="0"
