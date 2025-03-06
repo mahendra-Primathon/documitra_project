@@ -13,33 +13,201 @@ export interface Testimonial {
 
 export const testimonials: Testimonial[] = [
   {
-    name: "Sachin",
+    name: "Charlie",
     rating: 4.5,
     comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
     imageSrc: person1
   },
   {
-    name: "Katravelli",
+    name: "Charlie",
     rating: 4.5,
-    comment: "The support team at Documitra was incredibly helpful. They answered all my questions promptly and guided me through the application process.",
-    imageSrc: person2
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
   },
   {
     name: "Charlie",
     rating: 4.5,
-    comment: "Knowing that my personal information was in safe hands with Documitra gave me peace of mind throughout the process.",
-    imageSrc: person3
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
   },
   {
-    name: "Sara",
+    name: "Charlie",
     rating: 4.5,
-    comment: "The support team at Documitra was incredibly helpful. They answered all my questions promptly and guided me through the application process.",
-    imageSrc: person4
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
   },
   {
-    name: "John",
+    name: "Charlie",
     rating: 4.5,
-    comment: "Knowing that my personal information was in safe hands with Documitra gave me peace of mind throughout the process.",
-    imageSrc: person5
-  }
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  {
+    name: "Charlie",
+    rating: 4.5,
+    comment: "I was amazed by how quickly Documitra processed my passport renewal. It saved me so much time and stress.",
+    imageSrc: person1
+  },
+  // {
+  //   name: "Katravelli",
+  //   rating: 4.5,
+  //   comment: "The support team at Documitra was incredibly helpful. They answered all my questions promptly and guided me through the application process.",
+  //   imageSrc: person2
+  // },
+  // {
+  //   name: "Charlie",
+  //   rating: 4.5,
+  //   comment: "Knowing that my personal information was in safe hands with Documitra gave me peace of mind throughout the process.",
+  //   imageSrc: person3
+  // },
+  // {
+  //   name: "Sara",
+  //   rating: 4.5,
+  //   comment: "The support team at Documitra was incredibly helpful. They answered all my questions promptly and guided me through the application process.",
+  //   imageSrc: person4
+  // },
+  // {
+  //   name: "John",
+  //   rating: 4.5,
+  //   comment: "Knowing that my personal information was in safe hands with Documitra gave me peace of mind throughout the process.",
+  //   imageSrc: person5
+  // }
 ];

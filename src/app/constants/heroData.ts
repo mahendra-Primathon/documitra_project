@@ -15,10 +15,26 @@ export interface Location {
 
 // Constants
 export const documentTypes: DocumentType[] = [
-  { id: "oci", name: "OCI", icon: React.createElement(GlobeIcon, { className: "w-5 h-5" }) },
-  { id: "visa", name: "Visa", icon: React.createElement(FileText, { className: "w-5 h-5" }) },
-  { id: "passport", name: "Passport", icon: React.createElement(User, { className: "w-5 h-5" }) },
-  { id: "pancard", name: "Pan Card", icon: React.createElement(CreditCard, { className: "w-5 h-5" }) },
+  {
+    id: "oci",
+    name: "OCI",
+    icon: React.createElement(GlobeIcon, { className: "w-5 h-5" }),
+  },
+  {
+    id: "visa",
+    name: "Visa",
+    icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+  {
+    id: "passport",
+    name: "Passport",
+    icon: React.createElement(User, { className: "w-5 h-5" }),
+  },
+  {
+    id: "pancard",
+    name: "Pan Card",
+    icon: React.createElement(CreditCard, { className: "w-5 h-5" }),
+  },
 ];
 
 export const moreOptions: DocumentType[] = [
@@ -27,12 +43,39 @@ export const moreOptions: DocumentType[] = [
     name: "Driving License",
     icon: React.createElement(FileText, { className: "w-5 h-5" }),
   },
-  { id: "voter", name: "Voter ID", icon: React.createElement(FileText, { className: "w-5 h-5" }) },
-  { id: "aadhar", name: "Aadhar Card", icon: React.createElement(FileText, { className: "w-5 h-5" }) },
+  {
+    id: "voter",
+    name: "Voter ID",
+    icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+  {
+    id: "aadhar",
+    name: "Aadhar Card",
+    icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
 ];
 
 export const locations: Location[] = [
-  { id: "ind", name: "India" },
+  { id: "india", name: "India" },
   { id: "usa", name: "USA" },
-  { id: "uk", name: "United Kingdom" },
+  { id: "london", name: "london" },
+  { id: "canada", name: "Canada" },
 ];
+
+export const options  = [
+  {
+    id: "driving",
+    name: "Driving License",
+    // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+  {
+    id: "voter",
+    name: "Voter ID",
+    // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+  {
+    id: "aadhar",
+    name: "Aadhar Card",
+    // icon: React.createElement(FileText, { className: "w-5 h-5" }),
+  },
+]

@@ -24,6 +24,6 @@ export const documitraLinks = [
 export const paymentMethods = [
   { name: "PayPal", image: visa1 },
   { name: "Visa", image: visa2 },
-  { name: "Mastercard", image: visa3 },
+  { name: "Mastercard", image: visa1 },
   { name: "TrustPilot", image: visa4 },
 ];

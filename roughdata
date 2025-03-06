@@ -1,0 +1,61 @@
+below is folder structure of this project , save it for future refrecne
+
+
+DocuMitra/
+├── .blackboxrules
+├── .gitignore
+├── eslint.config.mjs
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── roughdata/
+├── tailwind.config.ts
+├── tsconfig.json
+├── public/
+│   ├── assets/
+│   │   ├── images/
+│   │   │   ├── Home/
+│   │   │   ├── testimonials/
+├── src/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── components/
+│   │   │   ├── FaqSection.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── GetStartedButton.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── HeroComponents.tsx
+│   │   │   ├── HeroSection.tsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── PremiumService.tsx
+│   │   │   ├── ProcesSection.tsx
+│   │   │   ├── SignUp.tsx
+│   │   │   ├── StatesSection.tsx
+│   │   │   ├── testimonial.tsx
+│   │   │   ├── userProfile.tsx
+│   │   │   ├── VisaServices.tsx
+│   │   │   ├── WhyDocuMitra.tsx
+│   │   ├── constants/
+│   │   │   ├── faqData.ts
+│   │   │   ├── firebase.ts
+│   │   │   ├── footerData.ts
+│   │   │   ├── heroData.ts
+│   │   │   ├── premiumServiceData.ts
+│   │   │   ├── processDAta.ts
+│   │   │   ├── testimonialData.ts
+│   │   ├── hooks/
+│   │   │   ├── useClickOutside.ts
+│   │   ├── pages/
+│   │   │   ├── index.js
+│   ├── store/
+│   │   ├── index.ts
+│   │   ├── slices/
+│   │   │   ├── authSlice.ts
+
+
+<span className="text-red-700">*</span>{" "}

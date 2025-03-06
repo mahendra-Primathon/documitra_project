@@ -6,8 +6,6 @@ import {
   Twitter,
   Instagram,
   Youtube,
-  Mail,
-  Phone,
 } from "lucide-react";
 import logoFooter from "../../../public/assets/images/Home/logoFooter.svg";
 import { servicesLinks, documitraLinks, paymentMethods } from "../constants/footerData";
