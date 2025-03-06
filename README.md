@@ -1,5 +1,20 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Project Overview
+
+**Project Name:** DocuMitra
+
+**Description:** 
+DocuMitra is a web application built with Next.js, designed to facilitate document management and processing. It provides users with a streamlined interface to manage various forms and documents, ensuring a user-friendly experience.
+
+**Technologies Used:**
+- **Next.js:** Framework for server-side rendering and static site generation.
+- **React:** Library for building user interfaces.
+- **Axios:** For making HTTP requests.
+- **MongoDB:** Database for data storage.
+- **Firebase:** For authentication and other backend services.
+- **Tailwind CSS:** Utility-first CSS framework for styling.
+
 ## Getting Started
 
 First, run the development server:
@@ -16,9 +31,26 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run the development server, use the following command:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application in action.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Form Page Details
+
+The form page is a central feature of the application, allowing users to input and manage their data efficiently. It consists of multiple sub-components that handle different aspects of the form, including:
+
+1. **FormHeader.tsx:** Displays the header for the form page.
+2. **FormMain.tsx:** The main container for the form, orchestrating the various steps and components.
+3. **FormPersonalDetailsForm.tsx:** Collects personal information from the user.
+4. **FormAddressForm.tsx:** Handles address-related data.
+5. **FormFileView.tsx:** Displays uploaded files and allows users to manage them.
+6. **FormReviewForm.tsx:** A review step for users to confirm their inputs before submission.
+7. **FormSummaryCard.tsx:** Provides a summary of the user's inputs for final review.
+8. **FormUploadStep.tsx:** Manages the file upload process.
 
 ## Learn More
 

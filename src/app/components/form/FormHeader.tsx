@@ -1,15 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { VISA_FORM_CONSTANTS } from "../../constants/formsData";
 import AddMemberForm from "../popUp/AddMemberForm";
 import ManageMembers from "../popUp/ManageMember";
+import ConfirmDeletePopup from "../popUp/ConfirmDeletePopup";
 import { Menu, X } from "lucide-react";
 import useClickOutside from "@/app/hooks/useClickOutside";
-import { useRef } from "react";
-import { useSearchParams } from "next/navigation";
 import { packageCard } from "../../constants/packageData";
 import AddIcon from "../../../../public/assets/images/Form/AddIcon.svg";
 
@@ -29,6 +28,7 @@ const FormHeader = ({
   const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<any>(null); // Adjust type as necessary
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false); // New state for delete confirmation
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   useClickOutside(menuRef, () => setIsMenuOpen(false));
@@ -43,7 +43,13 @@ const FormHeader = ({
   };
 
   const handleDeselectMember = () => {
+    setIsConfirmOpen(true);
+    // setSelectedMember(null);
+  };
+
+  const handleConfirmDelete = () => {
     setSelectedMember(null);
+    setIsConfirmOpen(false);
   };
 
   const searchParams = useSearchParams();
@@ -126,11 +132,12 @@ const FormHeader = ({
               {applicantName}
             </div>
 
+            {/* Selected Member UI with Remove Confirmation */}
             {selectedMember && (
               <div className="bg-secondary px-3 py-1 rounded-md flex items-center gap-2 text-xs sm:text-sm">
                 <span className="text-black font-medium">{selectedMember}</span>
                 <button
-                  onClick={handleDeselectMember}
+                  onClick={handleDeselectMember} // Open confirmation popup
                   className="text-black hover:bg-black/10 transition-colors p-1 rounded-md"
                 >
                   ✕
@@ -209,6 +216,14 @@ const FormHeader = ({
         onRemove={() => {}}
         onAddNewMember={() => setIsAddMemberOpen(true)}
       />
+      {/* Confirm Delete Popup */}
+      {isConfirmOpen && (
+        <ConfirmDeletePopup
+          isOpen={isConfirmOpen}
+          onClose={() => setIsConfirmOpen(false)}
+          onConfirm={handleConfirmDelete}
+        />
+      )}
     </div>
   );
 };

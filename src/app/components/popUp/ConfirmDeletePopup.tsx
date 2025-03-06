@@ -48,7 +48,7 @@ const ConfirmDeletePopup: React.FC<ConfirmDeletePopupProps> = ({
           </button>
           <button
             onClick={onConfirm}
-            className="px-4 py-2 bg-primary text-white rounded-md text-sm sm:text-base"
+            className="px-4 py-2 bg-primary text-white rounded-md text-sm sm:text-base cursor-pointer "
           >
             Confirm
           </button>
