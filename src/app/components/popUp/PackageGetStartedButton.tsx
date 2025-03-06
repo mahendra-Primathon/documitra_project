@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import useClickOutside from "@/app/hooks/useClickOutside";
+import { useRouter } from "next/navigation";
 
 interface Location {
   id: string;
@@ -13,7 +14,7 @@ export type DocumentType =
   | "visa"
   | "passport"
   | "pancard"
-  | "driving-license"
+  | "driving-licence"
   | "voter-id"
   | "aadhar-card";
 
@@ -96,7 +97,7 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
       case "oci":
         return (
           <svg
-            className="w-6 h-6 text-blue-700"
+            className="w-6 h-6 text-primary"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -106,7 +107,7 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
       case "passport":
         return (
           <svg
-            className="w-6 h-6 text-blue-700"
+            className="w-6 h-6 text-primary"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -117,7 +118,7 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
       case "visa":
         return (
           <svg
-            className="w-6 h-6 text-blue-700"
+            className="w-6 h-6 text-primary"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -132,7 +133,7 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
       default:
         return (
           <svg
-            className="w-6 h-6 text-blue-700"
+            className="w-6 h-6 text-primary"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -167,7 +168,7 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="w-full px-3 py-2 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center"
+            className="w-full px-3 py-2 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary flex justify-between items-center"
           >
             <span className={selected ? "text-black" : "text-gray-400"}>
               {selected ? selected.name : "Select"}
@@ -243,7 +244,7 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
           <button
             type="button"
             onClick={handleApply}
-            className="w-full bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition-colors font-medium"
+            className="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-800 transition-colors font-medium"
           >
             Apply Now
           </button>

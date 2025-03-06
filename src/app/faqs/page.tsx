@@ -11,7 +11,7 @@ function page() {
   return (
     <div>
       <div className="bg-secondary">
-        <Navbar />
+        {/* <Navbar />  */}
         <Header />
         <FAQHeader />
         <FaqMain />

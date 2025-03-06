@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, MessageCircleMore } from "lucide-react";
 import { FAQ_ACCORDION_DATA } from "@/app/constants/faqPage";
 import PackageGetStartedButton from "../popUp/PackageGetStartedButton";
+import { useRouter } from "next/navigation";
 
 type DocumentType =
   | "oci"
   | "visa"
   | "passport"
   | "pancard"
-  | "driving-license"
+  | "driving-licence"
   | "voter-id"
   | "aadhar-card";
 
@@ -75,9 +76,24 @@ const FaqMain: React.FC = () => {
     destination: string;
     documentType: DocumentType;
   }) => {
-    console.log("Form submitted:", data);
-    // Process the data as needed
+    // Format destination name (lowercase, no spaces)
+    const formattedDestination = data.destination
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+
+    // Create query parameters for form data
+    const queryParams = new URLSearchParams({
+      citizenship: data.citizenship,
+      applyingFrom: data.applyingFrom,
+      destination: data.destination,
+      selectedDoc: data.documentType,
+    }).toString();
+
+    // Close the popup
     setIsPopupOpen(false);
+
+    // Redirect to dynamic package page with query parameters
+    router.push(`/packages/${formattedDestination}?${queryParams}`);
   };
 
   const getDocumentType = (): DocumentType => {
@@ -91,7 +107,7 @@ const FaqMain: React.FC = () => {
         return "Passport";
       case "pancard":
         return "Pan Card";
-      case "driving-license":
+      case "driving-licence":
         return "Driving License";
       case "voter-id":
         return "Voter ID";
@@ -101,6 +117,9 @@ const FaqMain: React.FC = () => {
         return "OCI"; // Default document type
     }
   };
+
+  const router = useRouter();
+
   useEffect(() => {
     setActiveAccordion("oci");
   }, []);
@@ -174,15 +193,15 @@ const FaqMain: React.FC = () => {
                             )}
                           </div>
                           {openQuestions[service.id]?.[index] && (
-                            <div className="flex flex-row items-center justify-between mx-2 pb-3 mt-2">
+                            <div className="flex flex-row items-center justify-between mx-2 pb-3 mt-0">
                               <button
-                                className="px-4 py-1.5 bg-primary text-white rounded-full hover:bg-primary transition-colors text-xs"
+                                className="px-4 py-1.5 bg-primary text-white rounded-full hover:bg-primary transition-colors text-xs cursor-pointer "
                                 onClick={handleGetStarted}
                               >
                                 Get Started
                               </button>
                               <p
-                                className="flex flex-row items-center gap-0.5 text-xs"
+                                className="flex flex-row items-center gap-0.5 text-sm text-primary -translate-y-1" 
                                 onClick={handleWhatsappLink}
                               >
                                 <MessageCircleMore size={14} />
@@ -202,7 +221,7 @@ const FaqMain: React.FC = () => {
                             ? handleReadMore(service.id)
                             : toggleAccordion(service.id)
                         }
-                        className="text-blue-600 hover:underline text-sm md:text-base"
+                        className="text-primary hover:underline text-sm md:text-base"
                       >
                         {visibleQuestionsMap[service.id] === 5
                           ? "Show All Questions"
