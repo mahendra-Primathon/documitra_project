@@ -1,15 +1,16 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { createPortal } from "react-dom";
-import { options } from "@/app/constants/heroData";
+import { options, documentTypes } from "@/app/constants/heroData";
 
 // Dropdown Component
 export const Dropdown = ({ label, options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   useClickOutside(dropdownRef, () => setIsOpen(false));
+
   return (
     <div className="relative w-full flex flex-col" ref={dropdownRef}>
       <button
@@ -58,69 +59,47 @@ export const DocumentTypeButton = ({ type, isSelected, onClick }) => (
     {type.icon}
     <span className="text-nowrap">{type.name}</span>
     {isSelected && (
-      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 z-40 " />
+      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 z-40" />
     )}
   </button>
 );
 
 // More Dropdown Component
-
 export const MoreDropdown = ({
   moreSelectedDoc,
   onSelect,
   isOpen,
   setIsOpen,
-  width,
 }) => {
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   useClickOutside(dropdownRef, () => setIsOpen(false));
 
-  const [position, setPosition] = useState({ top: 0, left: 0 });
-  const [selectedOption, setSelectedOption] = useState(moreSelectedDoc);
+  const [position, setPosition] = useState({ top: 0, right: 0 });
 
   useEffect(() => {
     if (isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
+      const screenWidth = window.innerWidth;
+
+      let right = screenWidth - rect.right + window.scrollX; // Align to the right
       setPosition({
         top: rect.bottom + window.scrollY,
-        left: rect.left + window.scrollX,
+        right,
       });
     }
   }, [isOpen]);
 
   const handleSelect = (option) => {
-    console.log("handleSelect called with option:", option.name);
-    setSelectedOption(option.name);
     onSelect(option);
     setIsOpen(false);
   };
-
-  // const options = [
-  //   {
-  //     id: "driving",
-  //     name: "Driving License",
-  //     // icon: React.createElement(FileText, { className: "w-5 h-5" }),
-  //   },
-  //   {
-  //     id: "voter",
-  //     name: "Voter ID",
-  //     // icon: React.createElement(FileText, { className: "w-5 h-5" }),
-  //   },
-  //   {
-  //     id: "aadhar",
-  //     name: "Aadhar Card",
-  //     // icon: React.createElement(FileText, { className: "w-5 h-5" }),
-  //   },
-  // ];
 
   return (
     <>
       <button
         ref={buttonRef}
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
+        onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center px-4 py-2 text-nowrap relative transition-all ${
           moreSelectedDoc ? "text-blue-600" : "text-gray-600"
         }`}
@@ -131,8 +110,6 @@ export const MoreDropdown = ({
         ) : (
           <ChevronDown className="w-5 h-5" />
         )}
-
-        {/* Underline effect when something is selected */}
         {moreSelectedDoc && (
           <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 z-40" />
         )}
@@ -146,8 +123,8 @@ export const MoreDropdown = ({
               style={{
                 position: "absolute",
                 top: position.top,
-                left: position.left,
-                width: width || "auto",
+                right: position.right,
+                width: "200px", // Fixed width for dropdown
                 zIndex: 1000,
               }}
               className="mt-2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -157,12 +134,11 @@ export const MoreDropdown = ({
                   <button
                     key={option.id}
                     onClick={() => handleSelect(option)}
-                    className={`flex gap-2 px-4 py-2 text-sm w-full text-left whitespace-nowrap 
-                      ${
-                        selectedOption === option.name
-                          ? "text-blue-600 "
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`}
+                    className={`flex gap-2 px-4 py-2 text-sm w-full text-left whitespace-nowrap ${
+                      moreSelectedDoc?.name === option.name
+                        ? "text-blue-600"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
                   >
                     <span>{option.name}</span>
                   </button>
@@ -173,5 +149,53 @@ export const MoreDropdown = ({
           document.body
         )}
     </>
+  );
+};
+
+// Document Type Selector Component
+export const DocumentTypeSelector = () => {
+  const [visibleDocs, setVisibleDocs] = useState(documentTypes);
+  const [moreDocs, setMoreDocs] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        // Move last two items to more dropdown on mobile
+        setVisibleDocs(documentTypes.slice(0, 2));
+        setMoreDocs(documentTypes.slice(2));
+      } else {
+        // Show all items on laptop/desktop
+        setVisibleDocs(documentTypes);
+        setMoreDocs([]);
+      }
+    };
+
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {visibleDocs.map((type) => (
+        <DocumentTypeButton
+          key={type.id}
+          type={type}
+          isSelected={false}
+          onClick={() => {}}
+        />
+      ))}
+
+      {moreDocs.length > 0 && (
+        <MoreDropdown
+          moreSelectedDoc={null}
+          onSelect={() => {}}
+          isOpen={isDropdownOpen}
+          setIsOpen={setIsDropdownOpen}
+        />
+      )}
+    </div>
   );
 };

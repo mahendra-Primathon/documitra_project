@@ -48,8 +48,8 @@ const WhyDocuMitra = () => {
   ];
 
   return (
-    <div className="px-[10vw]  lg:py-20 bg-[#f4f8fc]">
-      <h2 className="text-3xl font-bold text-center mb-12">Why Documitra?</h2>
+    <div className="px-[10vw]  lg:py-20 bg-[#f4f8fc] py-10">
+      <h2 className="text-3xl font-bold text-center my-12">Why Documitra?</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 py-8 my-10 ">
         {features.map((feature, index) => (
           <div

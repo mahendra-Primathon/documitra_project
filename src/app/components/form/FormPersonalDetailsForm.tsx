@@ -31,7 +31,8 @@ export const PersonalDetailsForm = ({
       </div>
     </div>
 
-    <div className="flex flex-row gap-6 w-full px-4">
+    {/* Gender and Age - Stack vertically on mobile, row on larger screens */}
+    <div className="flex flex-col md:flex-row gap-6 w-full px-4">
       {/* Gender Dropdown */}
       <div className="flex-1 space-y-2">
         <label className="block">Gender</label>
@@ -72,17 +73,18 @@ export const PersonalDetailsForm = ({
       </div>
     </div>
 
-    <div className="flex flex-row gap-4 w-full px-4">
+    {/* Phone Number and Email - Stack vertically on mobile, row on larger screens */}
+    <div className="flex flex-col md:flex-row gap-4 w-full px-4">
       {/* Phone Number Input */}
-      <div className="flex-1 space-y-2 w-[50%]">
+      <div className="flex-1 space-y-2 w-full md:w-[50%]">
         <label className="block">Phone Number</label>
         <div className="flex flex-col gap-2">
-          <div className="flex w-full gap-1">
+          <div className="flex flex-col md:flex-row w-full gap-1">
             <select
               name="countryCode"
               value={formData.countryCode}
               onChange={onChange}
-              className="p-2 border rounded bg-white text-sm w-[30%]"
+              className="p-2 border rounded bg-white text-sm w-full md:w-[30%]"
             >
               {COUNTRY_CODES.map((country) => (
                 <option key={country.code} value={country.code}>
@@ -108,7 +110,7 @@ export const PersonalDetailsForm = ({
       </div>
 
       {/* Email Input */}
-      <div className="flex-1 space-y-2 w-[50%] ">
+      <div className="flex-1 space-y-2 w-full md:w-[50%]">
         <label className="block">Email</label>
         <input
           type="email"
@@ -126,7 +128,8 @@ export const PersonalDetailsForm = ({
       </div>
     </div>
 
-    <div className="flex flex-row gap-4 w-full px-4">
+    {/* Nationality and Government ID - Stack vertically on mobile, row on larger screens */}
+    <div className="flex flex-col md:flex-row gap-4 w-full px-4">
       {/* Nationality Input */}
       <div className="flex-1 space-y-2">
         <label className="block">Nationality</label>

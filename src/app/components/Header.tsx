@@ -15,7 +15,6 @@ import { doc, getDoc } from "firebase/firestore";
 const navLinks = [
   { title: "Home", path: "/" },
   { title: "Services", path: "/services" },
-  // { title: "Packages", path: "/packages" },
   { title: "Photos", path: "/photos" },
   { title: "Blog", path: "/blog" },
   { title: "FAQ's", path: "/faqs" },
@@ -58,44 +57,60 @@ const AuthButtons = ({
   <div className="flex items-center gap-4">
     {user ? (
       <>
-        <button
-          onClick={onProfileClick}
-          className="text-gray-600 px-4 py-2 text-sm"
-        >
-          {userName}
-        </button>
-        <button
-          onClick={onSignOutClick}
-          className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
-        >
-          Sign Out
-        </button>
+        <div className=" flex flex-col lg:flex-row ">
+          <button
+            onClick={onProfileClick}
+            className="text-gray-600 mx-2 py-3 text-sm left-0 "
+          >
+            {userName}
+          </button>
+          <button
+            onClick={onSignOutClick}
+            className="bg-primary text-white px-12 py-2 my-2 left-0 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
+          >
+            Sign Out
+          </button>
+        </div>
       </>
     ) : (
       <>
-        <button
-          onClick={onLoginClick}
-          className="text-gray-600 hover:text-blue-600 px-4 py-2 text-sm"
-        >
-          Login
-        </button>
-        <button
-          onClick={onSignUpClick}
-          className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-blue-400 transition-colors duration-300 font-bold"
-        >
-          Signup
-        </button>
+        <div className=" flex flex-col lg:flex-row">
+          <button
+            onClick={onLoginClick}
+            className="text-gray-600 hover:text-primary  px-4 py-2 text-sm"
+          >
+            Login
+          </button>
+          <button
+            onClick={onSignUpClick}
+            className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-primary transition-colors duration-300 font-bold"
+          >
+            Signup
+          </button>
+        </div>
       </>
     )}
   </div>
 );
 
 // Mobile Menu Button Component
+// Mobile Menu Button Component
 const MobileMenuButton = ({ isOpen, setIsOpen }) => (
   <button className="lg:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
-    <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
-    <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
-    <div className="w-6 h-0.5 bg-gray-600"></div>
+    {isOpen ? (
+      // Cross (X) icon when menu is open
+      <div className="relative w-6 h-6">
+        <div className="absolute w-6 h-0.5 bg-gray-600 transform rotate-45"></div>
+        <div className="absolute w-6 h-0.5 bg-gray-600 transform -rotate-45"></div>
+      </div>
+    ) : (
+      // Hamburger icon when menu is closed
+      <>
+        <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
+        <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
+        <div className="w-6 h-0.5 bg-gray-600"></div>
+      </>
+    )}
   </button>
 );
 
@@ -141,7 +156,7 @@ const Header = () => {
     }
   };
 
-  const handleUpdateUserName = (updatedUserName: string) => {
+  const handleUpdateUserName = (updatedUserName) => {
     setUserName(updatedUserName);
   };
 
@@ -150,7 +165,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}
-          <div className="flex items-center ">
+          <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <Image src={logo} alt="DocuMitra Logo" className="mr-2" />
             </Link>
@@ -182,21 +197,48 @@ const Header = () => {
           />
         </div>
       </div>
-
       {/* Mobile Menu */}
+      {/* // Mobile Menu Content */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.path}
-                className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-blue-600"
+        <div className="lg:hidden fixed inset-0 z-50">
+          {/* Mobile Menu Content */}
+          <div className="fixed top-0 right-0 w-64 bg-white shadow-lg h-full p-4">
+            {/* Close Button (Cross Icon) */}
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-4 right-4 p-1 text-gray-600 hover:text-primary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                {link.title}
-              </Link>
-            ))}
-            <div className="mt-4 px-3">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Menu Links */}
+            <div className="mt-12 space-y-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.title}
+                  href={link.path}
+                  className="block px-2 py-1.5 text-sm font-medium text-gray-600 hover:text-primary"
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </div>
+
+            {/* Auth Buttons */}
+            <div className="mt-6">
               <AuthButtons
                 user={user}
                 userName={userName}
@@ -209,13 +251,11 @@ const Header = () => {
           </div>
         </div>
       )}
-
       {/* Sign Up Modal */}
       <SignUpModal
         isOpen={isSignUpModalOpen}
         onClose={() => setIsSignUpModalOpen(false)}
       />
-
       {/* Login Modal */}
       <LoginModal
         isOpen={isLoginModalOpen}
@@ -225,12 +265,11 @@ const Header = () => {
           setIsSignUpModalOpen(true);
         }}
       />
-
       {/* User Profile Modal */}
       <UserProfileModal
         isOpen={isUserProfileModalOpen}
         onClose={() => setIsUserProfileModalOpen(false)}
-        onUpdateUserName={handleUpdateUserName} // Pass the callback function
+        onUpdateUserName={handleUpdateUserName}
       />
     </header>
   );

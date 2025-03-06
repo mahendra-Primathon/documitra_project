@@ -1,4 +1,3 @@
-// ./src/app/components/popUp/AddMemberForm.tsx
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -19,18 +18,12 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
 }) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState<number | "">("");
-  // const [isManageMembersOpen, setIsManageMembersOpen] = useState(false);
 
-  // onSaveMember({ name, age: Number(age) });
-  // onClose();
-  // onOpenManageMembers(); // Open Manage Members
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("Form submitted"); // Log when the form is submitted
     if (name && age) {
-      // console.log("Name and age are valid:", { name, age }); // Log name and age values
       try {
-        console.log("Sending request to: http://localhost:5000/api/members"); // Log the API endpoint
+        console.log("Sending request to: http://localhost:5000/api/members");
         const response = await fetch("http://localhost:5000/api/members", {
           method: "POST",
           headers: {
@@ -38,11 +31,10 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
           },
           body: JSON.stringify({ name, age }),
         });
-        // console.log("Response received:", response); // Log the entire response object
         if (response.ok) {
-          console.log("Member saved successfully"); // Log success message
-          setName(""); // Clear the name field
-          setAge(""); // Clear the age field
+          console.log("Member saved successfully");
+          setName("");
+          setAge("");
           onClose();
           onOpenManageMembers();
         } else {
@@ -50,41 +42,39 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
             "Failed to save member:",
             response.status,
             response.statusText
-          ); // Log error status
+          );
           const errorData = await response.json();
-          console.error("Error details:", errorData); // Log error details from the response
+          console.error("Error details:", errorData);
         }
       } catch (error) {
-        console.error("Error saving member:", error); // Log any errors during the fetch
+        console.error("Error saving member:", error);
       }
     } else {
-      console.warn("Name and age are required"); // Log a warning if name or age is missing
+      console.warn("Name and age are required");
     }
   };
 
   if (!isOpen) {
-    console.log("AddMemberForm is not open, returning null"); // Log when the form is not open
+    console.log("AddMemberForm is not open, returning null");
     return null;
   }
 
-  // console.log("AddMemberForm is open, rendering form"); // Log when the form is open
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-secondary rounded-lg p-10 max-w-2xl w-full mx-4 relative">
+      <div className="bg-secondary rounded-lg p-6 md:p-10 max-w-2xl w-full mx-4 relative">
         <button
           onClick={onClose}
-          className="absolute right-3 top-3 border border-gray-500  p-1 m-1 rounded-lg  text-gray-500 hover:text-gray-900"
+          className="absolute right-3 top-3 border border-gray-500 p-1 m-1 rounded-lg text-gray-500 hover:text-gray-900"
         >
           ✕
         </button>
 
-        <div className="flex flex-row items-center justify-center space-x-2 ">
-          <div className=" bg-primary rounded-full p-2 flex items-center ">
+        <div className="flex flex-row items-center justify-center space-x-2">
+          <div className="bg-primary rounded-full p-2 flex items-center">
             <Image src={AddIcon} width={20} height={20} alt="logo" />
           </div>
           <div>
-            <h2 className="text-3xl font-extrabold mb-6  pt-5  ">
+            <h2 className="text-2xl md:text-3xl font-extrabold mb-6 pt-5">
               Add/Manage Member
             </h2>
           </div>
@@ -92,7 +82,7 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 bg-white px-14 pt-8 pb-12  "
+          className="space-y-4 bg-white px-6 md:px-14 pt-6 md:pt-8 pb-8 md:pb-12"
         >
           <div>
             <label className="block text-sm text-gray-600 mb-1">Name</label>
@@ -121,7 +111,6 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
           <button
             type="submit"
             className="w-full bg-primary text-white py-2 rounded-full hover:bg-blue-800 transition-colors"
-            // onClick={() => setIsManageMembersOpen(true)}
           >
             Save Member
           </button>

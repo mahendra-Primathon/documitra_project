@@ -65,7 +65,7 @@ const ProcessSection = () => {
           </div>
 
           {/* Right Column - Video/Image */}
-          <div className="relative mt-16">
+          <div className="relative lg:mt-16 ">
             <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden">
               <Image
                 src="/assets/images/Home/Video.png"
