@@ -42,13 +42,13 @@ const ConfirmDeletePopup: React.FC<ConfirmDeletePopupProps> = ({
         <div className="flex justify-center space-x-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-400 text-white rounded-md text-sm sm:text-base cursor-pointer "
+            className="px-12 py-3 bg-gray-400 text-white rounded-md text-sm sm:text-base cursor-pointer "
           >
             No
           </button>
           <button
             onClick={onConfirm}
-            className="px-4 py-2 bg-primary text-white rounded-md text-sm sm:text-base cursor-pointer "
+            className="px-12 py-3 bg-primary text-white rounded-md text-sm sm:text-base cursor-pointer "
           >
             Yes
           </button>
