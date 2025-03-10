@@ -4,6 +4,9 @@ import Image from "next/image";
 import addIconPerson from "../../../../public/assets/images/Form/AddIcon.svg";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling
+
 interface ManageMemberProps {
   onSelect: (name: string) => void;
   onRemove: (index: number) => void;
@@ -77,6 +80,20 @@ const ManageMember: React.FC<ManageMemberProps> = ({
   };
 
   const handleSelectMember = (name: string) => {
+    toast.success(`${name} is selected`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      // style: {
+      //   backgroundColor: "#10B981", // Tailwind `bg-green-500`
+      //   color: "#ffffff", // Tailwind `text-white`
+      // },
+    });
     onSelect(name);
     onClose();
   };
@@ -150,7 +167,7 @@ const ManageMember: React.FC<ManageMemberProps> = ({
                     {index >= 1 && (
                       <button
                         onClick={() => handleSelectMember(member.name)}
-                        className="w-full sm:w-auto px-2 sm:px-4 py-1 sm:py-1.5 rounded text-xs sm:text-sm font-medium bg-primary text-white"
+                        className="w-full sm:w-auto px-2 sm:px-4 py-1 sm:py-1.5 rounded text-xs sm:text-sm font-medium bg-primary text-white cursor-pointer "
                       >
                         Select
                       </button>
@@ -162,7 +179,9 @@ const ManageMember: React.FC<ManageMemberProps> = ({
                           : handleRemoveClick(member._id, index)
                       }
                       className={`w-full sm:w-auto px-2 sm:px-4 py-1 sm:py-1.5 rounded text-xs sm:text-sm font-medium ${
-                        index === 0 ? "text-white text-sm" : "bg-gray-500 text-white"
+                        index === 0
+                          ? "text-white text-sm"
+                          : "bg-gray-500 text-white"
                       }`}
                     >
                       {index === 0 ? "" : "Remove"}

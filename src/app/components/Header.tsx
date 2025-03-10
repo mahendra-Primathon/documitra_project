@@ -11,6 +11,9 @@ import { auth, db } from "../constants/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Navigation links data
 const navLinks = [
   { title: "Home", path: "/" },
@@ -126,20 +129,84 @@ const Header = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+
       if (currentUser) {
         const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+        let displayName = currentUser.email;
+
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          setUserName(
+          displayName =
             userData.fname && userData.lname
               ? `${userData.fname} ${userData.lname}`
-              : userData.name || currentUser.email
-          );
-        } else {
-          setUserName(currentUser.email);
+              : userData.name || currentUser.email;
         }
+
+        setUserName(displayName);
+
+        // Check if the welcome message was already shown
+        const hasSeenWelcomeMessage = localStorage.getItem(
+          "hasSeenWelcomeToast"
+        );
+
+        if (!hasSeenWelcomeMessage) {
+          toast.success(`Welcome to DocuMitra, ${displayName}!`, {
+            position: "bottom-right",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          });
+
+          // Set flag in localStorage to prevent showing it again
+          localStorage.setItem("hasSeenWelcomeToast", "true");
+        }
+        useEffect(() => {
+          const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setUser(currentUser);
+            if (currentUser) {
+              const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+              if (userDoc.exists()) {
+                const userData = userDoc.data();
+                const displayName =
+                  userData.fname && userData.lname
+                    ? `${userData.fname} ${userData.lname}`
+                    : userData.name || currentUser.email;
+                setUserName(displayName);
+                toast.success(`Welcome to DocuMitras, ${displayName}!`, {
+                  position: "bottom-right", // Change position here
+                  autoClose: 2500, // Time before toast disappears (in ms)
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored", // Optional: Use light or dark mode
+                });
+              } else {
+                toast.success(`Welcome to DocuMitra, ${currentUser.email}!`, {
+                  position: "bottom-right", // Change position here
+                  autoClose: 2500, // Time before toast disappears (in ms)
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored", // Optional: Use light or dark mode
+                });
+              }
+            } else {
+              setUserName("");
+            }
+          });
+
+          return () => unsubscribe();
+        }, []);
       } else {
         setUserName("");
+        localStorage.removeItem("hasSeenWelcomeToast"); // Reset flag on logout
       }
     });
 
@@ -149,10 +216,30 @@ const Header = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      toast.success(`${userName} successfully signed out from this device.`, {
+        position: "bottom-right", // Change position here
+        autoClose: 2500, // Time before toast disappears (in ms)
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored", // Optional: Use light or dark mode
+      });
       setUser(null);
       setUserName("");
     } catch (error) {
       console.error("Error signing out:", error);
+      toast.error("Sign out failed. Please try again.", {
+        position: "bottom-right", // Change position here
+        autoClose: 2500, // Time before toast disappears (in ms)
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored", // Optional: Use light or dark mode
+      });
     }
   };
 
@@ -271,6 +358,7 @@ const Header = () => {
         onClose={() => setIsUserProfileModalOpen(false)}
         onUpdateUserName={handleUpdateUserName}
       />
+      <ToastContainer />
     </header>
   );
 };

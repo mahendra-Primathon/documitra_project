@@ -16,6 +16,10 @@ import { v4 as uuidv4 } from "uuid";
 import { ArrowLeft } from "lucide-react";
 import { packageCard } from "../../constants/packageData";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 enum FORM_STEP {
   STEP_ONE = 1,
   STEP_TWO = 2,
@@ -162,14 +166,29 @@ const FormMain = () => {
       });
 
       if (response.ok) {
-        // console.log("Form data submitted successfully");
+        toast.success("Your Form submitted Successfully ", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
         localStorage.removeItem("formData");
-        window.location.href = "/";
+
+        // Redirect after a delay
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
       } else {
-        console.error("Failed to submit form data");
+        toast.error("Failed to submit form data.");
       }
     } catch (err) {
       console.error("Error submitting form:", err);
+      toast.error("An error occurred while submitting the form.");
     }
   };
 
@@ -179,6 +198,7 @@ const FormMain = () => {
   return (
     <div className="min-h-screen bg-secondary py-10 px-10 sm:px-6 lg:px-8">
       {/* Main Content */}
+      <ToastContainer />  {/* Add this line */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Summary Card (Top on Mobile, Right on Larger Screens) */}
         <div className="lg:col-span-1 order-1 lg:order-2">

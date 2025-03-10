@@ -11,6 +11,8 @@ import { Menu, X } from "lucide-react";
 import useClickOutside from "@/app/hooks/useClickOutside";
 import { packageCard } from "../../constants/packageData";
 import AddIcon from "../../../../public/assets/images/Form/AddIcon.svg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling
 
 interface VisaFormHeaderProps {
   applicantName?: string;
@@ -35,7 +37,19 @@ const FormHeader = ({
 
   const handleSaveAndExit = () => {
     if (onSaveAndExit) onSaveAndExit();
-    router.push(VISA_FORM_CONSTANTS.routes.HOME);
+    toast.success("Your progress has been saved!", {
+      position: "bottom-right", // Change position here
+      autoClose: 2500, // Time before toast disappears (in ms)
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored", // Optional: Use light or dark mode
+    });
+    setTimeout(() => {
+      router.push(VISA_FORM_CONSTANTS.routes.HOME);
+    }, 2000); // Small delay to allow toast to show
   };
 
   const handleSelectMember = (name: string) => {
