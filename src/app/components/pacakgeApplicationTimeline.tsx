@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { visaTimelineData } from "../../constants/packageData";
+import { visaTimelineData } from "../constants/packageData";
 
 const ApplicationTimeline = () => {
   return (

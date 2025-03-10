@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import useClickOutside from "../../hooks/useClickOutside";
+import useClickOutside from "../hooks/useClickOutside";
 import { useSearchParams } from "next/navigation";
 
 interface DropdownProps {

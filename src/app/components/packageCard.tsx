@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { packageCard } from "../../constants/packageData";
+import { packageCard } from "../constants/packageData";
 import { Calendar, Package2, Coins } from "lucide-react";
 
 const PackageCard = ({ country = "usa" }) => {

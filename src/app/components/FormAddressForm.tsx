@@ -1,5 +1,5 @@
 "client side";
-import { FormData,  } from "../../constants/formsData";
+import { FormData,  } from "../constants/formsData";
 
 interface FormProps {
   formData: FormData;

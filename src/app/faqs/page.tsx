@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FaqMain from "../components/FaqMain";
 import FAQHeader from "../components/FaqHeader";
-import Navbar from "../components/home/Navbar";
+import Navbar from "../components/Navbar";
 import PremiumServices from "../components/PremiumService";
 import TestimonialSection from "../components/testimonial";
 

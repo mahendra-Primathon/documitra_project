@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import useClickOutside from "../../hooks/useClickOutside";
+import useClickOutside from "../hooks/useClickOutside";
 import { createPortal } from "react-dom";
 import { options, documentTypes } from "@/app/constants/heroData";
 
