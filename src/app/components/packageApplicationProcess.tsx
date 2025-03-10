@@ -1,7 +1,7 @@
 // components/ApplicationProcess.tsx
 "use client";
 import React from "react";
-import { applicationProcessData } from "../../constants/packageData";
+import { applicationProcessData } from "../constants/packageData";
 
 const ApplicationProcess = () => {
   return (

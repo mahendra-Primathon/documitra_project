@@ -1,17 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
-import Navbar from "../../components/home/Navbar";
+import Navbar from "../../components/Navbar";
 import Header from "../../components/Header";
 import TestimonialSection from "../../components/testimonial";
 import FAQSection from "@/app/components/FaqSection";
 import Footer from "../../components/Footer";
 import StatesSection from "../../components/StatesSection";
-import PackageForm from "../../components/package/packageForm";
-import PackageCard from "../../components/package/packageCard";
-import VisaProcess from "../../components/package/packageVisaProcess";
-import ApplicationProcess from "../../components/package/packageApplicationProcess";
-import ApplicationTimeline from "@/app/components/package/pacakgeApplicationTimeline";
+import PackageForm from "../../components/packageForm";
+import PackageCard from "../../components/packageCard";
+import VisaProcess from "../../components/packageVisaProcess";
+import ApplicationProcess from "../../components/packageApplicationProcess";
+import ApplicationTimeline from "@/app/components/pacakgeApplicationTimeline";
 
 const PackagesPage = () => {
   const params = useParams();
