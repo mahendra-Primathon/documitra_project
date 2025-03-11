@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, MessageCircleMore } from "lucide-react";
 import { FAQ_ACCORDION_DATA } from "@/app/constants/faqPage";
-import PackageGetStartedButton from "./popUp/PackageGetStartedButton";
+import PackageGetStartedButton from "./PopUpPackageGetStartedButton";
 import { useRouter } from "next/navigation";
 
 type DocumentType =

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { Eye, EyeOff } from "lucide-react";
-import { auth, db } from "../../constants/firebase";
+import { auth, db } from "../constants/firebase";
 
 interface SignUpModalProps {
   isOpen: boolean;

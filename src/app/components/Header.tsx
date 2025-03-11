@@ -8,193 +8,19 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 
-import logo from "../../../public/assets/images/Home/Box.png";
-import SignUpModal from "./popUp/SignUp";
-import LoginModal from "./popUp/Login";
-import UserProfileModal from "./popUp/userProfile";
+import logo from "@/../public/assets/images/Home/Box.png";
+import SignUpModal from "./PopUpSignUp";
+import LoginModal from "./PopUpLogin";
+import UserProfileModal from "./PopUpUserProfile";
 import { auth, db } from "../constants/firebase";
 import useClickOutside from "../hooks/useClickOutside";
+import HeaderNotificationDropdown from "./HeaderNotificationDropdown";
+import HeaderUserDropdown from "./HeaderUserDropdown";
+import HeaderMobileMenuButton from "./HeaderMobileMenuButton";
+import HeaderNavLink from "./HeaderNavLinks";
+import { navLinks } from "../constants/headerData";
 
 import "react-toastify/dist/ReactToastify.css";
-import path from "path";
-
-const navLinks = [
-  { title: "Home", path: "/" },
-  { title: "Services", path: "/services" },
-  { title: "Photos", path: "/photos" },
-  { title: "Blog", path: "/blog" },
-  { title: "FAQ's", path: "/faqs" },
-  { title: "Contact", path: "/contact" },
-];
-
-const NavLink = ({ title, path }) => {
-  const pathname = usePathname();
-  const isActive = pathname === path;
-
-  return (
-    <Link
-      href={path}
-      className="relative px-4 py-2 text-sm transition-colors duration-300"
-    >
-      <span
-        className={`text-gray-600 hover:text-primary ${
-          isActive ? "text-#050505 font-semibold" : ""
-        }`}
-      >
-        {title}
-      </span>
-      {isActive && (
-        <span className="absolute left-1/2 -translate-x-1/2 bottom-0 w-3/4 h-0.5 bg-primary"></span>
-      )}
-    </Link>
-  );
-};
-
-const NotificationDropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  // Close dropdown when clicking outside
-  useClickOutside(dropdownRef, () => setIsOpen(false));
-
-  return (
-    <div className="relative" ref={dropdownRef}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-gray-600 hover:text-primary"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-          />
-        </svg>
-        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">
-          2
-        </span>
-      </button>
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-50">
-          {/* <div className="text-sm font-medium text-gray-600">Notifications</div> */}
-          <div className="mt-2 space-y-2">
-            <div className="flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 text-primary"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>Sample Notification 1</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 text-primary"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span>Sample Notification 2</span>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const UserDropdown = ({ onProfileClick, onSignOutClick }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  // Close dropdown when clicking outside
-  useClickOutside(dropdownRef, () => setIsOpen(false));
-
-  return (
-    <div className="relative" ref={dropdownRef}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-gray-600 hover:text-primary"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          />
-        </svg>
-      </button>
-      {isOpen && (
-        <div className="absolute right-0 mt-0 w-48 bg-white shadow-xl rounded-lg p-2">
-          <button
-            onClick={onProfileClick}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-200 hover:text-primary  "
-          >
-            User Profile
-          </button>
-          <button
-            onClick={onSignOutClick}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-200 hover:text-primary "
-          >
-            Logout
-          </button>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const MobileMenuButton = ({ isOpen, setIsOpen }) => (
-  <button
-    className="lg:hidden p-2"
-    onClick={() => setIsOpen(!isOpen)}
-    aria-label="Toggle mobile menu"
-    aria-expanded={isOpen}
-  >
-    {isOpen ? (
-      <div className="relative w-6 h-6">
-        <div className="absolute w-6 h-0.5 bg-gray-600 transform rotate-45"></div>
-        <div className="absolute w-6 h-0.5 bg-gray-600 transform -rotate-45"></div>
-      </div>
-    ) : (
-      <>
-        <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
-        <div className="w-6 h-0.5 bg-gray-600 mb-1"></div>
-        <div className="w-6 h-0.5 bg-gray-600"></div>
-      </>
-    )}
-  </button>
-);
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -281,7 +107,7 @@ const Header = () => {
     }
   };
 
-  const handleUpdateUserName = (updatedUserName) => {
+  const handleUpdateUserName = (updatedUserName: string) => {
     setUserName(updatedUserName);
   };
 
@@ -303,7 +129,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center justify-center flex-1">
             {navLinks.map((link) => (
-              <NavLink key={link.title} {...link} />
+              <HeaderNavLink key={link.title} {...link} />
             ))}
           </nav>
 
@@ -311,9 +137,9 @@ const Header = () => {
           <div className="hidden lg:flex items-center gap-4">
             {user ? (
               <>
-                <NotificationDropdown />
+                <HeaderNotificationDropdown />
 
-                <UserDropdown
+                <HeaderUserDropdown
                   onProfileClick={() => setIsUserProfileModalOpen(true)}
                   onSignOutClick={handleSignOut}
                 />
@@ -341,14 +167,10 @@ const Header = () => {
           <div className="lg:hidden flex items-center gap-4">
             {user && (
               <>
-                <NotificationDropdown />
-                {/* <UserDropdown
-                  onProfileClick={() => setIsUserProfileModalOpen(true)}
-                  onSignOutClick={handleSignOut}
-                /> */}
+                <HeaderNotificationDropdown />
               </>
             )}
-            <MobileMenuButton
+            <HeaderMobileMenuButton
               isOpen={isMobileMenuOpen}
               setIsOpen={setIsMobileMenuOpen}
             />

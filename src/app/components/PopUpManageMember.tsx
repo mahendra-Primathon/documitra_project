@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import addIconPerson from "../../../../public/assets/images/Form/AddIcon.svg";
-import ConfirmDeletePopup from "./ConfirmDeletePopup";
+import addIconPerson from "@/../public/assets/images/Form/AddIcon.svg";
+import ConfirmDeletePopup from "./PopUpConfirmDeletePopup";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling

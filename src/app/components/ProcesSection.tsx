@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { steps } from "../constants/processDAta";
-import YTvideo from "../../../../public/assets/images/Home/Video.png";
+import YTvideo from "../../../public/assets/images/Home/Video.png";
 
 interface ProcessStepProps {
   imageSrc: string;

@@ -4,11 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react"; // Mobile menu icons
 
-import whatsappLogo from "../../../../public/assets/images/Home/whatsapp.svg";
-import facebookLogo from "../../../../public/assets/images/Home/Facebook.svg";
-import emailLogo from "../../../../public/assets/images/Home/Email-2.svg";
-import messageLogo from "../../../../public/assets/images/Home/Chat.svg";
-import phoneLogo from "../../../../public/assets/images/Home/phone.svg";
+import whatsappLogo from "../../../public/assets/images/Home/whatsapp.svg";
+import facebookLogo from "../../../public/assets/images/Home/Facebook.svg";
+import emailLogo from "../../../public/assets/images/Home/Email-2.svg";
+import messageLogo from "../../../public/assets/images/Home/Chat.svg";
+import phoneLogo from "../../../public/assets/images/Home/phone.svg";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
