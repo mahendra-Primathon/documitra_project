@@ -19,6 +19,8 @@ import HeaderUserDropdown from "./HeaderUserDropdown";
 import HeaderMobileMenuButton from "./HeaderMobileMenuButton";
 import HeaderNavLink from "./HeaderNavLinks";
 import { navLinks } from "../constants/headerData";
+import { CloseIcon } from "./SvgIconsData";
+import { useRouter } from "next/navigation";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -29,9 +31,9 @@ const Header = () => {
   const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [userName, setUserName] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
   const mobileMenuRef = useRef(null);
+  const router = useRouter();
 
   // Close mobile menu when clicking outside
   useClickOutside(mobileMenuRef, () => setIsMobileMenuOpen(false));
@@ -55,7 +57,6 @@ const Header = () => {
       } else {
         setUserName("");
       }
-      setIsLoading(false);
     });
 
     return () => unsubscribe();
@@ -91,8 +92,12 @@ const Header = () => {
         draggable: true,
         theme: "colored",
       });
+
       setUser(null);
       setUserName("");
+
+      // Redirect to home page after logout
+      router.push("/");
     } catch (error) {
       console.error("Error signing out:", error);
       toast.error("Sign out failed. Please try again.", {
@@ -111,9 +116,9 @@ const Header = () => {
     setUserName(updatedUserName);
   };
 
-  if (isLoading) {
-    return null; // or a loading spinner
-  }
+  const handleProfileClick = () => {
+    router.push("/userProfile");
+  };
 
   return (
     <header className="bg-secondary">
@@ -140,21 +145,24 @@ const Header = () => {
                 <HeaderNotificationDropdown />
 
                 <HeaderUserDropdown
-                  onProfileClick={() => setIsUserProfileModalOpen(true)}
+                  // onProfileClick={() => setIsUserProfileModalOpen(true)}
+                  onProfileClick={handleProfileClick}
                   onSignOutClick={handleSignOut}
                 />
-                <div className="">{userName}</div>
+                <div className="">{userName || "Loading..."}</div>
               </>
             ) : (
               <>
                 <button
-                  onClick={() => setIsLoginModalOpen(true)}
+                  // onClick={() => setIsLoginModalOpen(true)}
+                  onClick={() => router.push("/login")}
                   className="text-gray-600 hover:text-primary px-4 py-2 text-sm"
                 >
                   Login
                 </button>
                 <button
-                  onClick={() => setIsSignUpModalOpen(true)}
+                  // onClick={() => setIsSignUpModalOpen(true)}
+                  onClick={() => router.push("/signUp")}
                   className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-primary transition-colors duration-300 font-bold"
                 >
                   Signup
@@ -192,20 +200,7 @@ const Header = () => {
               className="absolute top-4 right-4 p-1 text-gray-600 hover:text-primary"
               aria-label="Close mobile menu"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <CloseIcon /> {/* Using the extracted SVG component */}
             </button>
 
             <div className="mt-12 space-y-3">
@@ -221,7 +216,7 @@ const Header = () => {
               ))}
             </div>
 
-            <div className="bottom-0 fixed w-full my-8 ">
+            <div className="bottom-0 fixed w-full mb-24 ">
               {user ? (
                 <>
                   <button
@@ -247,18 +242,26 @@ const Header = () => {
               ) : (
                 <>
                   <button
+                    // onClick={() => {
+                    //   setIsLoginModalOpen(true);
+                    //   setIsMobileMenuOpen(false); // Close menu on button click
+                    // }}
                     onClick={() => {
-                      setIsLoginModalOpen(true);
-                      setIsMobileMenuOpen(false); // Close menu on button click
+                      router.push("/login");
+                      setIsMobileMenuOpen(false);
                     }}
                     className="block w-full text-left px-4 py-2 text-md text-black  hover:bg-gray-100"
                   >
                     Login
                   </button>
                   <button
+                    // onClick={() => {
+                    //   setIsSignUpModalOpen(true);
+                    //   setIsMobileMenuOpen(false); // Close menu on button click
+                    // }}
                     onClick={() => {
-                      setIsSignUpModalOpen(true);
-                      setIsMobileMenuOpen(false); // Close menu on button click
+                      router.push("/signUp");
+                      setIsMobileMenuOpen(false);
                     }}
                     className="block w-full text-left px-4 py-2 text-md text-white rounded-full bg-primary hover:bg-gray-100"
                   >

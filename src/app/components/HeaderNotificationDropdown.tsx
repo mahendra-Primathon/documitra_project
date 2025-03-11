@@ -32,7 +32,7 @@ const HeaderNotificationDropdown = () => {
         )}
       </button>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-50 max-h-60 overflow-y-auto">
+        <div className="absolute -right-16  md:left-0 mt-2 w-64 bg-white shadow-lg rounded-lg p-4 z-50 max-h-60 overflow-y-auto">
           <div className="mt-2 space-y-2">
             {notifications.slice(0, 4).map((notification) => (
               <div
