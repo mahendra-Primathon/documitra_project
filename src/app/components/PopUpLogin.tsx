@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Eye, EyeOff } from "lucide-react";
-import { auth } from "../../constants/firebase";
-import ForgetPasswordModal from "./ForgetPassword";
+import { auth } from "../constants/firebase";
+import ForgetPasswordModal from "./PopUpForgetPassword";
 
 interface LoginModalProps {
   isOpen: boolean;

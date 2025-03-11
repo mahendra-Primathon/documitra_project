@@ -1,6 +1,6 @@
 "use client";
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
-import { FormData } from "../../constants/formsData";
+import { FormData } from "../constants/formsData";
 import { useState } from "react";
 
 interface FormProps {
@@ -132,12 +132,12 @@ export const ReviewForm = ({
               {
                 label: "Photo",
                 fileName: formData.imageUrl?.split("/").pop(),
-                fileUrl: formData.imageUrl 
+                fileUrl: formData.imageUrl,
               },
               {
                 label: "Government ID",
                 fileName: formData.pdfUrl?.split("/").pop(),
-                fileUrl: formData.pdfUrl 
+                fileUrl: formData.pdfUrl,
               },
             ].map(({ label, fileName, fileUrl }) => (
               <div

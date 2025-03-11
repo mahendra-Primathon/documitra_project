@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { visaProcessSteps } from "../../constants/packageData";
+import { visaProcessSteps } from "../constants/packageData";
 
 interface VisaProcessProps {
   country?: "usa" | "india" | "unitedKingdom";

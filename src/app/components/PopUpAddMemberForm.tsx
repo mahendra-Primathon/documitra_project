@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import AddIcon from "../../../../public/assets/images/Form/AddIcon.svg";
+import AddIcon from "@/../public/assets/images/Form/AddIcon.svg";
 
 interface AddMemberFormProps {
   isOpen: boolean;

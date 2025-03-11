@@ -1,8 +1,8 @@
-import Navbar from "../components/home/Navbar";
+import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 
 import Footer from "../components/Footer";
-import ContactPage from "../components/contact/contact";
+import ContactPage from "../components/contact";
 
 export default function Page() {
   return (

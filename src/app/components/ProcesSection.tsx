@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { steps } from "../../constants/processDAta";
-import YTvideo from "../../../../public/assets/images/Home/Video.png";
+import { steps } from "../constants/processDAta";
+import YTvideo from "../../../public/assets/images/Home/Video.png";
 
 interface ProcessStepProps {
   imageSrc: string;
@@ -13,14 +13,26 @@ interface ProcessStepProps {
 const ProcessStep = ({ imageSrc, title, isLast = false }: ProcessStepProps) => (
   <div className="flex items-start">
     <div className="relative">
-      <div className={`w-12 h-12 rounded-full ${isLast ? "bg-green-500" : "bg-primary"} flex items-center justify-center text-white`}>
+      <div
+        className={`w-12 h-12 rounded-full ${
+          isLast ? "bg-green-500" : "bg-primary"
+        } flex items-center justify-center text-white`}
+      >
         <Image src={imageSrc} alt={title} width={24} height={24} />
       </div>
-      {!isLast && <div className="absolute top-[52px] left-1/2 w-1 h-[25px] bg-gray-400 -ml-[1px]" />}
+      {!isLast && (
+        <div className="absolute top-[52px] left-1/2 w-1 h-[25px] bg-gray-400 -ml-[1px]" />
+      )}
     </div>
 
     <div className="ml-4 flex items-center pb-12 mt-4">
-      <h4 className={`font-bold text-lg leading-none ${isLast ? "text-green-500" : ""}`}>{title}</h4>
+      <h4
+        className={`font-bold text-lg leading-none ${
+          isLast ? "text-green-500" : ""
+        }`}
+      >
+        {title}
+      </h4>
     </div>
   </div>
 );
@@ -34,14 +46,21 @@ const ProcessSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Steps */}
           <div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">How it works?</h2>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+              How it works?
+            </h2>
             <p className="text-gray-600 mb-10">
               Effortless Visa and Passport Assistance in Three Simple Steps
             </p>
 
             <div className="space-y-0 gap-8">
               {steps.map((step, index) => (
-                <ProcessStep key={index} imageSrc={step.imageSrc} title={step.title} isLast={step.isLast} />
+                <ProcessStep
+                  key={index}
+                  imageSrc={step.imageSrc}
+                  title={step.title}
+                  isLast={step.isLast}
+                />
               ))}
             </div>
           </div>

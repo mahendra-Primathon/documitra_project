@@ -1,7 +1,5 @@
-"client side";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { FormData, COUNTRY_CODES } from "../../constants/formsData";
-import { useState } from "react";
+"use client";
+import { FormData, COUNTRY_CODES } from "../constants/formsData";
 
 interface FormProps {
   formData: FormData;

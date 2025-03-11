@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, MessageCircleMore } from "lucide-react";
 import { FAQ_ACCORDION_DATA } from "@/app/constants/faqPage";
-import PackageGetStartedButton from "../popUp/PackageGetStartedButton";
+import PackageGetStartedButton from "./PopUpPackageGetStartedButton";
 import { useRouter } from "next/navigation";
 
 type DocumentType =
@@ -201,7 +201,7 @@ const FaqMain: React.FC = () => {
                                 Get Started
                               </button>
                               <p
-                                className="flex flex-row items-center gap-0.5 text-sm text-primary -translate-y-1" 
+                                className="flex flex-row items-center gap-0.5 text-sm text-primary -translate-y-1"
                                 onClick={handleWhatsappLink}
                               >
                                 <MessageCircleMore size={14} />

@@ -5,7 +5,7 @@ import {
   INITIAL_FORM_DATA,
   FORM_STEPS,
   FormData,
-} from "../../constants/formsData";
+} from "../constants/formsData";
 import FormSummaryCard from "./FormSummaryCard";
 import { ReviewForm } from "./FormReviewForm";
 import { AddressForm } from "./FormAddressForm";
@@ -14,7 +14,7 @@ import FormUploadStep from "./FormUploadStep";
 
 import { v4 as uuidv4 } from "uuid";
 import { ArrowLeft } from "lucide-react";
-import { packageCard } from "../../constants/packageData";
+import { packageCard } from "../constants/packageData";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -198,7 +198,7 @@ const FormMain = () => {
   return (
     <div className="min-h-screen bg-secondary py-10 px-10 sm:px-6 lg:px-8">
       {/* Main Content */}
-      <ToastContainer />  {/* Add this line */}
+      <ToastContainer /> {/* Add this line */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Summary Card (Top on Mobile, Right on Larger Screens) */}
         <div className="lg:col-span-1 order-1 lg:order-2">

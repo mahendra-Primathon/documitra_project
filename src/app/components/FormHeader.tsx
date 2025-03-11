@@ -3,14 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { VISA_FORM_CONSTANTS } from "../../constants/formsData";
-import AddMemberForm from "../popUp/AddMemberForm";
-import ManageMembers from "../popUp/ManageMember";
-import ConfirmDeletePopup from "../popUp/ConfirmDeletePopup";
+import { VISA_FORM_CONSTANTS } from "../constants/formsData";
+import AddMemberForm from "./PopUpAddMemberForm";
+import ManageMembers from "./PopUpManageMember";
+import ConfirmDeletePopup from "./PopUpConfirmDeletePopup";
 import { Menu, X } from "lucide-react";
 import useClickOutside from "@/app/hooks/useClickOutside";
-import { packageCard } from "../../constants/packageData";
-import AddIcon from "../../../../public/assets/images/Form/AddIcon.svg";
+import { packageCard } from "../constants/packageData";
+import AddIcon from "../../../public/assets/images/Form/AddIcon.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling
 
