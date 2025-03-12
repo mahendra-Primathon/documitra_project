@@ -152,10 +152,10 @@ const HeroSection = () => {
           <Image
             src={HeroFemale}
             alt="Hero female"
-            className="rounded-full w-[300px] h-[300px] lg:w-[460px] lg:h-[460px] z-30"
+            className="rounded-full w-[300px] h-[300px] lg:w-[460px] lg:h-[460px] z-20"
           />
           {/* Lock Icon */}
-          <div className="absolute top-4 lg:top-8 right-4 lg:right-14 bg-white p-3 lg:p-5 rounded-2xl lg:rounded-3xl shadow-lg z-40">
+          <div className="absolute top-4 lg:top-8 right-4 lg:right-14 bg-white p-3 lg:p-5 rounded-2xl lg:rounded-3xl shadow-lg z-30">
             <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center">
               <Image src={hero_IconAwsomeLock} alt="Hero Icon" />
             </div>
@@ -177,7 +177,7 @@ const HeroSection = () => {
           </div>
 
           {/* Delivered On-Time */}
-          <div className="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 bg-white pl-3 pr-4 lg:pl-6 lg:pr-8 py-2 lg:py-4 rounded-tl-2xl lg:rounded-tl-3xl rounded-r-2xl lg:rounded-r-3xl shadow-lg flex items-center gap-2 lg:gap-3 z-40">
+          <div className="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 bg-white pl-3 pr-4 lg:pl-6 lg:pr-8 py-2 lg:py-4 rounded-tl-2xl lg:rounded-tl-3xl rounded-r-2xl lg:rounded-r-3xl shadow-lg flex items-center gap-2 lg:gap-3 z-30">
             <div className="w-5 h-5 lg:w-8 lg:h-8 bg-green-100 rounded-full flex items-center justify-center">
               <Image src={hero_delivered} alt="Hero Icon" />
             </div>
