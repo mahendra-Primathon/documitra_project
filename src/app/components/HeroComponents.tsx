@@ -70,6 +70,7 @@ export const MoreDropdown = ({
   onSelect,
   isOpen,
   setIsOpen,
+  options = options,
 }) => {
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
@@ -124,7 +125,7 @@ export const MoreDropdown = ({
                 position: "absolute",
                 top: position.top,
                 right: position.right,
-                width: "200px", // Fixed width for dropdown
+                width: "200px",
                 zIndex: 1000,
               }}
               className="mt-2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -157,23 +158,23 @@ export const DocumentTypeSelector = () => {
   const [visibleDocs, setVisibleDocs] = useState(documentTypes);
   const [moreDocs, setMoreDocs] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [moreDocTypes, setMoreDocTypes] = useState(moreOptions);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        // Move last two items to more dropdown on mobile
-        setVisibleDocs(documentTypes.slice(0, 2));
-        setMoreDocs(documentTypes.slice(2));
+        // For mobile: show only first 2 document types
+        setVisibleDocTypes(documentTypes.slice(0, 2));
+        // Combine remaining document types with moreOptions
+        setMoreDocTypes([...documentTypes.slice(2), ...moreOptions]);
       } else {
-        // Show all items on laptop/desktop
-        setVisibleDocs(documentTypes);
-        setMoreDocs([]);
+        // For laptop/desktop: show all document types
+        setVisibleDocTypes(documentTypes);
+        setMoreDocTypes(moreOptions);
       }
     };
-
     handleResize(); // Set initial state
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
