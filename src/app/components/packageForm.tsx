@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { packageData } from "../constants/packageData";
 import PackageDropdown from "./PackageDropdown";
+import PackageGetStartedButton from "./PopUpPackageGetStartedButton";
 
 const PackageForm = ({ country }) => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const PackageForm = ({ country }) => {
   const [selectedDoc, setSelectedDoc] = useState(querySelectedDoc);
   const [error, setError] = useState("");
   const [isEditable, setIsEditable] = useState(false); // State to control editability
+  const [isPopupOpen, setIsPopupOpen] = useState(false); // State to control popup visibility
 
   // Update state when query params change
   useEffect(() => {
@@ -61,6 +63,15 @@ const PackageForm = ({ country }) => {
 
     // Redirect to the package page
     router.push(`/packages/${formattedDestination}?${queryParams}`);
+  };
+
+  const handleApply = (data) => {
+    // Handle the apply logic here
+    setCitizenship(data.citizenship);
+    setApplyingFrom(data.applyingFrom);
+    setDestination(data.destination);
+    setSelectedDoc(data.documentType);
+    setIsPopupOpen(false); // Close the popup after applying
   };
 
   return (
@@ -118,14 +129,22 @@ const PackageForm = ({ country }) => {
             if (isEditable) {
               setIsEditable(false);
             } else {
-              router.push("/");
+              setIsPopupOpen(true); // Open the popup
             }
-          }} // Toggle editability or navigate to home
+          }} // Toggle editability or open popup
           className="mt-6 bg-primary text-white py-3 px-4 rounded-full hover:bg-blue-800 transition-colors font-medium align-center"
         >
           {isEditable ? "Save Details" : "Edit the Details"}
         </button>
       </div>
+
+      {/* Render the popup */}
+      <PackageGetStartedButton
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        documentType={selectedDoc}
+        onApply={handleApply}
+      />
     </div>
   );
 };
