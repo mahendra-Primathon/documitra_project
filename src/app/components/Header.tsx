@@ -149,7 +149,7 @@ const Header = () => {
                   onProfileClick={handleProfileClick}
                   onSignOutClick={handleSignOut}
                 />
-                <div className="">{userName || "Loading..."}</div>
+                {/* <div className="">{userName || "Loading..."}</div> */}
               </>
             ) : (
               <>
@@ -162,7 +162,7 @@ const Header = () => {
                 </button>
                 <button
                   // onClick={() => setIsSignUpModalOpen(true)}
-                  onClick={() => router.push("/signUp")}
+                  onClick={() => router.push("/signup")}
                   className="bg-primary text-white px-12 py-2 rounded-full text-sm hover:bg-primary transition-colors duration-300 font-bold"
                 >
                   Signup

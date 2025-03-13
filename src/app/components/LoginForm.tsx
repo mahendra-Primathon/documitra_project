@@ -49,7 +49,7 @@ const LoginForm = () => {
   return (
     <div className="flex items-center justify-center">
       <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-6 text-blue-700">
+        <h2 className="text-2xl font-bold text-center mb-6 text-primary">
           Log in
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -60,7 +60,7 @@ const LoginForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter your email"
               required
             />
@@ -73,7 +73,7 @@ const LoginForm = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter your password"
               required
             />
@@ -95,14 +95,14 @@ const LoginForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
+            className="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
 
           <button
             type="button"
-            className="w-full text-blue-700 text-sm hover:underline"
+            className="w-full text-primary text-sm hover:underline"
             onClick={() => setIsForgetPasswordOpen(true)}
           >
             Forgot Password?
@@ -112,7 +112,7 @@ const LoginForm = () => {
             Don't have an account?{" "}
             <button
               type="button"
-              className="text-blue-700 hover:underline"
+              className="text-primary hover:underline"
               onClick={handleSignUp}
             >
               Sign up

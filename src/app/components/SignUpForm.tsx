@@ -165,7 +165,7 @@ const SignUpForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-500 text-white p-2 rounded disabled:bg-blue-300"
+          className="w-full bg-primary text-white p-2 rounded disabled:bg-blue-300"
         >
           {loading ? "Signing up..." : "Sign Up"}
         </button>
