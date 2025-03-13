@@ -83,7 +83,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
         <div className="flex items-center gap-2 mb-6">
           <svg
-            className="w-6 h-6 text-blue-700"
+            className="w-6 h-6 text-primary"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -103,7 +103,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 name="fname"
                 value={formData.fname}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="Enter"
                 required
               />
@@ -117,7 +117,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 name="lname"
                 value={formData.lname}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="Enter"
                 required
               />
@@ -131,7 +131,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter"
               required
               disabled
@@ -145,7 +145,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-"
               placeholder="Enter"
               required
             />
@@ -156,7 +156,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
+            className="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-800 transition-colors disabled:bg-blue-300"
           >
             {loading ? "Updating..." : "Update Profile"}
           </button>
