@@ -24,10 +24,10 @@ export interface OrderData {
 
 // Sample data for profile
 export const sampleUserProfile: UserProfile = {
-  fname: "Radha",
-  lname: "Patidhar",
-  email: "radhe@patidhar.com",
-  phone: "+91 12341 12341",
+  fname: "Loading...",
+  lname: "Loading..",
+  email: "Loading....",
+  phone: "Loading.....",
 };
 
 // Sample data for address

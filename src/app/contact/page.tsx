@@ -7,7 +7,7 @@ import ContactPage from "../components/contact";
 export default function Page() {
   return (
     <div className="m-0 p-0">
-      <Navbar />
+      {/* <Navbar /> */}
       <Header />
       <ContactPage />
       <Footer />
