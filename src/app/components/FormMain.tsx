@@ -53,6 +53,7 @@ const FormMain = () => {
   const [selectedPackage, setSelectedPackage] = useState<{
     id: number;
     packageUniqueId: string;
+    packageId:string;
     title: string;
     duration: string;
     numberOfEntries: string;
@@ -62,9 +63,9 @@ const FormMain = () => {
   } | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && packageCountry && packageUniqueId) {
+    if (typeof window !== "undefined" && packageCountry && packageId && packageUniqueId  ) {
       const packages = packageCard[packageCountry as keyof typeof packageCard];
-      const pkg = packages.find((p: { id: number }) => p.id === parseInt(packageUniqueId));
+      const pkg = packages.find((p: { id: number }) => p.id === parseInt(packageId));
       setSelectedPackage(pkg);
       // ✅ Store `packageCountry` and `packageUniqueId` in formData
       setFormData((prev) => ({
@@ -74,7 +75,7 @@ const FormMain = () => {
       }));
       
     }
-  }, [packageCountry, packageUniqueId]);
+  }, [packageCountry, packageUniqueId , packageId]);
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
