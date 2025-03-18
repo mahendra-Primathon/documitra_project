@@ -1,31 +1,4 @@
 // constants/dashboardData.ts
-// Define types for dashboard data structures
-export interface MemberData {
-  name: string;
-  status:
-    | "Forms Incomplete"
-    | "Forms Complete"
-    | "Documents under review"
-    | "Approved";
-  remarks: number;
-}
-
-export interface PackageData {
-  id: string;
-  status:
-    | "Not Purchased"
-    | "Purchased"
-    | "Processing"
-    | "Approved"
-    | "Rejected";
-  type: string;
-  entries: "Single" | "Multiple";
-  validity: string;
-  members: MemberData[];
-  memberCount: number;
-  createdAt?: string;
-  country?: string; // Added country field to match with form data
-}
 
 export type DocumentType =
   | "oci"
@@ -36,95 +9,11 @@ export type DocumentType =
   | "voter-id"
   | "aadhar-card";
 
-// Sample data for development and testing
-export const samplePackages: PackageData[] = [
-  {
-    id: "DOC/FEB/25/890807",
-    status: "Not Purchased",
-    type: "3Months Package for USA",
-    entries: "Multiple",
-    validity: "2 Months",
-    members: [{ name: "Rajeev", status: "Forms Incomplete", remarks: 0 }],
-    memberCount: 1,
-    createdAt: "2025-02-25",
-    country: "USA",
-  },
-  {
-    id: "DOC/MAR/12/891245",
-    status: "Not Purchased",
-    type: "Business Visa",
-    entries: "Single",
-    validity: "6 Months",
-    members: [{ name: "Priya", status: "Forms Incomplete", remarks: 0 }],
-    memberCount: 1,
-    createdAt: "2025-03-12",
-    country: "Canada",
-  },
-];
-
-// Function to get packages from local storage or API
-export const getPackages = async (): Promise<PackageData[]> => {
-  // In a real implementation, this would fetch from an API
-  // For now, return the sample data
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(samplePackages);
-    }, 500); // Simulate network delay
-  });
-};
-
-// Function to update package data
-export const updatePackage = async (
-  packageId: string,
-  data: Partial<PackageData>
-): Promise<PackageData> => {
-  // In a real implementation, this would send an update to your API
-  // For now, just simulate an update
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const updatedPackage = samplePackages.find((p) => p.id === packageId);
-      if (updatedPackage) {
-        Object.assign(updatedPackage, data);
-        resolve(updatedPackage);
-      } else {
-        reject(new Error("Package not found"));
-      }
-    }, 500);
-  });
-};
-
-// Function to update member status
-export const updateMemberStatus = async (
-  packageId: string,
-  memberName: string,
-  status: MemberData["status"],
-  remarks: number = 0
-): Promise<PackageData> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const pkg = samplePackages.find((p) => p.id === packageId);
-      if (pkg) {
-        const member = pkg.members.find((m) => m.name === memberName);
-        if (member) {
-          member.status = status;
-          member.remarks = remarks;
-          resolve(pkg);
-        } else {
-          reject(new Error("Member not found"));
-        }
-      } else {
-        reject(new Error("Package not found"));
-      }
-    }, 500);
-  });
-};
-
 export interface ServiceItem {
   id: DocumentType;
   title: string;
   icon: string;
 }
-
 
 export interface FormData {
   _id: string;
@@ -156,25 +45,27 @@ export interface PackageInfo {
   documitraFees: number;
 }
 
-export const getPackageDetails = (packageCountry: string, packageId: string): PackageInfo | null => {
+export const getPackageDetails = (
+  packageCountry: string,
+  packageId: string
+): PackageInfo | null => {
   // Convert packageId to number for matching
   const numericPackageId = parseInt(packageId, 10);
-  
+
   // Check if the country exists in packageCard
   if (packageCard[packageCountry as keyof typeof packageCard]) {
     // Find the package with matching id
-    const packageInfo = packageCard[packageCountry as keyof typeof packageCard].find(
-      pkg => pkg.id === numericPackageId
-    );
-    
+    const packageInfo = packageCard[
+      packageCountry as keyof typeof packageCard
+    ].find((pkg) => pkg.id === numericPackageId);
+
     if (packageInfo) {
       return packageInfo;
     }
   }
-  
+
   return null;
 };
-
 
 export const PREMIUM_SERVICES: ServiceItem[] = [
   {
@@ -214,162 +105,173 @@ export const PREMIUM_SERVICES: ServiceItem[] = [
   // },
 ];
 
-export const packageCard = {
-  "1": [
+export const packageCardUniqueId = {
+  "01": [
     {
-      "id": 1,
-      "title": "1 Year Package for India",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 25,
-      "documitraFees": 15,
-      "validityPeriod": "1 Year",
-      "country": "India"
-    }
+      id: 1,
+      title: "1 Year Package for India",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 25,
+      documitraFees: 15,
+      validityPeriod: "1 Year",
+      country: "India",
+    },
   ],
-  "2": [
+  "02": [
     {
-      "id": 2,
-      "title": "6 Months Package for India",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 20,
-      "documitraFees": 15,
-      "validityPeriod": "6 Months",
-      "country": "India"
-    }
+      id: 2,
+      title: "6 Months Package for India",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 20,
+      documitraFees: 15,
+      validityPeriod: "6 Months",
+      country: "India",
+    },
   ],
-  "3": [
+  "03": [
     {
-      "id": 3,
-      "title": "3 Year Package for India",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 60,
-      "documitraFees": 30,
-      "validityPeriod": "3 Years",
-      "country": "India"
-    }
+      id: 3,
+      title: "3 Year Package for India",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 60,
+      documitraFees: 30,
+      validityPeriod: "3 Years",
+      country: "India",
+    },
   ],
-  "4": [
+  "04": [
     {
-      "id": 4,
-      "title": "5 Years Package for USA",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 29,
-      "documitraFees": 19,
-      "validityPeriod": "5 Years",
-      "country": "USA"
-    }
+      id: 4,
+      title: "5 Years Package for USA",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 29,
+      documitraFees: 19,
+      validityPeriod: "5 Years",
+      country: "USA",
+    },
   ],
-  "5": [
+  "05": [
     {
-      "id": 5,
-      "title": "3 Months Package for USA",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 29,
-      "documitraFees": 19,
-      "validityPeriod": "3 Months",
-      "country": "USA"
-    }
+      id: 5,
+      title: "3 Months Package for USA",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 29,
+      documitraFees: 19,
+      validityPeriod: "3 Months",
+      country: "USA",
+    },
   ],
-  "6": [
+  "06": [
     {
-      "id": 6,
-      "title": "1 Year Package for USA",
-      "duration": "6 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 50,
-      "documitraFees": 30,
-      "validityPeriod": "1 Year",
-      "country": "USA"
-    }
+      id: 6,
+      title: "1 Year Package for USA",
+      duration: "6 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 50,
+      documitraFees: 30,
+      validityPeriod: "1 Year",
+      country: "USA",
+    },
   ],
-  "7": [
+  "07": [
     {
-      "id": 7,
-      "title": "2 Year Package for UK",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 70,
-      "documitraFees": 40,
-      "validityPeriod": "2 Years",
-      "country": "UK"
-    }
+      id: 7,
+      title: "2 Year Package for UK",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 70,
+      documitraFees: 40,
+      validityPeriod: "2 Years",
+      country: "UK",
+    },
   ],
-  "8": [
+  "08": [
     {
-      "id": 8,
-      "title": "6 Months Package for UK",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 45,
-      "documitraFees": 25,
-      "validityPeriod": "6 Months",
-      "country": "UK"
-    }
+      id: 8,
+      title: "6 Months Package for UK",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 45,
+      documitraFees: 25,
+      validityPeriod: "6 Months",
+      country: "UK",
+    },
   ],
-  "9": [
+  "09": [
     {
-      "id": 9,
-      "title": "3 Years Package for Canada",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 60,
-      "documitraFees": 35,
-      "validityPeriod": "3 Years",
-      "country": "Canada"
-    }
+      id: 9,
+      title: "3 Years Package for Canada",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 60,
+      documitraFees: 35,
+      validityPeriod: "3 Years",
+      country: "Canada",
+    },
   ],
   "10": [
     {
-      "id": 10,
-      "title": "1 Year Package for Canada",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 40,
-      "documitraFees": 20,
-      "validityPeriod": "1 Year",
-      "country": "Canada"
-    }
+      id: 10,
+      title: "1 Year Package for Canada",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 40,
+      documitraFees: 20,
+      validityPeriod: "1 Year",
+      country: "Canada",
+    },
   ],
   "11": [
     {
-      "id": 11,
-      "title": "6 Months Package for Canada",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 30,
-      "documitraFees": 18,
-      "validityPeriod": "6 Months",
-      "country": "Canada"
-    }
+      id: 11,
+      title: "6 Months Package for Canada",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 30,
+      documitraFees: 18,
+      validityPeriod: "6 Months",
+      country: "Canada",
+    },
   ],
   "12": [
     {
-      "id": 12,
-      "title": "4 Year Package for London",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 80,
-      "documitraFees": 50,
-      "validityPeriod": "4 Years",
-      "country": "London"
-    }
+      id: 12,
+      title: "4 Year Package for London",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 80,
+      documitraFees: 50,
+      validityPeriod: "4 Years",
+      country: "London",
+    },
   ],
   "13": [
     {
-      "id": 13,
-      "title": "12 Months Package for London",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 55,
-      "documitraFees": 30,
-      "validityPeriod": "12 Months",
-      "country": "London"
-    }
-  ]
+      id: 13,
+      title: "12 Months Package for London",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 55,
+      documitraFees: 30,
+      validityPeriod: "12 Months",
+      country: "London",
+    },
+  ],
 };
 
+// Hardcoded purchased package example
+export const hardcodedPurchasedPackage = {
+  isPurchased: true,
+  title: "4 Year Package for London",
+  numberOfEntries: "Multiple",
+  duration: "2 Months",
+  governmentFees: "$80",
+  documitraFees: "$50",
+  validityPeriod: "4 Years",
+  country: "London",
+};

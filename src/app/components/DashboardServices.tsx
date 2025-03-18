@@ -42,10 +42,12 @@ const DashboardServices: React.FC = () => {
     // Additional logic...
   };
 
+  
+
   return (
     <div className="container mx-auto px-4 pt-8 pb-16 bg-secondary">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-10">
+        <h2 className="text-4xl font-bold text-center mb-10">
           Our Premium Services
         </h2>
 
@@ -53,7 +55,7 @@ const DashboardServices: React.FC = () => {
           {PREMIUM_SERVICES.map((service) => (
             <div
               key={service.id}
-              className="bg-white rounded-2xl shadow-md px-4 py-12 flex items-center cursor-pointer transition-transform hover:scale-105 gap-4 "
+              className="bg-white rounded-2xl shadow-xl  px-6 py-16 flex items-center cursor-pointer transition-transform hover:scale-105 gap-4 "
               onClick={() => handleServiceClick(service.id)}
             >
               <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mr-4 text-white  ">
