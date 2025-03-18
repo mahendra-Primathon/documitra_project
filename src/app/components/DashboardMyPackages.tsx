@@ -8,11 +8,9 @@ import {
   FileText,
   MessageSquare,
 } from "lucide-react";
-import { PackageData, getPackages, FormData } from "../constants/dashbordData";
-import { packageCard } from "../constants/packageData";
+import { FormData } from "../constants/dashbordData";
 import { packageCardUniqueId } from "../constants/dashbordData";
 import Link from "next/link";
-import { hardcodedPurchasedPackage } from "../constants/dashbordData";
 
 const MyPackages: React.FC = () => {
   const [formData, setFormData] = useState<FormData[]>([]);
@@ -51,7 +49,7 @@ const MyPackages: React.FC = () => {
   };
 
   const renderPackageCard = (packageUniqueId: string, names: FormData[]) => {
-    const packageDetails = packageCardUniqueId[packageUniqueId]?.[0];
+    const packageDetails = packageCardUniqueId[packageUniqueId as keyof typeof packageCardUniqueId]?.[0];
     if (!packageDetails)
       return <p className="text-red-500">No package details found</p>;
 
@@ -124,25 +122,23 @@ const MyPackages: React.FC = () => {
                         <span className="inline-flex items-center">
                           <FileText className="w-4 h-4 mr-1" />
                           Status: Form Incomplete
-                           {/* {formStatus} */}
+                          {/* {formStatus} */}
                         </span>
                       </span>
                       <span>
                         <span className="inline-flex items-center">
                           <MessageSquare className="w-4 h-4 mr-1" />
-                          Remarks: 0
-                           {/* {member.remarks} */}
+                          Remarks: 0{/* {member.remarks} */}
                         </span>
                       </span>
                     </div>
                   </div>
                   <Link
-                      href={`/form`}
-                      className="bg-primary hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200"
-                    >
-                      Edit Form
-                    </Link>
-
+                    href={`#`}
+                    className="bg-primary hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200"
+                  >
+                    Edit Form
+                  </Link>
                 </div>
               </div>
             ))}
