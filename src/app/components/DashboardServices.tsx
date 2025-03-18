@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
-// import PremiumServices from "./PremiumService";
 import { PREMIUM_SERVICES } from "../constants/dashbordData";
-// import PackageGetStartedButton, { DocumentType } from "./PackageGetStartedButton";
 import PackageGetStartedButton, {
   DocumentType,
 } from "./PopUpPackageGetStartedButton";
 import Image from "next/image";
+import visaIcon from "@/../public/assets/images/Home/PSvisa.svg";
 
 const DashboardServices: React.FC = () => {
   const [activePopup, setActivePopup] = useState<{
@@ -44,7 +43,7 @@ const DashboardServices: React.FC = () => {
   };
 
   return (
-    <div className="bg-secondary py-10 px-4">
+    <div className="container mx-auto px-4 pt-8 pb-16 bg-secondary">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">
           Our Premium Services
@@ -54,16 +53,16 @@ const DashboardServices: React.FC = () => {
           {PREMIUM_SERVICES.map((service) => (
             <div
               key={service.id}
-              className="bg-white rounded-lg shadow-md p-6 flex items-center cursor-pointer transition-transform hover:scale-105"
+              className="bg-white rounded-2xl shadow-md px-4 py-12 flex items-center cursor-pointer transition-transform hover:scale-105 gap-4 "
               onClick={() => handleServiceClick(service.id)}
             >
-              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mr-4">
+              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mr-4 text-white  ">
                 <Image
-                  src={service.icon}
+                  src={visaIcon}
                   alt={service.title}
                   width={50} // Set appropriate width
                   height={50} // Set appropriate height
-                  className="object-contain invert"
+                  className="object-contain filter grayscale" // Added 'filter grayscale' for BW effect
                 />
               </div>
               <h3 className="text-xl font-semibold">{service.title}</h3>

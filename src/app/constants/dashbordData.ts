@@ -207,9 +207,9 @@ export const PREMIUM_SERVICES: ServiceItem[] = [
     title: "Voter ID",
     icon: "https://cdn-icons-png.flaticon.com/512/2190/2190552.png",
   },
-  {
-    id: "aadhar-card",
-    title: "Aadhar Card",
-    icon: "https://cdn-icons-png.flaticon.com/512/4616/4616089.png",
-  },
+  // {
+  //   id: "aadhar-card",
+  //   title: "Aadhar Card",
+  //   icon: "https://cdn-icons-png.flaticon.com/512/4616/4616089.png",
+  // },
 ];

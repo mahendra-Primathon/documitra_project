@@ -66,6 +66,7 @@ const MyPackages: React.FC = () => {
 
     return (
       <div key={pkg.id} className="bg-white rounded-lg shadow-md mb-6">
+        
         <div className="p-6">
           <div className="mb-4 flex justify-between">
             <div>
