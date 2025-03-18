@@ -1,10 +1,12 @@
-// constants/DashboardData.ts
-
+// constants/dashboardData.ts
 // Define types for dashboard data structures
-import psVisa from "@/../public/assets/images/Home/PSvisa.svg"
 export interface MemberData {
   name: string;
-  status: "Forms Incomplete" | "Forms Complete" | "Form Submitted" | "Approved";
+  status:
+    | "Forms Incomplete"
+    | "Forms Complete"
+    | "Documents under review"
+    | "Approved";
   remarks: number;
 }
 
@@ -17,37 +19,46 @@ export interface PackageData {
     | "Approved"
     | "Rejected";
   type: string;
-  entries: "Single" | "Multiples";
+  entries: "Single" | "Multiple";
   validity: string;
   members: MemberData[];
   memberCount: number;
   createdAt?: string;
+  country?: string; // Added country field to match with form data
 }
+
+export type DocumentType =
+  | "oci"
+  | "visa"
+  | "passport"
+  | "pancard"
+  | "driving-licence"
+  | "voter-id"
+  | "aadhar-card";
 
 // Sample data for development and testing
 export const samplePackages: PackageData[] = [
   {
     id: "DOC/FEB/25/890807",
     status: "Not Purchased",
-    type: "New OCI",
-    entries: "Multiples",
-    validity: "Lifelong",
-    members: [
-      { name: "sunil", status: "Forms Incomplete", remarks: 0 },
-      { name: "Rajeev", status: "Forms Incomplete", remarks: 0 },
-    ],
-    memberCount: 2,
+    type: "3Months Package for USA",
+    entries: "Multiple",
+    validity: "2 Months",
+    members: [{ name: "Rajeev", status: "Forms Incomplete", remarks: 0 }],
+    memberCount: 1,
     createdAt: "2025-02-25",
+    country: "USA",
   },
   {
     id: "DOC/MAR/12/891245",
-    status: "Purchased",
+    status: "Not Purchased",
     type: "Business Visa",
     entries: "Single",
     validity: "6 Months",
-    members: [{ name: "Priya", status: "Forms Complete", remarks: 2 }],
+    members: [{ name: "Priya", status: "Forms Incomplete", remarks: 0 }],
     memberCount: 1,
     createdAt: "2025-03-12",
+    country: "Canada",
   },
 ];
 
@@ -69,14 +80,40 @@ export const updatePackage = async (
 ): Promise<PackageData> => {
   // In a real implementation, this would send an update to your API
   // For now, just simulate an update
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       const updatedPackage = samplePackages.find((p) => p.id === packageId);
       if (updatedPackage) {
         Object.assign(updatedPackage, data);
         resolve(updatedPackage);
       } else {
-        throw new Error("Package not found");
+        reject(new Error("Package not found"));
+      }
+    }, 500);
+  });
+};
+
+// Function to update member status
+export const updateMemberStatus = async (
+  packageId: string,
+  memberName: string,
+  status: MemberData["status"],
+  remarks: number = 0
+): Promise<PackageData> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const pkg = samplePackages.find((p) => p.id === packageId);
+      if (pkg) {
+        const member = pkg.members.find((m) => m.name === memberName);
+        if (member) {
+          member.status = status;
+          member.remarks = remarks;
+          resolve(pkg);
+        } else {
+          reject(new Error("Member not found"));
+        }
+      } else {
+        reject(new Error("Package not found"));
       }
     }, 500);
   });
@@ -87,6 +124,57 @@ export interface ServiceItem {
   title: string;
   icon: string;
 }
+
+
+export interface FormData {
+  _id: string;
+  name: string;
+  age: string;
+  gender: string;
+  phoneNumber: string;
+  countryCode: string;
+  email: string;
+  address: string;
+  country: string;
+  postalCode: string;
+  governmentId: string;
+  nationality: string;
+  imageUrl: string;
+  pdfUrl: string;
+  packageCountry: string;
+  packageId: string;
+}
+
+// Interface for package information
+export interface PackageInfo {
+  id: number;
+  title: string;
+  duration: string;
+  numberOfEntries: string;
+  validityPeriod: string;
+  governmentFees: number;
+  documitraFees: number;
+}
+
+export const getPackageDetails = (packageCountry: string, packageId: string): PackageInfo | null => {
+  // Convert packageId to number for matching
+  const numericPackageId = parseInt(packageId, 10);
+  
+  // Check if the country exists in packageCard
+  if (packageCard[packageCountry as keyof typeof packageCard]) {
+    // Find the package with matching id
+    const packageInfo = packageCard[packageCountry as keyof typeof packageCard].find(
+      pkg => pkg.id === numericPackageId
+    );
+    
+    if (packageInfo) {
+      return packageInfo;
+    }
+  }
+  
+  return null;
+};
+
 
 export const PREMIUM_SERVICES: ServiceItem[] = [
   {
