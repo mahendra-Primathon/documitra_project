@@ -46,18 +46,25 @@ const FormMain = () => {
   }>({ image: null, pdf: null }); // Track uploaded file names
 
   const searchParams = useSearchParams();
-  const country = searchParams.get("country");
+  const packageCountry = searchParams.get("country");
   const packageId = searchParams.get("packageId");
 
   const [selectedPackage, setSelectedPackage] = useState(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && country && packageId) {
-      const packages = packageCard[country];
+    if (typeof window !== "undefined" && packageCountry && packageId) {
+      const packages = packageCard[packageCountry];
       const pkg = packages.find((p) => p.id === parseInt(packageId));
       setSelectedPackage(pkg);
+      // ✅ Store `packageCountry` and `packageId` in formData
+      setFormData((prev) => ({
+        ...prev,
+        packageCountry,
+        packageId,
+      }));
+      
     }
-  }, [country, packageId]);
+  }, [packageCountry, packageId]);
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
@@ -191,6 +198,7 @@ const FormMain = () => {
       toast.error("An error occurred while submitting the form.");
     }
   };
+  
 
   // Check if both files are uploaded
   // const isUploadStepValid = uploadedFiles.image && uploadedFiles.pdf;

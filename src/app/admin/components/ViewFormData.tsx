@@ -70,6 +70,7 @@ const ViewFormData = () => {
                   "Address",
                   "Country",
                   "Package ID",
+                  "Package Country",
                   "Photo",
                   "Gov. ID",
                   "Actions",
@@ -92,6 +93,7 @@ const ViewFormData = () => {
                   <td className="p-2 border">{data?.address}</td>
                   <td className="p-2 border">{data?.country}</td>
                   <td className="p-2 border">{data?.packageId}</td>
+                  <td className="p-2 border">{data?.packageCountry}</td>
                   <td className="p-2 border">
                     <a
                       href={data?.imageUrl}

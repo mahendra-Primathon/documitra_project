@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import withSvgr from "@svgr/webpack";
 
 const nextConfig: NextConfig = {
   webpack(config) {
@@ -7,11 +6,16 @@ const nextConfig: NextConfig = {
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
-    
-
     return config;
   },
-  /* other config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn-icons-png.flaticon.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
