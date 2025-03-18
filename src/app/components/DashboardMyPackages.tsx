@@ -1,6 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Clock, Users, Package2, FileText, MessageSquare, Globe } from "lucide-react";
+import {
+  Clock,
+  Users,
+  Package2,
+  FileText,
+  MessageSquare,
+  Globe,
+} from "lucide-react";
 import Link from "next/link";
 import { PackageData, getPackages, FormData } from "../constants/dashbordData";
 import { packageCard } from "../constants/packageData";
@@ -32,7 +39,10 @@ const MyPackages: React.FC = () => {
     fetchData();
   }, []);
 
-  const getFullPackageDetails = (packageCountry: string | undefined, packageId: string) => {
+  const getFullPackageDetails = (
+    packageCountry: string | undefined,
+    packageId: string
+  ) => {
     if (!packageCountry) return null;
     const country = packageCountry.toLowerCase();
     if (!packageCard[country]) return null;
@@ -53,7 +63,10 @@ const MyPackages: React.FC = () => {
     return (
       <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 my-4">
         <p>{error}</p>
-        <button onClick={() => window.location.reload()} className="mt-2 text-red-600 hover:text-red-800 underline">
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-2 text-red-600 hover:text-red-800 underline"
+        >
           Try Again
         </button>
       </div>
@@ -61,16 +74,23 @@ const MyPackages: React.FC = () => {
   }
 
   const renderPackageCard = (pkg: PackageData, isPurchased: boolean) => {
-    const relatedFormData = formData.filter((form) => form.packageId === pkg.id);
+    const relatedFormData = formData.filter(
+      (form) => form.packageId === pkg.id
+    );
     const detailedPackage = getFullPackageDetails(pkg.country, pkg.id);
 
     return (
       <div key={pkg.id} className="bg-white rounded-lg shadow-md mb-6">
-        
         <div className="p-6">
           <div className="mb-4 flex justify-between">
             <div>
-              <span className={`inline-block px-3 py-1 rounded-md text-sm font-medium mb-2 ${isPurchased ? "bg-green-200 text-green-800" : "bg-yellow-200 text-yellow-800"}`}>
+              <span
+                className={`inline-block px-3 py-1 rounded-md text-sm font-medium mb-2 ${
+                  isPurchased
+                    ? "bg-green-200 text-green-800"
+                    : "bg-yellow-200 text-yellow-800"
+                }`}
+              >
                 {isPurchased ? "Purchased" : "Not Purchased"}
               </span>
               <p className="text-gray-600 text-sm">Order ID: {pkg.id}</p>
@@ -83,14 +103,18 @@ const MyPackages: React.FC = () => {
             )}
           </div>
 
-          <h2 className="text-xl font-bold mb-6">{isPurchased ? pkg.type : detailedPackage?.title}</h2>
+          <h2 className="text-xl font-bold mb-6">
+            {isPurchased ? pkg.type : detailedPackage?.title}
+          </h2>
 
           {detailedPackage && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
               <div className="flex items-center">
                 <Package2 className="h-5 w-5 text-primary mr-2" />
                 <div>
-                  <p className="text-primary font-medium">{detailedPackage.numberOfEntries}</p>
+                  <p className="text-primary font-medium">
+                    {detailedPackage.numberOfEntries}
+                  </p>
                   <p className="text-gray-500 text-sm">Number of entries</p>
                 </div>
               </div>
@@ -98,7 +122,9 @@ const MyPackages: React.FC = () => {
               <div className="flex items-center">
                 <Clock className="h-5 w-5 text-primary mr-2" />
                 <div>
-                  <p className="text-primary font-medium">{detailedPackage.duration}</p>
+                  <p className="text-primary font-medium">
+                    {detailedPackage.duration}
+                  </p>
                   <p className="text-gray-500 text-sm">Duration</p>
                 </div>
               </div>
@@ -115,8 +141,12 @@ const MyPackages: React.FC = () => {
 
           <div className="border-t pt-6">
             {pkg.members.map((member, index) => {
-              const memberFormData = relatedFormData.find((form) => form.name === member.name);
-              const formStatus = memberFormData ? "Forms Complete" : "Forms Incomplete";
+              const memberFormData = relatedFormData.find(
+                (form) => form.name === member.name
+              );
+              const formStatus = memberFormData
+                ? "Forms Complete"
+                : "Forms Incomplete";
 
               return (
                 <div key={index} className="border rounded-lg p-4 mb-4">
@@ -139,11 +169,13 @@ const MyPackages: React.FC = () => {
                       </div>
                     </div>
                     <Link
-                      href={`/form?member=${encodeURIComponent(member.name)}&packageId=${encodeURIComponent(pkg.id)}${pkg.country ? `&packageCountry=${encodeURIComponent(pkg.country)}` : ""}`}
+                      href={`/form?country=${pkg.country}&packageId=${pkg.id}`}
+                      // href={`/form?member=${encodeURIComponent(member.name)}&packageId=${encodeURIComponent(pkg.id)}${pkg.country ? `&packageCountry=${encodeURIComponent(pkg.country)}` : ""}`}
                       className="bg-primary hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200"
                     >
                       {memberFormData ? "Edit Form" : "Fill Form"}
                     </Link>
+                    {/* http://localhost:3000/form?country=london&packageId=2 */}
                   </div>
                 </div>
               );
@@ -174,8 +206,13 @@ const MyPackages: React.FC = () => {
       {packages.length === 0 && (
         <div className="text-center p-8 bg-white rounded-lg shadow my-4">
           <h2 className="text-xl font-semibold mb-2">No Packages Found</h2>
-          <p className="text-gray-600 mb-4">You haven't selected any packages yet.</p>
-          <Link href="/packages" className="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
+          <p className="text-gray-600 mb-4">
+            You haven't selected any packages yet.
+          </p>
+          <Link
+            href="/packages"
+            className="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+          >
             Browse Packages
           </Link>
         </div>

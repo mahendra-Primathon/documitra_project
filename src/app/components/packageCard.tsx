@@ -10,7 +10,7 @@ const PackageCard = ({ country = "usa" }) => {
 
   const handleApply = (pkg) => {
     console.log(`Applying for package ${pkg.id} in ${country}`);
-    router.push(`/form?country=${country}&packageId=${pkg.id}`);
+    router.push(`/form?country=${country}&packageId=${pkg.id}&packageUniqueId=${pkg.packageUniqueId}`);
   };
 
   return (

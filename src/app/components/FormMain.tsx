@@ -48,23 +48,33 @@ const FormMain = () => {
   const searchParams = useSearchParams();
   const packageCountry = searchParams.get("country");
   const packageId = searchParams.get("packageId");
+  const packageUniqueId = searchParams?.get("packageUniqueId");
 
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState<{
+    id: number;
+    packageUniqueId: string;
+    title: string;
+    duration: string;
+    numberOfEntries: string;
+    governmentFees: number;
+    documitraFees: number;
+    validityPeriod: string;
+  } | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && packageCountry && packageId) {
-      const packages = packageCard[packageCountry];
-      const pkg = packages.find((p) => p.id === parseInt(packageId));
+    if (typeof window !== "undefined" && packageCountry && packageUniqueId) {
+      const packages = packageCard[packageCountry as keyof typeof packageCard];
+      const pkg = packages.find((p: { id: number }) => p.id === parseInt(packageUniqueId));
       setSelectedPackage(pkg);
-      // ✅ Store `packageCountry` and `packageId` in formData
+      // ✅ Store `packageCountry` and `packageUniqueId` in formData
       setFormData((prev) => ({
         ...prev,
         packageCountry,
-        packageId,
+        packageUniqueId,
       }));
       
     }
-  }, [packageCountry, packageId]);
+  }, [packageCountry, packageUniqueId]);
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");

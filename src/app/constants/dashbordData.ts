@@ -213,3 +213,163 @@ export const PREMIUM_SERVICES: ServiceItem[] = [
   //   icon: "https://cdn-icons-png.flaticon.com/512/4616/4616089.png",
   // },
 ];
+
+export const packageCard = {
+  "1": [
+    {
+      "id": 1,
+      "title": "1 Year Package for India",
+      "duration": "1 Month",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 25,
+      "documitraFees": 15,
+      "validityPeriod": "1 Year",
+      "country": "India"
+    }
+  ],
+  "2": [
+    {
+      "id": 2,
+      "title": "6 Months Package for India",
+      "duration": "1 Month",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 20,
+      "documitraFees": 15,
+      "validityPeriod": "6 Months",
+      "country": "India"
+    }
+  ],
+  "3": [
+    {
+      "id": 3,
+      "title": "3 Year Package for India",
+      "duration": "2 Months",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 60,
+      "documitraFees": 30,
+      "validityPeriod": "3 Years",
+      "country": "India"
+    }
+  ],
+  "4": [
+    {
+      "id": 4,
+      "title": "5 Years Package for USA",
+      "duration": "2 Months",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 29,
+      "documitraFees": 19,
+      "validityPeriod": "5 Years",
+      "country": "USA"
+    }
+  ],
+  "5": [
+    {
+      "id": 5,
+      "title": "3 Months Package for USA",
+      "duration": "2 Months",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 29,
+      "documitraFees": 19,
+      "validityPeriod": "3 Months",
+      "country": "USA"
+    }
+  ],
+  "6": [
+    {
+      "id": 6,
+      "title": "1 Year Package for USA",
+      "duration": "6 Months",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 50,
+      "documitraFees": 30,
+      "validityPeriod": "1 Year",
+      "country": "USA"
+    }
+  ],
+  "7": [
+    {
+      "id": 7,
+      "title": "2 Year Package for UK",
+      "duration": "1 Month",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 70,
+      "documitraFees": 40,
+      "validityPeriod": "2 Years",
+      "country": "UK"
+    }
+  ],
+  "8": [
+    {
+      "id": 8,
+      "title": "6 Months Package for UK",
+      "duration": "1 Month",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 45,
+      "documitraFees": 25,
+      "validityPeriod": "6 Months",
+      "country": "UK"
+    }
+  ],
+  "9": [
+    {
+      "id": 9,
+      "title": "3 Years Package for Canada",
+      "duration": "2 Months",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 60,
+      "documitraFees": 35,
+      "validityPeriod": "3 Years",
+      "country": "Canada"
+    }
+  ],
+  "10": [
+    {
+      "id": 10,
+      "title": "1 Year Package for Canada",
+      "duration": "1 Month",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 40,
+      "documitraFees": 20,
+      "validityPeriod": "1 Year",
+      "country": "Canada"
+    }
+  ],
+  "11": [
+    {
+      "id": 11,
+      "title": "6 Months Package for Canada",
+      "duration": "1 Month",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 30,
+      "documitraFees": 18,
+      "validityPeriod": "6 Months",
+      "country": "Canada"
+    }
+  ],
+  "12": [
+    {
+      "id": 12,
+      "title": "4 Year Package for London",
+      "duration": "2 Months",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 80,
+      "documitraFees": 50,
+      "validityPeriod": "4 Years",
+      "country": "London"
+    }
+  ],
+  "13": [
+    {
+      "id": 13,
+      "title": "12 Months Package for London",
+      "duration": "1 Month",
+      "numberOfEntries": "Multiple",
+      "governmentFees": 55,
+      "documitraFees": 30,
+      "validityPeriod": "12 Months",
+      "country": "London"
+    }
+  ]
+};
+

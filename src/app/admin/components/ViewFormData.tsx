@@ -69,7 +69,7 @@ const ViewFormData = () => {
                   "Nationality",
                   "Address",
                   "Country",
-                  "Package ID",
+                  "package Unique Id",
                   "Package Country",
                   "Photo",
                   "Gov. ID",
@@ -92,7 +92,7 @@ const ViewFormData = () => {
                   <td className="p-2 border">{data?.nationality}</td>
                   <td className="p-2 border">{data?.address}</td>
                   <td className="p-2 border">{data?.country}</td>
-                  <td className="p-2 border">{data?.packageId}</td>
+                  <td className="p-2 border">{data?.packageUniqueId}</td>
                   <td className="p-2 border">{data?.packageCountry}</td>
                   <td className="p-2 border">
                     <a

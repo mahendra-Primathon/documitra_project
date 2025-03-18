@@ -37,136 +37,147 @@ export const packageData = {
   },
 };
 
-
-export const packageCard = 
-{
-  "india": [
+export const packageCard = {
+  india: [
     {
-      "id": 1,
-      "title": "1 Year Package for India",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 25,
-      "documitraFees": 15,
-      "validityPeriod": "1 Year"
+      id: 1,
+      packageUniqueId: "01",
+      title: "1 Year Package for India",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 25,
+      documitraFees: 15,
+      validityPeriod: "1 Year",
     },
     {
-      "id": 2,
-      "title": "6 Months Package for India",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 20,
-      "documitraFees": 15,
-      "validityPeriod": "6 Months"
+      id: 2,
+      packageUniqueId: "02",
+      title: "6 Months Package for India",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 20,
+      documitraFees: 15,
+      validityPeriod: "6 Months",
     },
     {
-      "id": 3,
-      "title": "3 Year Package for India",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 60,
-      "documitraFees": 30,
-      "validityPeriod": "3 Year"
-    }
+      id: 3,
+      packageUniqueId: "03",
+      title: "3 Year Package for India",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 60,
+      documitraFees: 30,
+      validityPeriod: "3 Year",
+    },
   ],
-  "usa": [
+  usa: [
     {
-      "id": 1,
-      "title": "5 Years Package for United States of America",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 29,
-      "documitraFees": 19,
-      "validityPeriod": "5 Years"
+      id: 1,
+      packageUniqueId: "04",
+      title: "5 Years Package for United States of America",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 29,
+      documitraFees: 19,
+      validityPeriod: "5 Years",
     },
     {
-      "id": 2,
-      "title": "3 Months Package for USA",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 29,
-      "documitraFees": 19,
-      "validityPeriod": "3 Months"
+      id: 2,
+      packageUniqueId: "05",
+      title: "3 Months Package for USA",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 29,
+      documitraFees: 19,
+      validityPeriod: "3 Months",
     },
     {
-      "id": 3,
-      "title": "1 Year Package for USA",
-      "duration": "6 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 50,
-      "documitraFees": 30,
-      "validityPeriod": "1 Year"
-    }
+      id: 3,
+      packageUniqueId: "06",
+      title: "1 Year Package for USA",
+      duration: "6 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 50,
+      documitraFees: 30,
+      validityPeriod: "1 Year",
+    },
   ],
-  "uk": [
+  uk: [
     {
-      "id": 1,
-      "title": "2 Year Package for UK",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 70,
-      "documitraFees": 40,
-      "validityPeriod": "2 Years"
+      id: 1,
+      packageUniqueId: "07",
+      title: "2 Year Package for UK",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 70,
+      documitraFees: 40,
+      validityPeriod: "2 Years",
     },
     {
-      "id": 2,
-      "title": "6 Months Package for UK",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 45,
-      "documitraFees": 25,
-      "validityPeriod": "6 Months"
-    }
+      id: 2,
+      packageUniqueId: "08",
+      title: "6 Months Package for UK",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 45,
+      documitraFees: 25,
+      validityPeriod: "6 Months",
+    },
   ],
-  "canada": [
+  canada: [
     {
-      "id": 1,
-      "title": "3 Years Package for Canada",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 60,
-      "documitraFees": 35,
-      "validityPeriod": "3 Years"
+      id: 1,
+      packageUniqueId: "09",
+      title: "3 Years Package for Canada",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 60,
+      documitraFees: 35,
+      validityPeriod: "3 Years",
     },
     {
-      "id": 2,
-      "title": "1 Year Package for Canada",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 40,
-      "documitraFees": 20,
-      "validityPeriod": "1 Year"
+      id: 2,
+      packageUniqueId: "10",
+      title: "1 Year Package for Canada",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 40,
+      documitraFees: 20,
+      validityPeriod: "1 Year",
     },
     {
-      "id": 3,
-      "title": "6 Months Package for Canada",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 30,
-      "documitraFees": 18,
-      "validityPeriod": "6 Months"
-    }
+      id: 3,
+      packageUniqueId: "11",
+      title: "6 Months Package for Canada",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 30,
+      documitraFees: 18,
+      validityPeriod: "6 Months",
+    },
   ],
-  "london": [
+  london: [
     {
-      "id": 1,
-      "title": "4 Year Package for london",
-      "duration": "2 Months",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 80,
-      "documitraFees": 50,
-      "validityPeriod": "4 Years"
+      id: 1,
+      packageUniqueId: "12",
+      title: "4 Year Package for London",
+      duration: "2 Months",
+      numberOfEntries: "Multiple",
+      governmentFees: 80,
+      documitraFees: 50,
+      validityPeriod: "4 Years",
     },
     {
-      "id": 2,
-      "title": "12 Months Package for london",
-      "duration": "1 Month",
-      "numberOfEntries": "Multiple",
-      "governmentFees": 55,
-      "documitraFees": 30,
-      "validityPeriod": "12 Months"
-    }
-  ]
+      id: 2,
+      packageUniqueId: "13",
+      title: "12 Months Package for London",
+      duration: "1 Month",
+      numberOfEntries: "Multiple",
+      governmentFees: 55,
+      documitraFees: 30,
+      validityPeriod: "12 Months",
+    },
+  ],
 };
 
 // constants/visaProcessData.ts
@@ -327,7 +338,6 @@ export const visaProcessSteps = {
 
 // export default visaProcessSteps;
 
-
 export const applicationProcessData = [
   {
     id: 1,
@@ -354,7 +364,6 @@ export const applicationProcessData = [
       "Canada, located in North America, is known for its natural beauty, multicultural cities, and friendly atmosphere. If you are planning to visit Canada for tourism, work, or study, you will need to apply for a visa. The visa application process for Canada involves document submission, biometric verification, and processing time. Documitra can assist you in ensuring a smooth and hassle-free visa application.",
   },
 ];
-
 
 // constants/timelineData.ts
 
