@@ -81,7 +81,7 @@ const ManageMember: React.FC<ManageMemberProps> = ({
 
   const handleSelectMember = (name: string) => {
     toast.success(`${name} is selected`, {
-      position: "bottom-right",
+      position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,

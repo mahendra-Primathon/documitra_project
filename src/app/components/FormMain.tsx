@@ -96,11 +96,23 @@ const FormMain = () => {
       ...prev,
       [name]: value,
     }));
-
+  
     // Dynamically validate the field as the user types
     const newErrors = { ...errors };
     if (value) {
       delete newErrors[name]; // Clear the error if the field is filled
+  
+      // Additional validation for age
+      if (name === "age") {
+        const ageValue = parseInt(value, 10);
+        if (isNaN(ageValue)) {
+          newErrors.age = "Age must be a number";
+        } else if (ageValue < 0 || ageValue > 150) {
+          newErrors.age = "Age must be between 0 and 150";
+        } else {
+          delete newErrors.age; // Clear the error if the age is valid
+        }
+      }
     } else {
       // Add the error if the field is empty
       if (currentStep === 1) {
@@ -127,13 +139,13 @@ const FormMain = () => {
         if (name === "country") newErrors.country = "Country name is required";
       }
     }
-
+  
     setErrors(newErrors);
   };
 
   const validateStep = () => {
     const newErrors: Record<string, string> = {};
-
+  
     if (currentStep === 1) {
       if (!formData.name) newErrors.name = "Name is required";
       if (!formData.phoneNumber)
@@ -144,7 +156,16 @@ const FormMain = () => {
         newErrors.email = "Invalid email format";
       }
       if (!formData.gender) newErrors.gender = "Gender is required";
-      if (!formData.age) newErrors.age = "Age is required";
+      if (!formData.age) {
+        newErrors.age = "Age is required";
+      } else {
+        const ageValue = parseInt(formData.age, 10);
+        if (isNaN(ageValue)) {
+          newErrors.age = "Age must be a number";
+        } else if (ageValue < 0 || ageValue > 150) {
+          newErrors.age = "Age must be between 0 and 150";
+        }
+      }
       if (!formData.nationality)
         newErrors.nationality = "Nationality is required";
       if (!formData.governmentId)
@@ -155,7 +176,7 @@ const FormMain = () => {
         newErrors.postalCode = "Pin code / Postal code is required";
       if (!formData.country) newErrors.country = "Country name is required";
     }
-
+  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -185,7 +206,7 @@ const FormMain = () => {
 
       if (response.ok) {
         toast.success("Your Form submitted Successfully ", {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,

@@ -153,7 +153,7 @@ const FormUploadStep = ({
     if (validImage && validPdf) {
       // Activate the "Save and Continue" button
       // You can add your logic here to navigate to the next step or enable the button
-      console.log("Files are valid. Proceed to the next step.");
+      // console.log("Files are valid. Proceed to the next step.");
     }
   };
 

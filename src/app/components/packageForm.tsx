@@ -123,7 +123,7 @@ const PackageForm = ({ country }) => {
 
       {error && <p className="text-red-500 mt-4">{error}</p>}
 
-      <div className="mx-auto px-auto">
+      {/* <div className="mx-auto px-auto">
         <button
           onClick={() => {
             if (isEditable) {
@@ -136,7 +136,7 @@ const PackageForm = ({ country }) => {
         >
           {isEditable ? "Save Details" : "Edit the Details"}
         </button>
-      </div>
+      </div> */}
 
       {/* Render the popup */}
       <PackageGetStartedButton

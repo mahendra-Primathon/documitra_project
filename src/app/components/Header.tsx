@@ -67,7 +67,7 @@ const Header = () => {
       const hasSeenWelcomeMessage = localStorage.getItem("hasSeenWelcomeToast");
       if (!hasSeenWelcomeMessage) {
         toast.success(`Welcome to DocuMitra, ${userName}!`, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
@@ -84,7 +84,7 @@ const Header = () => {
     try {
       await signOut(auth);
       toast.success(`${userName} successfully signed out from this device.`, {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
