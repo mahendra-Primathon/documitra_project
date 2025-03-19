@@ -121,7 +121,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-secondary">
+    <header className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -133,9 +133,19 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center justify-center flex-1">
-            {navLinks.map((link) => (
-              <HeaderNavLink key={link.title} {...link} />
-            ))}
+            {navLinks.map((link) => {
+              // Replace "Home" with "Dashboard" if the user is logged in
+              if (user && link.title === "Home") {
+                return (
+                  <HeaderNavLink
+                    key="dashboard"
+                    title="Dashboard"
+                    path="/dashboard"
+                  />
+                );
+              }
+              return <HeaderNavLink key={link.title} {...link} />;
+            })}
           </nav>
 
           {/* Desktop Icons */}
@@ -204,16 +214,23 @@ const Header = () => {
             </button>
 
             <div className="mt-12 space-y-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.title}
-                  href={link.path}
-                  className="block px-2 py-1.5 text-lg font-medium text-gray-600 hover:text-primary"
-                  onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
-                >
-                  {link.title}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const title =
+                  user && link.title === "Home" ? "Dashboard" : link.title;
+                const path =
+                  user && link.title === "Home" ? "/dashboard" : link.path;
+
+                return (
+                  <Link
+                    key={title}
+                    href={path}
+                    className="block px-2 py-1.5 text-lg font-medium text-gray-600 hover:text-primary"
+                    onClick={() => setIsMobileMenuOpen(false)} // Close menu on link click
+                  >
+                    {title}
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="bottom-0 fixed w-full mb-24 ">

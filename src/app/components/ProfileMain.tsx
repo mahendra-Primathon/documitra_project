@@ -38,15 +38,15 @@ const ProfileMain: React.FC = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        // console.log("User found:", user); // Debugging
         setUserId(user.uid);
       } else {
+        // console.log("No user found"); // Debugging
         setUserId(null);
-        // If you want to redirect non-authenticated users
-        // router.push("/login");
       }
       setIsLoading(false);
     });
-    return () => unsubscribe(); // Cleanup listener on unmount
+    return () => unsubscribe();
   }, [router]);
 
   // Fetch user data when userId is available
@@ -54,29 +54,32 @@ const ProfileMain: React.FC = () => {
     const fetchUserData = async () => {
       if (userId) {
         try {
-          const userDoc = await getDoc(doc(db, "users", userId));
+          const userDocRef = doc(db, "users", userId);
+          const userDoc = await getDoc(userDocRef);
+
           if (userDoc.exists()) {
             const data = userDoc.data();
+            // console.log("Fetched user data:", data);
             setUserData({
               fname: data.fname || "",
               lname: data.lname || "",
               email: data.email || "",
               phone: data.phone || "",
             });
-
-            // In a real application, you would fetch address and orders data here
-            // For now, we'll use the sample data
+          } else {
+            console.warn("No user document found for userId:", userId);
+            setUserData(sampleUserProfile); // Fallback data
           }
         } catch (err) {
-          console.error("Failed to fetch user data", err);
+          console.error("Error fetching user data:", err);
           toast.error("Failed to load profile data");
         }
+      } else {
+        setUserData(sampleUserProfile); // Reset data when logged out
       }
     };
 
-    if (userId) {
-      fetchUserData();
-    }
+    fetchUserData();
   }, [userId]);
 
   const handleUpdateProfile = async (data: UserProfile) => {

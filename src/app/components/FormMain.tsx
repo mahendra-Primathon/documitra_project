@@ -46,18 +46,36 @@ const FormMain = () => {
   }>({ image: null, pdf: null }); // Track uploaded file names
 
   const searchParams = useSearchParams();
-  const country = searchParams.get("country");
+  const packageCountry = searchParams.get("country");
   const packageId = searchParams.get("packageId");
+  const packageUniqueId = searchParams?.get("packageUniqueId");
 
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState<{
+    id: number;
+    packageUniqueId: string;
+    packageId:string;
+    title: string;
+    duration: string;
+    numberOfEntries: string;
+    governmentFees: number;
+    documitraFees: number;
+    validityPeriod: string;
+  } | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && country && packageId) {
-      const packages = packageCard[country];
-      const pkg = packages.find((p) => p.id === parseInt(packageId));
+    if (typeof window !== "undefined" && packageCountry && packageId && packageUniqueId  ) {
+      const packages = packageCard[packageCountry as keyof typeof packageCard];
+      const pkg = packages.find((p: { id: number }) => p.id === parseInt(packageId));
       setSelectedPackage(pkg);
+      // ✅ Store `packageCountry` and `packageUniqueId` in formData
+      setFormData((prev) => ({
+        ...prev,
+        packageCountry,
+        packageUniqueId,
+      }));
+      
     }
-  }, [country, packageId]);
+  }, [packageCountry, packageUniqueId , packageId]);
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
@@ -191,6 +209,7 @@ const FormMain = () => {
       toast.error("An error occurred while submitting the form.");
     }
   };
+  
 
   // Check if both files are uploaded
   // const isUploadStepValid = uploadedFiles.image && uploadedFiles.pdf;

@@ -49,6 +49,7 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
     { id: "3", name: "London" },
     { id: "4", name: "Canada" },
   ];
+  const router = useRouter();
 
   // Handle dropdown selection
   const handleSelect = (
@@ -81,14 +82,20 @@ const PackageGetStartedButton: React.FC<DocumentServicePopupProps> = ({
       setError("Applying From and Destination cannot be the same");
       return;
     }
-
+    router.push(
+      `/packages/${destination.name.toLowerCase()}?citizenship=${
+        citizenship.name
+      }&applyingFrom=${applyingFrom.name}&destination=${
+        destination.name
+      }&selectedDoc=${documentType}`
+    );
     // Submit the form
-    onApply({
-      citizenship: citizenship.name,
-      applyingFrom: applyingFrom.name,
-      destination: destination.name,
-      documentType: documentType,
-    });
+    // onApply({
+    //   citizenship: citizenship.name,
+    //   applyingFrom: applyingFrom.name,
+    //   destination: destination.name,
+    //   documentType: documentType,
+    // });
   };
 
   // Get appropriate icon based on document type

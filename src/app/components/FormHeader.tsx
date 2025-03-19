@@ -69,6 +69,7 @@ const FormHeader = ({
   const searchParams = useSearchParams();
   const country = searchParams.get("country");
   const packageId = searchParams.get("packageId");
+  // const packageUniqueId = searchParams?.get("packageUniqueId")
 
   const generateBreadcrumbs = (country: string | null) => {
     return [

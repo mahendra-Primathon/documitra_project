@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UserProfile } from "../constants/userProfileData";
 
 interface ProfileGeneralProps {
@@ -21,6 +21,11 @@ const ProfileGeneral: React.FC<ProfileGeneralProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    // console.log("Updating formData with userData:", userData);
+    setFormData(userData);
+  }, [userData]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -39,6 +44,10 @@ const ProfileGeneral: React.FC<ProfileGeneralProps> = ({
     }
     setLoading(false);
   };
+
+  // useEffect(() => {
+  //   console.log("ProfileGeneral received userData:", userData);
+  // }, [userData]);
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
