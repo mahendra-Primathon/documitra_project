@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import BlogComingSoon from '../constants/BlogComingSoon'
 import Header from '../components/Header'

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { hardcodedPurchasedPackage } from "../constants/dashbordData";
 import {
