@@ -1,17 +1,28 @@
 // src/app/packages/page.tsx
-"use client"; // Ensure this runs on the client side
+"use client";
+import DashboardServices from "../components/DashboardServices";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Dashboard from "../dashboard/page";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+ // Ensure this runs on the client side
 
-const PackagesPage = () => {
-  const router = useRouter();
 
-  useEffect(() => {
-    router.push("/packages/usa"); // Redirect to the home page when visiting /packages
-  }, [router]);
+const ServicePage = () => {
 
-  return null; // Since we are redirecting, we don't need to render anything
+
+  return (
+    <>
+    <Header/>
+    <div className=" bg-secondary h-[80vh] ">
+
+      <DashboardServices/>
+    </div>
+
+    <Footer/>
+    
+    </>
+  )
 };
 
-export default PackagesPage;
+export default ServicePage;
