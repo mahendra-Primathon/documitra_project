@@ -151,7 +151,7 @@ const MyPackages: React.FC = () => {
   const groupedData = groupFormDataByPackageId();
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-secondary">
+    <div className="container mx-auto max-w-7xl px-4 py-8 bg-secondary">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">My Packages</h1>
         <button className="flex items-center text-gray-600 hover:text-primary">

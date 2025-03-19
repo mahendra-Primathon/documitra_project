@@ -44,7 +44,7 @@ const PremiumServices: React.FC = () => {
   }, [totalPages]);
 
   return (
-    <div className="px-[10vw] mx-auto py-16">
+    <div className="px-[1vw] mx-auto py-16 max-w-7xl " >
       <h2 className="text-3xl font-bold text-center mb-12">Our Premium Services</h2>
 
       {/* Cards Grid */}

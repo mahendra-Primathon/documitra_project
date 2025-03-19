@@ -1,19 +1,28 @@
-import React from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import AboutMain from '../components/AboutMain'
-
+import React from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import AboutMain from "../components/AboutMain";
+import Link from "next/link";
 const aboutPage = () => {
   return (
-    <div>
-        <Header/>
+    <div className="" >
+      <Header />
 
-      <AboutMain/>
+      <div className="  w-full  md:pl-[14vw]  pt-4 pb-1  mx-auto px-4  bg-secondary  ">
+        <nav className="flex text-md ">
+          <Link href="/" className="text-gray-500 hover:text-primary">
+            Home
+          </Link>
+          <span className="mx-2 text-gray-500">/</span>
+          <span className="text-gray-500">Contact us</span>
+        </nav>
+      </div>
 
-        <Footer/>
-      
+      <AboutMain />
+
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default aboutPage
+export default aboutPage;

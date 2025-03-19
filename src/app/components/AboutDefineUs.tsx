@@ -13,7 +13,7 @@ const AboutDefineUs: React.FC = () => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {definesUs.features.map((feature, index) => (
-          <div key={index} className="flex items-start space-x-4 p-3 bg-secondary ">
+          <div key={index} className="flex items-start space-x-4 p-3  ">
             <div className="flex-shrink-0 rounded-lg overflow-hidden ">
               <Image 
                 src={feature.image} 

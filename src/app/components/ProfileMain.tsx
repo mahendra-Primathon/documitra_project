@@ -128,8 +128,6 @@ const ProfileMain: React.FC = () => {
           </Link>
           <span className="mx-2 text-gray-500">/</span>
           <span className="text-gray-500">Profile</span>
-          {/* <span className="mx-2 text-gray-500">/</span>
-          <span className="text-gray-500">{}</span> */}
         </nav>
       </div>
 
