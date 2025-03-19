@@ -46,7 +46,7 @@ const ViewFormData = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-white p-6 rounded-lg shadow-2xl">
       <h1 className="text-2xl font-bold mb-4">Form Data</h1>
 
       {loading ? (

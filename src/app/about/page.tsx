@@ -14,7 +14,7 @@ const aboutPage = () => {
             Home
           </Link>
           <span className="mx-2 text-gray-500">/</span>
-          <span className="text-gray-500">Contact us</span>
+          <span className="text-gray-500">About us</span>
         </nav>
       </div>
 

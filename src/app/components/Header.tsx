@@ -122,7 +122,7 @@ const Header = () => {
 
   return (
     <header className="bg-white">
-      <div className="max-w-[80vw] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="md:max-w-[80vw] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
@@ -237,7 +237,8 @@ const Header = () => {
                 <>
                   <button
                     onClick={() => {
-                      setIsUserProfileModalOpen(true);
+                      // setIsUserProfileModalOpen(true);
+                      router.push("/profile");
                       setIsMobileMenuOpen(false); // Close menu on button click
                     }}
                     className="block w-full text-left px-4 py-2 text-md text-gray-600 hover:bg-gray-100"

@@ -1,16 +1,23 @@
+// components/ContactUs.tsx
 "use client";
-import { useState, FormEvent } from "react";
-import { Mail, Phone } from "lucide-react";
-import Link from "next/link";
+import React, { useState, useRef } from "react";
 import {
-  categoryOptions,
-  reasonOptions,
-  countryOptions,
+  FaEnvelope,
+  FaPhone,
+  FaComments,
+  FaInstagram,
+  FaFacebook,
+  FaYoutube,
+  FaLinkedin,
+} from "react-icons/fa";
+import {
+  COUNTRY_CODES,
+  REASON_OPTIONS,
+  CONTACT_INFO,
 } from "../constants/contactData";
-import { InstagramIcon, YoutubeIcon, LinkedinIcon } from "lucide-react";
+import useClickOutside from "../hooks/useClickOutside";
 
 interface FormData {
-  category: string;
   reason: string;
   firstName: string;
   lastName: string;
@@ -20,326 +27,319 @@ interface FormData {
   message: string;
 }
 
-const ContactPage = () => {
+interface DropdownState {
+  reason: boolean;
+  countryCode: boolean;
+}
+
+const ContactUs: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    category: "",
     reason: "",
     firstName: "",
     lastName: "",
-    countryCode: "",
+    countryCode: "+91 (India)", // Default to India
     mobileNumber: "",
     email: "",
     message: "",
   });
 
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [dropdownOpen, setDropdownOpen] = useState<DropdownState>({
+    reason: false,
+    countryCode: false,
+  });
 
-  const validateForm = () => {
-    const newErrors: Partial<FormData> = {};
+  // Refs for dropdown containers
+  const reasonDropdownRef = useRef<HTMLDivElement>(null);
+  const countryCodeDropdownRef = useRef<HTMLDivElement>(null);
 
-    if (!formData.category) newErrors.category = "Please select a category";
-    if (!formData.reason) newErrors.reason = "Please select a reason";
-    if (!formData.firstName) newErrors.firstName = "First name is required";
-    if (!formData.lastName) newErrors.lastName = "Last name is required";
-    if (!formData.countryCode)
-      newErrors.countryCode = "Country code is required";
-
-    // Mobile validation
-    if (!formData.mobileNumber) {
-      newErrors.mobileNumber = "Mobile number is required";
-    } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
-      newErrors.mobileNumber = "Please enter a valid 10-digit mobile number";
+  // Use the click outside hook for each dropdown
+  useClickOutside(reasonDropdownRef, () => {
+    if (dropdownOpen.reason) {
+      setDropdownOpen((prev) => ({ ...prev, reason: false }));
     }
+  });
 
-    // Email validation
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+  useClickOutside(countryCodeDropdownRef, () => {
+    if (dropdownOpen.countryCode) {
+      setDropdownOpen((prev) => ({ ...prev, countryCode: false }));
     }
+  });
 
-    if (!formData.message) newErrors.message = "Message is required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | { target: { name: string; value: string } }
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Add your form submission logic here
+  };
 
-    if (validateForm()) {
-      try {
-        // Add your form submission logic here
-        console.log("Form submitted:", formData);
-        // Reset form after successful submission
-        setFormData({
-          category: "",
-          reason: "",
-          firstName: "",
-          lastName: "",
-          countryCode: "",
-          mobileNumber: "",
-          email: "",
-          message: "",
-        });
-      } catch (error) {
-        console.error("Error submitting form:", error);
-      }
-    }
+  const toggleDropdown = (dropdown: keyof DropdownState) => {
+    setDropdownOpen((prev) => ({
+      ...prev,
+      [dropdown]: !prev[dropdown],
+    }));
+  };
+
+  // Map social media icons to components
+  const socialIcons = {
+    instagram: FaInstagram,
+    facebook: FaFacebook,
+    youtube: FaYoutube,
+    linkedin: FaLinkedin,
   };
 
   return (
-    <div className="min-h-screen bg-secondary">
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Left side - Contact Information */}
-          <div className="space-y-6 pl-20 pt-4">
-            <h1 className="text-3xl font-bold text-gray-900">Contact Us</h1>
-            <p className="text-gray-600">
+    <section className="container max-w-7xl mx-auto px-4 py-6 bg-secondary ">
+      <div className="mx-auto ">
+        <div className="flex flex-col md:flex-row bg-secondary  overflow-hidden ">
+          {/* Left Side - Contact Information */}
+          <div className="w-full md:w-2/5  p-8">
+            <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
+            <p className="text-gray-600 mb-8">
               We are delighted to connect with you. Please feel free to share
               any questions or concerns you may have.
             </p>
 
             <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-primary" />
-                <a
-                  href="mailto:info@documitra.com"
-                  className=" hover:underline"
-                >
-                  info@documitra.com
-                </a>
+              <div className="flex items-center">
+                <div className="w-8 text-primary">
+                  <FaEnvelope className="w-5 h-5" />
+                </div>
+                <span className="ml-2">{CONTACT_INFO.email}</span>
               </div>
 
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-primary" />
-                <a href="tel:+18771291311" className=" hover:underline">
-                  +1-877-129-1311
-                </a>
+              <div>
+                <div className="flex items-center">
+                  <div className="w-8 text-primary">
+                    <FaPhone className="w-5 h-5" />
+                  </div>
+                  <span className="ml-2">{CONTACT_INFO.phones[0]}</span>
+                </div>
+                <div className="ml-10">{CONTACT_INFO.phones[1]}</div>
+              </div>
+
+              <div className="flex items-center">
+                <div className="w-8 text-primary">
+                  <FaComments className="w-5 h-5" />
+                </div>
+                <span className="ml-2">{CONTACT_INFO.chat}</span>
               </div>
             </div>
 
-            <div className="pt-6">
-              <h2 className="text-lg font-semibold mb-4">Follow us</h2>
+            <div className="mt-12">
+              <h3 className="font-semibold mb-4">Follow us</h3>
               <div className="flex space-x-4">
-                <Link href="#" className="text-blue-600 hover:text-blue-800">
-                  <span className="sr-only">Facebook</span>
-                  <svg
-                    className="h-6 w-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-                  </svg>
-                </Link>
-                <Link href="#" className="text-red-600 hover:text-red-800">
-                  <span className="sr-only">YouTube</span>
-                  <svg
-                    className="h-6 w-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M19.615 3.184c-1.2-.8-2.4-.8-3.6-.8H8.985c-1.2 0-2.4 0-3.6.8-1.2.8-1.6 2.4-1.6 4.8v7.2c0 2.4.4 4 1.6 4.8 1.2.8 2.4.8 3.6.8h7.2c1.2 0 2.4 0 3.6-.8 1.2-.8 1.6-2.4 1.6-4.8v-7.2c0-2.4-.4-4-1.6-4.8zm-8.8 10.4V8.8l4.8 2.4-4.8 2.4z" />
-                  </svg>
-                </Link>
-                <Link href="#" className="text-pink-600 hover:text-pink-800">
-                  <span className="sr-only">Instagram</span>
-                  <svg
-                    className="h-6 w-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.31.975.975 1.248 2.242 1.31 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.31 3.608-.975.975-2.242 1.248-3.608 1.31-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.31-.975-.975-1.248-2.242-1.31-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.334-2.633 1.31-3.608.975-.975 2.242-1.248 3.608-1.31 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.281.058-2.563.334-3.537 1.308-.974.974-1.25 2.256-1.308 3.537-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.058 1.281.334 2.563 1.308 3.537.974.974 2.256 1.25 3.537 1.308 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.281-.058 2.563-.334 3.537-1.308.974-.974 1.25-2.256 1.308-3.537.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.058-1.281-.334-2.563-1.308-3.537-.974-.974-2.256-1.25-3.537-1.308-1.28-.058-1.688-.072-4.947-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.324c-2.296 0-4.162-1.866-4.162-4.162s1.866-4.162 4.162-4.162 4.162 1.866 4.162 4.162-1.866 4.162-4.162 4.162zm6.406-11.845c-.796 0-1.44-.644-1.44-1.44s.644-1.44 1.44-1.44 1.44.644 1.44 1.44-.644 1.44-1.44 1.44z" />
-                  </svg>
-                </Link>
-                <Link href="#" className="text-blue-600 hover:text-blue-800">
-                  <span className="sr-only">LinkedIn</span>
-                  <svg
-                    className="h-6 w-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.5c0-1.379-1.121-2.5-2.5-2.5s-2.5 1.121-2.5 2.5v5.5h-3v-10h3v1.268c.879-.879 2.121-1.268 3.5-1.268 2.481 0 4.5 2.019 4.5 4.5v5.5z" />
-                  </svg>
-                </Link>
+                {CONTACT_INFO.socialMedia.map((social, index) => {
+                  const SocialIcon = socialIcons[social.platform];
+                  return (
+                    <a
+                      key={index}
+                      href={social.url}
+                      className="bg-primary text-white p-2 rounded-md"
+                      aria-label={`Follow us on ${social.platform}`}
+                    >
+                      <SocialIcon className="w-5 h-5" />
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
 
-          {/* Right side - Contact Form */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium ">
-                  I am: <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={formData.category}
-                  onChange={(e) =>
-                    setFormData({ ...formData, category: e.target.value })
-                  }
-                  className="mt-1 block w-full rounded-md border-3 border-black shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                >
-                  <option value="">Select</option>
-                  {categoryOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                {errors.category && (
-                  <p className="text-red-500 text-sm mt-1">{errors.category}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
+          {/* Right Side - Contact Form */}
+          <div className="w-full md:w-3/5 bg-white p-8">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm mb-1">
                   Reason for contact <span className="text-red-500">*</span>
                 </label>
-                <select
-                  value={formData.reason}
-                  onChange={(e) =>
-                    setFormData({ ...formData, reason: e.target.value })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                >
-                  <option value="">Select reason</option>
-                  {reasonOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                {errors.reason && (
-                  <p className="text-red-500 text-sm mt-1">{errors.reason}</p>
-                )}
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    First name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  />
-                  {errors.firstName && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.firstName}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Last name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, lastName: e.target.value })
-                    }
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  />
-                  {errors.lastName && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.lastName}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Country Code <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    value={formData.countryCode}
-                    onChange={(e) =>
-                      setFormData({ ...formData, countryCode: e.target.value })
-                    }
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                <div className="relative" ref={reasonDropdownRef}>
+                  <button
+                    type="button"
+                    className="w-full px-4 py-2 text-left border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center"
+                    onClick={() => toggleDropdown("reason")}
                   >
-                    <option value="">Select country</option>
-                    {countryOptions.map((country) => (
-                      <option key={country.code} value={country.code}>
-                        {country.name} {country.code}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.countryCode && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.countryCode}
-                    </p>
+                    {formData.reason || "Enter"}
+                    <svg
+                      className="w-5 h-5 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </button>
+
+                  {dropdownOpen.reason && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg">
+                      {REASON_OPTIONS.map((option, index) => (
+                        <div
+                          key={index}
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => {
+                            handleChange({
+                              target: { name: "reason", value: option },
+                            });
+                            setDropdownOpen((prev) => ({
+                              ...prev,
+                              reason: false,
+                            }));
+                          }}
+                        >
+                          {option}
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Mobile Number <span className="text-red-500">*</span>
+              <div className="flex flex-col md:flex-row gap-4 mb-4">
+                <div className="flex-1">
+                  <label className="block text-gray-700 text-sm mb-1">
+                    First name
+                  </label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    placeholder="Enter"
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-gray-700 text-sm mb-1">
+                    Last name
+                  </label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    placeholder="Enter"
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-4 mb-4">
+                <div className="w-full md:w-1/3">
+                  <label className="block text-gray-700 text-sm mb-1">
+                    Country Code
+                  </label>
+                  <div className="relative" ref={countryCodeDropdownRef}>
+                    <button
+                      type="button"
+                      className="w-full px-4 py-2 text-left border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center"
+                      onClick={() => toggleDropdown("countryCode")}
+                    >
+                      {formData.countryCode || "Enter"}
+                      <svg
+                        className="w-5 h-5 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </button>
+
+                    {dropdownOpen.countryCode && (
+                      <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
+                        {COUNTRY_CODES.map((country, index) => (
+                          <div
+                            key={index}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => {
+                              handleChange({
+                                target: {
+                                  name: "countryCode",
+                                  value: country.code,
+                                },
+                              });
+                              setDropdownOpen((prev) => ({
+                                ...prev,
+                                countryCode: false,
+                              }));
+                            }}
+                          >
+                            {country.code} ({country.country})
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full md:w-2/3">
+                  <label className="block text-gray-700 text-sm mb-1">
+                    Mobile Number
                   </label>
                   <input
                     type="tel"
+                    name="mobileNumber"
                     value={formData.mobileNumber}
-                    onChange={(e) =>
-                      setFormData({ ...formData, mobileNumber: e.target.value })
-                    }
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    maxLength={10}
+                    onChange={handleChange}
+                    placeholder="Enter"
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
-                  {errors.mobileNumber && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.mobileNumber}
-                    </p>
-                  )}
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Email <span className="text-red-500">*</span>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm mb-1">
+                  Email
                 </label>
                 <input
                   type="email"
+                  name="email"
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  onChange={handleChange}
+                  placeholder="Enter"
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Message <span className="text-red-500">*</span>
+              <div className="mb-6">
+                <label className="block text-gray-700 text-sm mb-1">
+                  Message
                 </label>
                 <textarea
+                  name="message"
                   value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  rows={4}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-                {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-                )}
+                  onChange={handleChange}
+                  placeholder="Enter"
+                  rows={3}
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+                ></textarea>
               </div>
 
-              <div>
+              <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2 px-12 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Submit
                 </button>
@@ -348,8 +348,8 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default ContactPage;
+export default ContactUs;
