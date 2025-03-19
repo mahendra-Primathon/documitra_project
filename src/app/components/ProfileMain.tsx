@@ -32,6 +32,8 @@ const ProfileMain: React.FC = () => {
   const [ordersData, setOrdersData] = useState<OrderData[]>(sampleOrders);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [mounted, setMounted] = useState(false);
+
   const router = useRouter();
 
   // Initialize Firebase auth

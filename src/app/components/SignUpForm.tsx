@@ -156,7 +156,7 @@ const SignUpForm = () => {
             id="terms"
             checked={agreeToTerms}
             onChange={(e) => setAgreeToTerms(e.target.checked)}
-            className="w-4 h-4"
+            className="w-6 h-6 "
           />
           <label htmlFor="terms" className="text-sm">
             By signing up, you agree to our Terms of Service and Privacy Policy.
