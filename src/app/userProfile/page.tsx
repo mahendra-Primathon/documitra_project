@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import UserProfileForm from "../components/UserProfileform";
+// import UserProfileForm from "../components/UserProfileform";
+import ProfileMain from "../components/ProfileMain";
 
 
 function page() {
@@ -10,8 +11,9 @@ function page() {
         <Header/>
 
         {/* Content */}
-        <div className=" h-[50vh] mt-12 ">
-            <UserProfileForm/>
+        <div className="">
+            {/* <UserProfileForm/> */}
+            <ProfileMain/>
         </div>
 
         <Footer/>

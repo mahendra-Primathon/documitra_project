@@ -16,6 +16,7 @@ import {
   locations,
   DocumentType,
   Location,
+  options,
 } from "../constants/heroData";
 
 const HeroSection = () => {
@@ -29,11 +30,33 @@ const HeroSection = () => {
   const [applyingFrom, setApplyingFrom] = useState<Location | null>(null);
   const [destination, setDestination] = useState<Location | null>(null);
   const [error, setError] = useState<string>(""); // Store error message
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [visibleDocTypes, setVisibleDocTypes] = useState(documentTypes);
+  const [moreDocTypes, setMoreDocTypes] = useState(options);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
   const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        // For mobile: show only first 2 document types
+        setVisibleDocTypes(documentTypes.slice(0, 2));
+        // Combine remaining document types with options
+        setMoreDocTypes([...documentTypes.slice(2), ...options]);
+      } else {
+        // For laptop/desktop: show all document types
+        setVisibleDocTypes(documentTypes);
+        setMoreDocTypes(options);
+      }
+    };
+
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleGetStarted = () => {
     setError(""); // Reset error before validation
@@ -93,7 +116,7 @@ const HeroSection = () => {
             {/* Dropdown Container */}
             <div ref={dropdownRef} className="relative">
               <div className="flex items-center space-x-1 overflow-x-auto no-scrollbar">
-                {documentTypes.map((type) => (
+                {visibleDocTypes.map((type) => (
                   <DocumentTypeButton
                     key={type.id}
                     type={type}
@@ -108,13 +131,15 @@ const HeroSection = () => {
                   moreSelectedDoc={moreSelectedDoc}
                   onSelect={(selectedOption) => {
                     setMoreSelectedDoc(selectedOption);
-                    setSelectedDoc(null); // Unselect regular dropdown
+                    setSelectedDoc(null);
                   }}
                   isOpen={isDropdownOpen}
                   setIsOpen={setIsDropdownOpen}
+                  options={moreDocTypes} // Pass the dynamic options
                   width="150px"
                 />
               </div>
+
               <hr className="relative bottom-[2px] w-full h-[2px] bg-gray-300 z-30" />
 
               {/* Dropdowns */}
