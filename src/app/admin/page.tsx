@@ -33,7 +33,7 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-secondary p-6">
       <header/>
       <h1 className="text-2xl font-bold text-center mb-6">Admin Dashboard</h1>
 
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Display Selected Component */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="bg-secondary p-6 rounded-lg ">
         {activeTab === "formData" ? <ViewFormData /> : <ViewMembers />}
       </div>
 

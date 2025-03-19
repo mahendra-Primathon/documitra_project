@@ -6,6 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { auth } from "../constants/firebase";
 import ForgetPasswordModal from "./PopUpForgetPassword";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -33,8 +34,12 @@ const LoginForm = () => {
 
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      console.log("User logged in successfully");
-      router.push("/");
+      toast.success("Logged in successfully!");
+
+      // Delay navigation to allow toast to be visible
+      setTimeout(() => {
+        router.push("/");
+      }, 2000); // 2-second delay
     } catch (err: any) {
       setError("Invalid email or password");
     } finally {

@@ -8,12 +8,12 @@ const AboutDefineUs: React.FC = () => {
   const { definesUs } = aboutData;
 
   return (
-    <section className="py-24 pb-32 px-4 bg-gray-50 max-w-7xl mx-auto">
+    <section className="py-24 pb-32 px-4 bg-white max-w-7xl mx-auto">
       <h2 className="text-5xl font-bold text-center mb-12">{definesUs.title}</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {definesUs.features.map((feature, index) => (
-          <div key={index} className="flex items-start space-x-4 p-3 bg-secondary ">
+          <div key={index} className="flex items-start space-x-4 p-3  ">
             <div className="flex-shrink-0 rounded-lg overflow-hidden ">
               <Image 
                 src={feature.image} 

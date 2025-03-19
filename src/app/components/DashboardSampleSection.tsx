@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { hardcodedPurchasedPackage } from "../constants/dashbordData";
 import {
@@ -23,7 +24,7 @@ const DashboardSampleSection = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-secondary">
+    <div className="container mx-auto px-4 py-8 bg-secondary max-w-7xl ">
       <div className="bg-white rounded-lg shadow-md mb-6">
         <div className="p-6">
           <div className="mb-4 flex justify-between">

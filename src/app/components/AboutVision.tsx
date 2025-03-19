@@ -17,7 +17,7 @@ const AboutVision: React.FC = () => {
               alt="Travel documents and passport"
               width={500}
               height={350}
-              className="rounded-lg shadow-lg"
+              className="rounded-lg shadow-lg bg-secondary "
             />
           </div>
           <div className="flex-1 order-1 md:order-2">

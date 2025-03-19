@@ -23,7 +23,7 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
     e.preventDefault();
     if (name && age) {
       try {
-        console.log("Sending request to: http://localhost:5000/api/members");
+        // console.log("Sending request to: http://localhost:5000/api/members");
         const response = await fetch("http://localhost:5000/api/members", {
           method: "POST",
           headers: {
@@ -32,7 +32,7 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
           body: JSON.stringify({ name, age }),
         });
         if (response.ok) {
-          console.log("Member saved successfully");
+          // console.log("Member saved successfully");
           setName("");
           setAge("");
           onClose();
@@ -55,7 +55,7 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
   };
 
   if (!isOpen) {
-    console.log("AddMemberForm is not open, returning null");
+    // console.log("AddMemberForm is not open, returning null");
     return null;
   }
 

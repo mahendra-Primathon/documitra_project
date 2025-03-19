@@ -32,6 +32,8 @@ const ProfileMain: React.FC = () => {
   const [ordersData, setOrdersData] = useState<OrderData[]>(sampleOrders);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [mounted, setMounted] = useState(false);
+
   const router = useRouter();
 
   // Initialize Firebase auth
@@ -126,8 +128,6 @@ const ProfileMain: React.FC = () => {
           </Link>
           <span className="mx-2 text-gray-500">/</span>
           <span className="text-gray-500">Profile</span>
-          {/* <span className="mx-2 text-gray-500">/</span>
-          <span className="text-gray-500">{}</span> */}
         </nav>
       </div>
 

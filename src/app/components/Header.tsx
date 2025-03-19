@@ -67,7 +67,7 @@ const Header = () => {
       const hasSeenWelcomeMessage = localStorage.getItem("hasSeenWelcomeToast");
       if (!hasSeenWelcomeMessage) {
         toast.success(`Welcome to DocuMitra, ${userName}!`, {
-          position: "bottom-right",
+          position: "top-right",
           autoClose: 2500,
           hideProgressBar: false,
           closeOnClick: true,
@@ -84,7 +84,7 @@ const Header = () => {
     try {
       await signOut(auth);
       toast.success(`${userName} successfully signed out from this device.`, {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
@@ -117,12 +117,12 @@ const Header = () => {
   };
 
   const handleProfileClick = () => {
-    router.push("/userProfile");
+    router.push("/profile");
   };
 
   return (
     <header className="bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="md:max-w-[80vw] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
@@ -155,7 +155,6 @@ const Header = () => {
                 <HeaderNotificationDropdown />
 
                 <HeaderUserDropdown
-                  // onProfileClick={() => setIsUserProfileModalOpen(true)}
                   onProfileClick={handleProfileClick}
                   onSignOutClick={handleSignOut}
                 />
@@ -238,7 +237,8 @@ const Header = () => {
                 <>
                   <button
                     onClick={() => {
-                      setIsUserProfileModalOpen(true);
+                      // setIsUserProfileModalOpen(true);
+                      router.push("/profile");
                       setIsMobileMenuOpen(false); // Close menu on button click
                     }}
                     className="block w-full text-left px-4 py-2 text-md text-gray-600 hover:bg-gray-100"

@@ -7,7 +7,7 @@ import { VISA_FORM_CONSTANTS } from "../constants/formsData";
 import AddMemberForm from "./PopUpAddMemberForm";
 import ManageMembers from "./PopUpManageMember";
 import ConfirmDeletePopup from "./PopUpConfirmDeletePopup";
-import { Menu, X } from "lucide-react";
+import { MoreHorizontal, X } from "lucide-react";
 import useClickOutside from "@/app/hooks/useClickOutside";
 import { packageCard } from "../constants/packageData";
 import AddIcon from "../../../public/assets/images/Form/AddIcon.svg";
@@ -38,7 +38,7 @@ const FormHeader = ({
   const handleSaveAndExit = () => {
     if (onSaveAndExit) onSaveAndExit();
     toast.success("Your progress has been saved!", {
-      position: "bottom-right", // Change position here
+      position: "top-right", // Change position here
       autoClose: 2500, // Time before toast disappears (in ms)
       hideProgressBar: false,
       closeOnClick: true,
@@ -181,7 +181,7 @@ const FormHeader = ({
               {isMenuOpen ? (
                 <X className="w-7 h-7" />
               ) : (
-                <Menu className="w-9 h-7" />
+                <MoreHorizontal className="w-9 h-7" />
               )}
             </button>
             {isMenuOpen && (

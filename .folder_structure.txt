@@ -1,7 +1,3 @@
-
-<create_file>
-<path>.folder_structure.txt</path>
-<content>
 /home/mahendra/Primathon/DocuMitra/frontend
 ├── .gitignore
 ├── eslint.config.mjs
@@ -10,90 +6,129 @@
 ├── package.json
 ├── postcss.config.mjs
 ├── README.md
-├── roughdata
+├── roughdata.tsx
 ├── tailwind.config.ts
 ├── tsconfig.json
+├── public/
+│   └── assets/
 ├── src/
 │   ├── app/
-│   │   ├── components/
-│   │   │   ├── contact/
-│   │   │   │   └── contact.tsx
-│   │   │   ├── form/
-│   │   │   │   ├── FormAddressForm.tsx
-│   │   │   │   ├── FormFileView.tsx
-│   │   │   │   ├── FormHeader.tsx
-│   │   │   │   ├── FormMain.tsx
-│   │   │   │   ├── FormPersonalDetailsForm.tsx
-│   │   │   │   ├── FormReviewForm.tsx
-│   │   │   │   ├── FormSummaryCard.jsx
-│   │   │   │   └── FormUploadStep.tsx
-│   │   │   ├── home/
-│   │   │   │   ├── HeroComponents.tsx
-│   │   │   │   ├── HeroSection.tsx
-│   │   │   │   ├── Navbar.tsx
-│   │   │   │   └── ProcesSection.tsx
-│   │   │   ├── package/
-│   │   │   │   ├── pacakgeApplicationTimeline.tsx
-│   │   │   │   ├── packageApplicationProcess.tsx
-│   │   │   │   ├── packageCard.tsx
-│   │   │   │   ├── PackageDropdown.tsx
-│   │   │   │   ├── packageForm.tsx
-│   │   │   │   └── packageVisaProcess.tsx
-│   │   │   ├── popUp/
-│   │   │   │   ├── AddMemberForm.tsx
-│   │   │   │   ├── ForgetPassword.tsx
-│   │   │   │   ├── Login.tsx
-│   │   │   │   ├── ManageMember.tsx
-│   │   │   │   ├── SignUp.tsx
-│   │   │   │   └── userProfile.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   ├── GetStartedButton.tsx
-│   │   │   ├── Header.tsx
-│   │   │   ├── PremiumService.tsx
-│   │   │   ├── StatesSection.tsx
-│   │   │   ├── testimonial.tsx
-│   │   │   └── WhyDocuMitra.tsx
-│   │   ├── constants/
-│   │   │   ├── contactData.ts
-│   │   │   ├── faqData.ts
-│   │   │   ├── firebase.ts
-│   │   │   ├── footerData.ts
-│   │   │   ├── formsData.ts
-│   │   │   ├── heroData.ts
-│   │   │   ├── packageData.ts
-│   │   │   ├── premiumServiceData.ts
-│   │   │   ├── processDAta.ts
-│   │   │   └── testimonialData.ts
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
-│   │   ├── admin/
-│   │   │   ├── members/
-│   │   │   │   └── page.tsx
+│   │   ├── about/
 │   │   │   └── page.tsx
+│   │   ├── admin/
+│   │   │   ├── page.tsx
+│   │   │   └── components/
+│   │   │       ├── AdminLogin.tsx
+│   │   │       ├── HeaderAdmin.tsx
+│   │   │       ├── ViewFormData.tsx
+│   │   │       └── ViewMembers.tsx
 │   │   ├── api/
 │   │   │   ├── test-connection/
 │   │   │   │   └── route.ts
 │   │   │   └── upload/
 │   │   │       └── route.ts
-│   │   ├── hooks/
-│   │   │   └── useClickOutside.ts
+│   │   ├── blog/
+│   │   │   └── page.tsx
+│   │   ├── components/
+│   │   │   ├── AboutDefineUs.tsx
+│   │   │   ├── AboutMain.tsx
+│   │   │   ├── AboutStory.tsx
+│   │   │   ├── AboutTeam.tsx
+│   │   │   ├── AboutVision.tsx
+│   │   │   ├── contact.tsx
+│   │   │   ├── DashboardMyPackages.tsx
+│   │   │   ├── DashboardSampleSection.tsx
+│   │   │   ├── DashboardServices.tsx
+│   │   │   ├── FaqHeader.tsx
+│   │   │   ├── FaqMain.tsx
+│   │   │   ├── FaqSection.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── FormAddressForm.tsx
+│   │   │   ├── FormFileView.tsx
+│   │   │   ├── FormHeader.tsx
+│   │   │   ├── FormMain.tsx
+│   │   │   ├── FormPersonalDetailsForm.tsx
+│   │   │   ├── FormReviewForm.tsx
+│   │   │   ├── FormSummaryCard.tsx
+│   │   │   ├── FormUploadStep.tsx
+│   │   │   ├── GetStartedButton.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── HeaderMobileMenuButton.tsx
+│   │   │   ├── HeaderNavLinks.tsx
+│   │   │   ├── HeaderNotificationDropdown.tsx
+│   │   │   ├── HeaderUserDropdown.tsx
+│   │   │   ├── HeroComponents.tsx
+│   │   │   ├── HeroSection.tsx
+│   │   │   ├── LoginForm.tsx
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── pacakgeApplicationTimeline.tsx
+│   │   │   ├── packageApplicationProcess.tsx
+│   │   │   ├── packageCard.tsx
+│   │   │   ├── PackageDropdown.tsx
+│   │   │   ├── packageForm.tsx
+│   │   │   ├── packageVisaProcess.tsx
+│   │   │   ├── PopUpAddMemberForm.tsx
+│   │   │   ├── PopUpConfirmDeletePopup.tsx
+│   │   │   ├── PopUpForgetPassword.tsx
+│   │   │   ├── PopUpLogin.tsx
+│   │   │   ├── PopUpManageMember.tsx
+│   │   │   ├── PopUpPackageGetStartedButton.tsx
+│   │   │   ├── PopUpSignUp.tsx
+│   │   │   ├── PopUpUserProfile.tsx
+│   │   │   ├── PremiumService.tsx
+│   │   │   ├── ProcesSection.tsx
+│   │   │   ├── ProfileAddress.tsx
+│   │   │   ├── ProfileGeneral.tsx
+│   │   │   ├── ProfileMain.tsx
+│   │   │   ├── ProfileOrders.tsx
+│   │   │   ├── ProfilePassword.tsx
+│   │   │   ├── SignUpForm.tsx
+│   │   │   ├── StatesSection.tsx
+│   │   │   ├── SvgIconsData.tsx
+│   │   │   ├── testimonial.tsx
+│   │   │   └── UserProfileform.tsx
+│   │   ├── constants/
+│   │   │   ├── aboutData.ts
+│   │   │   ├── BlogComingSoon.tsx
+│   │   │   ├── contactData.ts
+│   │   │   ├── dashbordData.ts
+│   │   │   ├── faqData.ts
+│   │   │   ├── faqPage.ts
+│   │   │   ├── firebase.ts
+│   │   │   ├── footerData.ts
+│   │   │   ├── formsData.ts
+│   │   │   ├── headerData.ts
+│   │   │   ├── heroData.ts
+│   │   │   ├── packageData.ts
+│   │   │   ├── premiumServiceData.ts
+│   │   │   ├── processDAta.ts
+│   │   │   └── testimonialData.ts
 │   │   ├── contact/
+│   │   │   └── page.tsx
+│   │   ├── dashboard/
+│   │   │   └── page.tsx
+│   │   ├── faqs/
 │   │   │   └── page.tsx
 │   │   ├── form/
 │   │   │   └── page.tsx
+│   │   ├── hooks/
+│   │   │   └── useClickOutside.ts
+│   │   ├── login/
+│   │   │   └── page.tsx
 │   │   ├── packages/
-│   │   │   ├── [country]/
-│   │   │   │   └── page.tsx
 │   │   │   └── page.tsx
-│   │   ├── services/
+│   │   ├── packages/
+│   │   │   └── [country]/
+│   │   │       └── page.tsx
+│   │   ├── pages/
+│   │   │   └── index.js
+│   │   ├── profile/
 │   │   │   └── page.tsx
-│   │   └── pages/
-│   │       ├── api/
-│   │       │   └── get-files.ts
-│   │       └── index.js
-│   ├── lib/
-│   │   └── mongodb.ts
-│   └── pages/
-
-done
+│   │   └── services/
+│   │       └── page.tsx
+│   └── lib/
+│       └── mongodb.ts
+└── src/pages/
