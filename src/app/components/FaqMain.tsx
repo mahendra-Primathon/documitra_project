@@ -16,17 +16,21 @@ type DocumentType =
 
 const FaqMain: React.FC = () => {
   const [activeAccordion, setActiveAccordion] = useState<string | null>("oci");
+  useEffect(() => {
+    setActiveAccordion("oci");
+  }, []);
+
   const [visibleQuestionsMap, setVisibleQuestionsMap] = useState<{
     [key: string]: number;
-  }>({
-    oci: 5, // Default to 5 questions for OCI
-  });
-
+  }>({});
   const [openQuestions, setOpenQuestions] = useState<{
     [key: string]: boolean[];
-  }>({
-    oci: new Array(5).fill(false),
-  });
+  }>({});
+
+  useEffect(() => {
+    setVisibleQuestionsMap({ oci: 5 });
+    setOpenQuestions({ oci: new Array(5).fill(false) });
+  }, []);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const toggleAccordion = (id: string) => {
@@ -62,7 +66,9 @@ const FaqMain: React.FC = () => {
   };
 
   const handleWhatsappLink = () => {
-    window.open("https://wa.me/1234567890", "_blank");
+    if (typeof window !== "undefined") {
+      window.open("https://wa.me/1234567890", "_blank");
+    }
   };
 
   const handleGetStarted = () => {
@@ -97,24 +103,23 @@ const FaqMain: React.FC = () => {
   };
 
   const getDocumentType = (): DocumentType => {
-    console.log("Current activeAccordion:", activeAccordion);
     switch (activeAccordion) {
       case "oci":
-        return "OCI";
+        return "oci";
       case "visa":
-        return "Visa";
+        return "visa";
       case "passport":
-        return "Passport";
+        return "passport";
       case "pancard":
-        return "Pan Card";
+        return "pancard";
       case "driving-licence":
-        return "Driving License";
+        return "driving-licence";
       case "voter-id":
-        return "Voter ID";
+        return "voter-id";
       case "aadhar-card":
-        return "Aadhar Card";
+        return "aadhar-card";
       default:
-        return "OCI"; // Default document type
+        return "oci"; // Default
     }
   };
 

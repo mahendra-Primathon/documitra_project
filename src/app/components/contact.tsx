@@ -1,6 +1,6 @@
 // components/ContactUs.tsx
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   FaEnvelope,
   FaPhone,
@@ -51,6 +51,18 @@ const ContactUs: React.FC = () => {
   // Refs for dropdown containers
   const reasonDropdownRef = useRef<HTMLDivElement>(null);
   const countryCodeDropdownRef = useRef<HTMLDivElement>(null);
+
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      countryCode: "+91 (India)",
+    }));
+  }, []);
 
   // Use the click outside hook for each dropdown
   useClickOutside(reasonDropdownRef, () => {
@@ -163,51 +175,53 @@ const ContactUs: React.FC = () => {
                 <label className="block text-gray-700 text-sm mb-1">
                   Reason for contact <span className="text-red-500">*</span>
                 </label>
-                <div className="relative" ref={reasonDropdownRef}>
-                  <button
-                    type="button"
-                    className="w-full px-4 py-2 text-left border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center"
-                    onClick={() => toggleDropdown("reason")}
-                  >
-                    {formData.reason || "Enter"}
-                    <svg
-                      className="w-5 h-5 ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                {isClient && (
+                  <div className="relative" ref={reasonDropdownRef}>
+                    <button
+                      type="button"
+                      className="w-full px-4 py-2 text-left border rounded-md focus:outline-none focus:ring-2 focus:ring-primary flex justify-between items-center"
+                      onClick={() => toggleDropdown("reason")}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 9l-7 7-7-7"
-                      ></path>
-                    </svg>
-                  </button>
+                      {formData.reason || "Enter"}
+                      <svg
+                        className="w-5 h-5 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </button>
 
-                  {dropdownOpen.reason && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg">
-                      {REASON_OPTIONS.map((option, index) => (
-                        <div
-                          key={index}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => {
-                            handleChange({
-                              target: { name: "reason", value: option },
-                            });
-                            setDropdownOpen((prev) => ({
-                              ...prev,
-                              reason: false,
-                            }));
-                          }}
-                        >
-                          {option}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                    {dropdownOpen.reason && (
+                      <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg">
+                        {REASON_OPTIONS.map((option, index) => (
+                          <div
+                            key={index}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => {
+                              handleChange({
+                                target: { name: "reason", value: option },
+                              });
+                              setDropdownOpen((prev) => ({
+                                ...prev,
+                                reason: false,
+                              }));
+                            }}
+                          >
+                            {option}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -221,7 +235,7 @@ const ContactUs: React.FC = () => {
                     value={formData.firstName}
                     onChange={handleChange}
                     placeholder="Enter"
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
                 <div className="flex-1">
@@ -234,7 +248,7 @@ const ContactUs: React.FC = () => {
                     value={formData.lastName}
                     onChange={handleChange}
                     placeholder="Enter"
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -247,7 +261,7 @@ const ContactUs: React.FC = () => {
                   <div className="relative" ref={countryCodeDropdownRef}>
                     <button
                       type="button"
-                      className="w-full px-4 py-2 text-left border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between items-center"
+                      className="w-full px-4 py-2 text-left border rounded-md focus:outline-none focus:ring-2 focus:ring-primary flex justify-between items-center"
                       onClick={() => toggleDropdown("countryCode")}
                     >
                       {formData.countryCode || "Enter"}
@@ -303,7 +317,7 @@ const ContactUs: React.FC = () => {
                     value={formData.mobileNumber}
                     onChange={handleChange}
                     placeholder="Enter"
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -318,7 +332,7 @@ const ContactUs: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter"
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
 
@@ -332,14 +346,14 @@ const ContactUs: React.FC = () => {
                   onChange={handleChange}
                   placeholder="Enter"
                   rows={3}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary resize-y"
                 ></textarea>
               </div>
 
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2 px-12 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="bg-primary hover:bg-blue-900 text-white font-semibold py-2 px-12 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   Submit
                 </button>
