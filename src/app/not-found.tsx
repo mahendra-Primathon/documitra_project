@@ -1,12 +1,9 @@
 "use client";
-
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeftCircle } from "lucide-react";
 import Header from "./components/Header";
-import Image from "next/image";
-import Image_404 from "../../public/assets/images/404.png";
 import Footer from "./components/Footer";
 
 export default function NotFound() {
@@ -17,19 +14,6 @@ export default function NotFound() {
       <Header />
       <div className="flex flex-col items-center justify-center h-screen bg-gray-100 px-6 text-center">
         {/* SVG Illustration */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* <Image
-    src={Image_404}
-    alt="404 Not Found"
-    className="w-60 md:w-80"
-    width={30}
-    height={130}
-  /> */}
-        </motion.div>
 
         {/* 404 Text and Message */}
         <motion.div

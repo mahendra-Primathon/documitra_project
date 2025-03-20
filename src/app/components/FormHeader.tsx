@@ -175,7 +175,11 @@ const FormHeader = ({
           {/* Mobile Menu Button (Only for Mobile) */}
           <div className="sm:hidden absolute right-0  mr-2 translate-y-20  md:translate-y-11">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={(e) =>{
+                e.stopPropagation(); // Stop event propagation
+                setIsMenuOpen(!isMenuOpen);
+
+              } }
               className="text-white p-2 focus:outline-none"
             >
               {isMenuOpen ? (
