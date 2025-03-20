@@ -18,7 +18,7 @@ export const aboutData = {
       {
         name: "Team Member",
         position: "Job Description",
-        image: "/assets/images/About/member1.jpg",
+        image: "/assets/images/About/member4.jpg",
       },
       {
         name: "Team Member",
@@ -48,12 +48,12 @@ export const aboutData = {
       {
         name: "Team Member",
         position: "Job Description",
-        image: "/assets/images/About/member1.jpg",
+        image: "/assets/images/About/member3.jpg",
       },
       {
         name: "Team Member",
         position: "Job Description",
-        image: "/assets/images/About/member2.jpg",
+        image: "/assets/images/About/member4.jpg",
       },
     ],
   },

@@ -6,27 +6,22 @@ import { aboutData } from "../constants/aboutData";
 const AboutTeam: React.FC = () => {
   const { team } = aboutData;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(4);
+  const [itemsPerView, setItemsPerView] = useState<number | null>(null); // Start as null
 
-  // Update items per view based on screen size
+  // Update items per view based on screen size after mounting
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setItemsPerView(1); // Mobile: 1 item per view
-      } else {
-        setItemsPerView(4); // Desktop: 4 items per view
-      }
+      setItemsPerView(window.innerWidth < 768 ? 1 : 4);
     };
 
-    // Initial check
-    handleResize();
-
-    // Add event listener
+    handleResize(); // Run on mount
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Ensure rendering only happens after `itemsPerView` is set
+  if (itemsPerView === null) return null; // Avoid hydration mismatch
 
   // Calculate visible team members based on itemsPerView
   const visibleMembers = team.members.slice(
@@ -34,24 +29,9 @@ const AboutTeam: React.FC = () => {
     currentIndex + itemsPerView
   );
 
-  // Handle carousel navigation
-  const handlePrev = () => {
-    setCurrentIndex((prev) =>
-      prev === 0
-        ? Math.max(0, team.members.length - itemsPerView)
-        : Math.max(0, prev - itemsPerView)
-    );
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) =>
-      prev + itemsPerView >= team.members.length ? 0 : prev + itemsPerView
-    );
-  };
-
   return (
     <div className="bg-white">
-      <section className="py-12  ">
+      <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-5xl font-bold text-center mb-4">{team.title}</h2>
           <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
@@ -90,42 +70,49 @@ const AboutTeam: React.FC = () => {
           {/* Navigation buttons */}
           <div className="flex justify-center items-center space-x-4">
             <button
-              onClick={handlePrev}
+              onClick={() =>
+                setCurrentIndex((prev) =>
+                  prev === 0
+                    ? Math.max(0, team.members.length - itemsPerView)
+                    : Math.max(0, prev - itemsPerView)
+                )
+              }
               className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200"
               aria-label="Previous"
             >
-              <span className="sr-only">Previous</span>
-              <span aria-hidden="true">←</span>
+              ←
             </button>
 
             {/* Indicator dots for mobile */}
             {itemsPerView === 1 && (
               <div className="flex space-x-2">
                 {Array.from({ length: Math.ceil(team.members.length) }).map(
-                  (_, index) => {
-                    const isActive = Math.floor(currentIndex) === index;
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentIndex(index)}
-                        className={`h-2 w-2 rounded-full ${
-                          isActive ? "bg-primary" : "bg-gray-300"
-                        }`}
-                        aria-label={`Go to slide ${index + 1}`}
-                      />
-                    );
-                  }
+                  (_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentIndex(index)}
+                      className={`h-2 w-2 rounded-full ${
+                        Math.floor(currentIndex) === index
+                          ? "bg-primary"
+                          : "bg-gray-300"
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  )
                 )}
               </div>
             )}
 
             <button
-              onClick={handleNext}
+              onClick={() =>
+                setCurrentIndex((prev) =>
+                  prev + itemsPerView >= team.members.length ? 0 : prev + itemsPerView
+                )
+              }
               className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-200"
               aria-label="Next"
             >
-              <span className="sr-only">Next</span>
-              <span aria-hidden="true">→</span>
+              →
             </button>
           </div>
         </div>

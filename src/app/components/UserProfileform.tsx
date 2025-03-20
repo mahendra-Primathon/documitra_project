@@ -86,7 +86,9 @@ const UserProfileForm: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-gray-600 mb-1">First Name</label>
+              <label className="block text-sm text-gray-600 mb-1">
+                First Name
+              </label>
               <input
                 type="text"
                 name="fname"
@@ -97,7 +99,9 @@ const UserProfileForm: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-600 mb-1">Last Name</label>
+              <label className="block text-sm text-gray-600 mb-1">
+                Last Name
+              </label>
               <input
                 type="text"
                 name="lname"

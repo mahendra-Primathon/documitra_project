@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface HeaderNavLinksProps {
-    title: string;
-    path: string;
+  title: string;
+  path: string;
 }
 
 const HeaderNavLink: React.FC<HeaderNavLinksProps> = ({ title, path }) => {

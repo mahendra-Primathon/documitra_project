@@ -41,7 +41,7 @@ const DashboardSampleSection = () => {
                   : "Not Purchased"}
               </span>
               <p className="text-gray-600 text-sm">
-                Order ID: {Math.floor(Math.random() * 90000) + 10000}
+                Order ID: 23
               </p>
             </div>
             {hardcodedNotPurchasedPackage.country && (

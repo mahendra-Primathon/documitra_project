@@ -1,23 +1,26 @@
 // components/ProfileAddress.tsx
 "use client";
-import React, { useState } from 'react';
-import { AddressData } from '../constants/userProfileData';
+import React, { useState } from "react";
+import { AddressData } from "../constants/userProfileData";
 
 interface ProfileAddressProps {
   addressData: AddressData;
   onUpdate: (data: AddressData) => Promise<void>;
 }
 
-const ProfileAddress: React.FC<ProfileAddressProps> = ({ addressData, onUpdate }) => {
+const ProfileAddress: React.FC<ProfileAddressProps> = ({
+  addressData,
+  onUpdate,
+}) => {
   const [formData, setFormData] = useState<AddressData>(addressData);
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -34,7 +37,7 @@ const ProfileAddress: React.FC<ProfileAddressProps> = ({ addressData, onUpdate }
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-xl font-medium mb-6">Address</h2>
-      
+
       {isEditing ? (
         <div className="space-y-4">
           <div>
@@ -48,7 +51,7 @@ const ProfileAddress: React.FC<ProfileAddressProps> = ({ addressData, onUpdate }
               required
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm text-gray-500 mb-1">City</label>
@@ -73,10 +76,12 @@ const ProfileAddress: React.FC<ProfileAddressProps> = ({ addressData, onUpdate }
               />
             </div>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-gray-500 mb-1">Zip Code</label>
+              <label className="block text-sm text-gray-500 mb-1">
+                Zip Code
+              </label>
               <input
                 type="text"
                 name="zipCode"
@@ -87,7 +92,9 @@ const ProfileAddress: React.FC<ProfileAddressProps> = ({ addressData, onUpdate }
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-500 mb-1">Country</label>
+              <label className="block text-sm text-gray-500 mb-1">
+                Country
+              </label>
               <input
                 type="text"
                 name="country"
@@ -98,16 +105,16 @@ const ProfileAddress: React.FC<ProfileAddressProps> = ({ addressData, onUpdate }
               />
             </div>
           </div>
-          
+
           <div className="flex space-x-4">
-            <button 
+            <button
               onClick={handleSubmit}
               className="mt-4 px-4 bg-primary text-white py-2 rounded-md hover:bg-blue-700 transition-all duration-200"
               disabled={loading}
             >
               {loading ? "Saving..." : "Save"}
             </button>
-            <button 
+            <button
               onClick={() => setIsEditing(false)}
               className="mt-4 px-4 bg-gray-200 text-gray-800 py-2 rounded-md hover:bg-gray-300 transition-all duration-200"
             >
@@ -118,10 +125,12 @@ const ProfileAddress: React.FC<ProfileAddressProps> = ({ addressData, onUpdate }
       ) : (
         <div className="space-y-4">
           <p className="text-sm text-gray-700">{formData.street}</p>
-          <p className="text-sm text-gray-700">{formData.city}, {formData.state} {formData.zipCode}</p>
+          <p className="text-sm text-gray-700">
+            {formData.city}, {formData.state} {formData.zipCode}
+          </p>
           <p className="text-sm text-gray-700">{formData.country}</p>
-          
-          <button 
+
+          <button
             onClick={() => setIsEditing(true)}
             className="mt-4  rounded-full px-6 bg-primary text-white py-2  hover:bg-blue-700 transition-all duration-200"
           >

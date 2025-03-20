@@ -49,7 +49,10 @@ const MyPackages: React.FC = () => {
   };
 
   const renderPackageCard = (packageUniqueId: string, names: FormData[]) => {
-    const packageDetails = packageCardUniqueId[packageUniqueId as keyof typeof packageCardUniqueId]?.[0];
+    const packageDetails =
+      packageCardUniqueId[
+        packageUniqueId as keyof typeof packageCardUniqueId
+      ]?.[0];
     if (!packageDetails)
       return <p className="text-red-500">No package details found</p>;
 
@@ -68,7 +71,8 @@ const MyPackages: React.FC = () => {
                 {packageDetails.isPurchased ? "Purchased" : "Not Purchased"}
               </span>
               <p className="text-gray-600 text-sm">
-                Order ID: {Math.floor(Math.random() * 90000) + 10000}
+                {/* Order ID: {randomOrderId || "Loading..."} */}
+                Order ID: { packageDetails?.id || "Loading..."}
               </p>
             </div>
             {packageDetails.country && (
@@ -147,6 +151,12 @@ const MyPackages: React.FC = () => {
       </div>
     );
   };
+
+  // const [randomOrderId, setRandomOrderId] = useState<number | null>(null);
+
+  // useEffect(() => {
+  //   setRandomOrderId(Math.floor(Math.random() * 90000) + 10000);
+  // }, []);
 
   const groupedData = groupFormDataByPackageId();
 

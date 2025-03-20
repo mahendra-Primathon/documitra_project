@@ -53,7 +53,7 @@ const FormMain = () => {
   const [selectedPackage, setSelectedPackage] = useState<{
     id: number;
     packageUniqueId: string;
-    packageId:string;
+    packageId: string;
     title: string;
     duration: string;
     numberOfEntries: string;
@@ -63,9 +63,16 @@ const FormMain = () => {
   } | null>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && packageCountry && packageId && packageUniqueId  ) {
+    if (
+      typeof window !== "undefined" &&
+      packageCountry &&
+      packageId &&
+      packageUniqueId
+    ) {
       const packages = packageCard[packageCountry as keyof typeof packageCard];
-      const pkg = packages.find((p: { id: number }) => p.id === parseInt(packageId));
+      const pkg = packages.find(
+        (p: { id: number }) => p.id === parseInt(packageId)
+      );
       setSelectedPackage(pkg);
       // ✅ Store `packageCountry` and `packageUniqueId` in formData
       setFormData((prev) => ({
@@ -73,9 +80,8 @@ const FormMain = () => {
         packageCountry,
         packageUniqueId,
       }));
-      
     }
-  }, [packageCountry, packageUniqueId , packageId]);
+  }, [packageCountry, packageUniqueId, packageId]);
 
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
@@ -96,12 +102,12 @@ const FormMain = () => {
       ...prev,
       [name]: value,
     }));
-  
+
     // Dynamically validate the field as the user types
     const newErrors = { ...errors };
     if (value) {
       delete newErrors[name]; // Clear the error if the field is filled
-  
+
       // Additional validation for age
       if (name === "age") {
         const ageValue = parseInt(value, 10);
@@ -139,13 +145,13 @@ const FormMain = () => {
         if (name === "country") newErrors.country = "Country name is required";
       }
     }
-  
+
     setErrors(newErrors);
   };
 
   const validateStep = () => {
     const newErrors: Record<string, string> = {};
-  
+
     if (currentStep === 1) {
       if (!formData.name) newErrors.name = "Name is required";
       if (!formData.phoneNumber)
@@ -176,7 +182,7 @@ const FormMain = () => {
         newErrors.postalCode = "Pin code / Postal code is required";
       if (!formData.country) newErrors.country = "Country name is required";
     }
-  
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -230,7 +236,6 @@ const FormMain = () => {
       toast.error("An error occurred while submitting the form.");
     }
   };
-  
 
   // Check if both files are uploaded
   // const isUploadStepValid = uploadedFiles.image && uploadedFiles.pdf;

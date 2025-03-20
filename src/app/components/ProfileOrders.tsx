@@ -1,7 +1,7 @@
 // components/ProfileOrders.tsx
 "use client";
-import React from 'react';
-import { OrderData } from '../constants/userProfileData';
+import React from "react";
+import { OrderData } from "../constants/userProfileData";
 
 interface ProfileOrdersProps {
   ordersData: OrderData[];

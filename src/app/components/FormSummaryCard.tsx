@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Package2, Calendar, Coins } from "lucide-react";
 

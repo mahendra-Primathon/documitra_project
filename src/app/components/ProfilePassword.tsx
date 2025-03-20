@@ -46,13 +46,13 @@ const ProfilePassword: React.FC<ProfilePasswordProps> = ({
     // Reset previous messages
     setError("");
     setSuccess("");
-    
+
     // Check if passwords match
     if (newPassword !== confirmPassword) {
       setError("New passwords don't match");
       return;
     }
-    
+
     // Validate password strength
     const passwordError = validatePassword(newPassword);
     if (passwordError) {
@@ -98,7 +98,10 @@ const ProfilePassword: React.FC<ProfilePasswordProps> = ({
         ) : (
           <>
             <div>
-              <label htmlFor="currentPassword" className="block text-md text-gray-500 mb-1">
+              <label
+                htmlFor="currentPassword"
+                className="block text-md text-gray-500 mb-1"
+              >
                 Current Password
               </label>
               <div className="relative">
@@ -156,7 +159,10 @@ const ProfilePassword: React.FC<ProfilePasswordProps> = ({
             </div>
 
             <div>
-              <label htmlFor="newPassword" className="block text-md text-gray-500 mb-1">
+              <label
+                htmlFor="newPassword"
+                className="block text-md text-gray-500 mb-1"
+              >
                 New Password
               </label>
               <div className="relative">
@@ -212,12 +218,16 @@ const ProfilePassword: React.FC<ProfilePasswordProps> = ({
                 </button>
               </div>
               <p className="text-xs text-gray-500 mt-1">
-                Password must be at least 8 characters with uppercase, lowercase, number, and special character.
+                Password must be at least 8 characters with uppercase,
+                lowercase, number, and special character.
               </p>
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-md text-gray-500 mb-1">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-md text-gray-500 mb-1"
+              >
                 Confirm New Password
               </label>
               <div className="relative">
@@ -305,7 +315,7 @@ const ProfilePassword: React.FC<ProfilePasswordProps> = ({
             {error}
           </div>
         )}
-        
+
         {success && (
           <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md mt-4">
             {success}

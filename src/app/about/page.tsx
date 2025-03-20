@@ -1,4 +1,3 @@
-
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -6,7 +5,7 @@ import AboutMain from "../components/AboutMain";
 import Link from "next/link";
 const aboutPage = () => {
   return (
-    <div className="" >
+    <div className="">
       <Header />
 
       <div className="  w-full  md:pl-[14vw]  pt-4 pb-1  mx-auto px-4  bg-secondary  ">

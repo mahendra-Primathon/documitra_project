@@ -54,7 +54,8 @@ const FAQSection = () => {
             Frequently Asked <br className="hidden md:block" /> Questions
           </h2>
           <p className="text-gray-600 mb-6 md:mb-8">
-            Effortless Visa and Passport Assistance in <br className="hidden md:block" /> Three Simple Steps
+            Effortless Visa and Passport Assistance in{" "}
+            <br className="hidden md:block" /> Three Simple Steps
           </p>
         </div>
 

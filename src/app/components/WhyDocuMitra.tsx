@@ -1,4 +1,5 @@
 // components/WhyDocuMitra/WhyDocuMitra.tsx
+"use client";
 import React from "react";
 import { Shield, Clock, Check, Home } from "lucide-react";
 import whyDocuMitra1 from "../../../public/assets/images/Home/whyDocmitra1.svg";
@@ -68,11 +69,10 @@ const WhyDocuMitra = () => {
             </div>
           </div>
         ))}
-        
       </div>
       <div className="text-center justify-center mx-auto ">
-        <GetStartedButton/>
-        </div>
+        <GetStartedButton />
+      </div>
     </div>
   );
 };

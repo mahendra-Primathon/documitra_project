@@ -12,7 +12,12 @@ interface TestimonialProps {
   imageSrc: string;
 }
 
-const TestimonialCard = ({ name, rating, comment, imageSrc }: TestimonialProps) => {
+const TestimonialCard = ({
+  name,
+  rating,
+  comment,
+  imageSrc,
+}: TestimonialProps) => {
   const [expanded, setExpanded] = useState(false);
   const isLong = comment.length > 70;
 
@@ -53,13 +58,15 @@ const TestimonialCard = ({ name, rating, comment, imageSrc }: TestimonialProps) 
 
 // Seed-based shuffle function
 const seedShuffle = (array, seed) => {
-  let m = array.length, t, i;
+  let m = array.length,
+    t,
+    i;
   while (m) {
     i = Math.floor(seed * m--);
     t = array[m];
     array[m] = array[i];
     array[i] = t;
-    seed = (seed * 9301 + 49297) % 233280 / 233280;
+    seed = ((seed * 9301 + 49297) % 233280) / 233280;
   }
   return array;
 };
@@ -80,8 +87,14 @@ const TestimonialSection = () => {
   const seed = 0.5; // Use a fixed seed value
   const shuffledTestimonials = seedShuffle([...testimonials], seed);
   const halfLength = Math.ceil(shuffledTestimonials.length / 2);
-  const row1 = [...shuffledTestimonials.slice(0, halfLength), ...shuffledTestimonials.slice(0, halfLength)];
-  const row2 = [...shuffledTestimonials.slice(halfLength), ...shuffledTestimonials.slice(halfLength)];
+  const row1 = [
+    ...shuffledTestimonials.slice(0, halfLength),
+    ...shuffledTestimonials.slice(0, halfLength),
+  ];
+  const row2 = [
+    ...shuffledTestimonials.slice(halfLength),
+    ...shuffledTestimonials.slice(halfLength),
+  ];
 
   return (
     <div className="bg-white py-16 overflow-hidden">
@@ -96,7 +109,11 @@ const TestimonialSection = () => {
               key={rowIndex}
               className="flex space-x-6 w-[200%]"
               animate={{ x: isHovered ? animationX : ["0%", "-100%"] }}
-              transition={isHovered ? {} : { repeat: Infinity, duration: 60, ease: "linear" }}
+              transition={
+                isHovered
+                  ? {}
+                  : { repeat: Infinity, duration: 60, ease: "linear" }
+              }
               onMouseEnter={(event) => {
                 setIsHovered(true);
                 setAnimationX(event.currentTarget.getBoundingClientRect().x);

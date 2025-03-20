@@ -42,8 +42,6 @@ const DashboardServices: React.FC = () => {
     // Additional logic...
   };
 
-  
-
   return (
     <div className="container mx-auto px-4 pt-8 pb-16 bg-secondary">
       <div className="max-w-7xl mx-auto">

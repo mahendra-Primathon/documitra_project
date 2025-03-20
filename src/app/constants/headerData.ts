@@ -4,8 +4,8 @@ export const navLinks = [
     // { title: "Photos", path: "/photos" },
     { title: "Blog", path: "/blog" },
     { title: "FAQ's", path: "/faqs" },
-    { title: "Contact", path: "/contact" },
     { title: "About", path: "/about" },
+    { title: "Contact", path: "/contact" },
 
   ];
 

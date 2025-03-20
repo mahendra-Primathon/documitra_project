@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Eye, EyeOff } from "lucide-react";

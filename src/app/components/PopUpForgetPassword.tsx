@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -6,7 +7,10 @@ interface ForgetPasswordModalProps {
   onClose: () => void;
 }
 
-const ForgetPasswordModal: React.FC<ForgetPasswordModalProps> = ({ isOpen, onClose }) => {
+const ForgetPasswordModal: React.FC<ForgetPasswordModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -65,7 +69,9 @@ const ForgetPasswordModal: React.FC<ForgetPasswordModalProps> = ({ isOpen, onClo
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">Phone Number</label>
+            <label className="block text-sm text-gray-600 mb-1">
+              Phone Number
+            </label>
             <input
               type="tel"
               name="phone"
