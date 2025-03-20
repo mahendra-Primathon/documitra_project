@@ -12,6 +12,7 @@ const ProfileGeneral: React.FC<ProfileGeneralProps> = ({
   onUpdate,
 }) => {
   const [formData, setFormData] = useState<UserProfile>({
+    // name: `${userData.fname} ${userData.lname}`,
     fname: userData.fname,
     lname: userData.lname,
     email: userData.email, // Email remains non-editable

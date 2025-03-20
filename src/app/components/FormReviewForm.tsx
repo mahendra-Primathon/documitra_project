@@ -2,6 +2,7 @@
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
 import { FormData } from "../constants/formsData";
 import { useState } from "react";
+import truncate from "lodash/truncate";
 
 interface FormProps {
   formData: FormData;
@@ -148,8 +149,9 @@ export const ReviewForm = ({
                   {label}
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-700 text-sm md:text-base truncate">
-                    {fileName || "Not Uploaded"}
+                  <span className="text-gray-700 text-sm md:text-base">
+                    {truncate(fileName, { length: 20, separator: "..." }) ||
+                      "Not Uploaded"}
                   </span>
                   {fileUrl && (
                     <button

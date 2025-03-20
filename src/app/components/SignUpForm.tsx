@@ -46,7 +46,9 @@ const SignUpForm = () => {
         formData.password
       );
       await setDoc(doc(db, "users", userCredential.user.uid), {
-        name: `${formData.fname} ${formData.lname}`,
+        // name: `${formData.fname} ${formData.lname}`,
+        fname: formData.fname,
+        lname: formData.lname,
         email: formData.email,
         phone: formData.phone,
         createdAt: new Date().toISOString(),

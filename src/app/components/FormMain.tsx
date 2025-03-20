@@ -46,8 +46,8 @@ const FormMain = () => {
   }>({ image: null, pdf: null }); // Track uploaded file names
 
   const searchParams = useSearchParams();
-  const packageCountry = searchParams.get("country");
-  const packageId = searchParams.get("packageId");
+  const packageCountry = searchParams?.get("country");
+  const packageId = searchParams?.get("packageId");
   const packageUniqueId = searchParams?.get("packageUniqueId");
 
   const [selectedPackage, setSelectedPackage] = useState<{
