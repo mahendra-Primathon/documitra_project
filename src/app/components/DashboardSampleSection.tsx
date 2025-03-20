@@ -40,9 +40,7 @@ const DashboardSampleSection = () => {
                   ? "Purchased"
                   : "Not Purchased"}
               </span>
-              <p className="text-gray-600 text-sm">
-                Order ID: 23
-              </p>
+              <p className="text-gray-600 text-sm">Order ID: 23</p>
             </div>
             {hardcodedNotPurchasedPackage.country && (
               <div className="flex items-center text-gray-600">
@@ -92,7 +90,7 @@ const DashboardSampleSection = () => {
             <div className="border rounded-lg p-4 mb-4">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div className="mb-4 md:mb-0">
-                  <h3 className="font-medium mb-2">Jagdish</h3>
+                  <h3 className="font-medium mb-2">Ramesh</h3>
                   <div className="flex flex-col sm:flex-row sm:items-center text-primary text-sm">
                     <span className="mb-2 sm:mb-0 sm:mr-4">
                       <span className="inline-flex items-center">

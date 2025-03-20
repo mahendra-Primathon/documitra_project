@@ -90,6 +90,30 @@ const FormMain = () => {
     }
   }, []);
 
+  // Add this inside the FormMain component, before the return statement
+  useEffect(() => {
+    if (currentStep === 3) {
+      // console.log("Upload status:", formUploadStatus);
+      // console.log("Uploaded files:", uploadedFiles);
+      // console.log("File URLs:", formData.imageUrl, formData.pdfUrl);
+    }
+  }, [currentStep, formUploadStatus, uploadedFiles, formData]);
+  useEffect(() => {
+    setErrors({});
+
+    // For step 3, set errors if files are not uploaded
+    if (currentStep === 3) {
+      const newErrors: Record<string, string> = {};
+      if (!formUploadStatus.image) {
+        newErrors.image = "Please upload an image";
+      }
+      if (!formUploadStatus.pdf) {
+        newErrors.pdf = "Please upload a PDF document";
+      }
+      setErrors(newErrors);
+    }
+  }, [currentStep]);
+
   useEffect(() => {
     setFormId(uuidv4());
   }, []);
@@ -177,10 +201,23 @@ const FormMain = () => {
       if (!formData.governmentId)
         newErrors.governmentId = "Government ID is required";
     } else if (currentStep === 2) {
+      // Existing validation for step 2
       if (!formData.address) newErrors.address = "Address is required";
       if (!formData.postalCode)
         newErrors.postalCode = "Pin code / Postal code is required";
       if (!formData.country) newErrors.country = "Country name is required";
+      // ... rest of step 2 validation
+    } else if (currentStep === 3) {
+      // Add validation for step 3 (FormUpload)
+      if (!formUploadStatus.image) {
+        newErrors.image = "Please upload an image";
+      }
+      if (!formUploadStatus.pdf) {
+        newErrors.pdf = "Please upload a PDF document";
+      }
+      if (uploadError) {
+        newErrors.upload = uploadError;
+      }
     }
 
     setErrors(newErrors);
@@ -309,7 +346,7 @@ const FormMain = () => {
               formData={formData}
               setIsConfirmed={setIsConfirmed}
               formUploadStatus={formUploadStatus}
-              onChange={(e) => {}}
+              onChange={() => {}}
               fileUrls={formData}
             />
           )}
@@ -331,10 +368,18 @@ const FormMain = () => {
               <button
                 onClick={saveAndContinue}
                 className={`px-4 py-2 rounded ${
-                  Object.keys(errors).length === 0
+                  (currentStep !== 3 && Object.keys(errors).length === 0) ||
+                  (currentStep === 3 &&
+                    formUploadStatus.image &&
+                    formUploadStatus.pdf)
                     ? "bg-primary text-white cursor-pointer"
                     : "bg-gray-400 text-gray-700 cursor-not-allowed"
                 }`}
+                disabled={
+                  (currentStep !== 3 && Object.keys(errors).length > 0) ||
+                  (currentStep === 3 &&
+                    (!formUploadStatus.image || !formUploadStatus.pdf))
+                }
               >
                 Save & Continue
               </button>

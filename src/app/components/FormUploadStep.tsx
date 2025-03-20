@@ -76,6 +76,8 @@ const FormUploadStep = ({
   };
 
   // Upload handler
+  // In FormUploadStep.jsx
+  // Modify the handleUpload function
   const handleUpload = async (file: File, fileType: "image" | "pdf") => {
     const formData = new FormData();
     formData.append("file", file);
@@ -88,16 +90,19 @@ const FormUploadStep = ({
 
       const uploadedUrl = `http://localhost:3000${response.data.filePath}`;
 
+      // Update fileUrls in parent component
       setFileUrls((prev) => ({
         ...prev,
         [fileType === "image" ? "imageUrl" : "pdfUrl"]: uploadedUrl,
       }));
 
+      // Update uploadStatus in parent component
       setUploadStatus((prev) => ({
         ...prev,
         [fileType]: true,
       }));
 
+      // Update local state
       setUploadedFilesState((prev) => ({
         ...prev,
         [fileType]: file.name,
@@ -106,10 +111,13 @@ const FormUploadStep = ({
       // Update the parent component's uploadedFiles state
       setUploadedFiles((prev) => ({
         ...prev,
-        [fileType]: uploadedUrl,
+        [fileType]: file.name, // Use file.name instead of uploadedUrl to be consistent
       }));
 
       setUploadError("");
+
+      // Console log to debug
+      console.log(`${fileType} uploaded successfully:`, uploadedUrl);
     } catch (error) {
       console.error("Upload Error:", error);
       setErrorMessage(`Failed to upload ${fileType.toUpperCase()}`);
@@ -121,39 +129,58 @@ const FormUploadStep = ({
 
   // Submit handler
   const handleSubmit = async () => {
-    let validImage = true;
-    let validPdf = true;
+    let validImage = imageFile || uploadedFiles.image;
+    let validPdf = pdfFile || uploadedFiles.pdf;
+    let needsUpload = false;
+
+    setErrorMessage("");
+    setUploadError("");
+
+    if (!validImage && !validPdf) {
+      setErrorMessage("Please select both image and PDF files");
+      setUploadError("Please select both image and PDF files");
+      return;
+    }
+
+    if (!validImage) {
+      setErrorMessage("Please select an image file");
+      setUploadError("Please select an image file");
+      return;
+    }
+
+    if (!validPdf) {
+      setErrorMessage("Please select a PDF file");
+      setUploadError("Please select a PDF file");
+      return;
+    }
 
     if (imageFile) {
       validImage = validateFile(imageFile, "image");
       if (validImage) {
+        needsUpload = true;
         await handleUpload(imageFile, "image");
       } else {
-        setErrorMessage("Please select a valid image file.");
-        setUploadError("Please select a valid image file.");
+        return;
       }
     }
 
     if (pdfFile) {
       validPdf = validateFile(pdfFile, "pdf");
       if (validPdf) {
+        needsUpload = true;
         await handleUpload(pdfFile, "pdf");
       } else {
-        setErrorMessage("Please select a valid PDF file.");
-        setUploadError("Please select a valid PDF file.");
+        return;
       }
-    } else if (uploadedFiles.pdf && uploadedFiles.pdf.length > 0) {
-      validPdf = true;
-    } else {
-      validPdf = false;
-      setErrorMessage("Please select a valid PDF file.");
-      setUploadError("Please select a valid PDF file.");
     }
 
-    if (validImage && validPdf) {
-      // Activate the "Save and Continue" button
-      // You can add your logic here to navigate to the next step or enable the button
-      // console.log("Files are valid. Proceed to the next step.");
+    // If we get here, both files are valid and uploaded
+    if (!needsUpload) {
+      // If we didn't need to upload any new files, make sure to update status
+      setUploadStatus({
+        image: true,
+        pdf: true,
+      });
     }
   };
 
@@ -166,7 +193,29 @@ const FormUploadStep = ({
         pdf: false,
       }));
     }
-  }, [imageFile, pdfFile  ]);
+  }, [imageFile, pdfFile]);
+
+  useEffect(() => {
+    // Check if files are already uploaded and update the status accordingly
+    if (fileUrls.imageUrl && fileUrls.pdfUrl) {
+      setUploadStatus({
+        image: true,
+        pdf: true,
+      });
+
+      // Update the uploaded files state
+      setUploadedFilesState({
+        image: fileUrls.imageUrl.split("/").pop() || null,
+        pdf: fileUrls.pdfUrl.split("/").pop() || null,
+      });
+
+      // Also update the parent's uploadedFiles state
+      setUploadedFiles({
+        image: fileUrls.imageUrl,
+        pdf: fileUrls.pdfUrl,
+      });
+    }
+  }, [fileUrls, setUploadStatus, setUploadedFiles]);
 
   return (
     <div className="space-y-4 p-4 bg-white mb-40">
@@ -264,11 +313,13 @@ const FormUploadStep = ({
       {/* Upload Button */}
       <button
         onClick={handleSubmit}
-        className={`mx-auto px-4 py-2 rounded-lg text-white transition ${
-          uploadStatus.image && uploadStatus.pdf
-            ? "bg-primary cursor-not-allowed"
-            : "bg-primary text-white hover:bg-blue-700"
-        }`}
+        className={`upload-button ${
+          isUploading
+            ? "bg-primary text-white "
+            : uploadStatus.image && uploadStatus.pdf
+            ? "bg-blue-200 text-gray-600 "
+            : "bg-primary text-white "
+        }  px-4 py-2 rounded`}
         disabled={
           isUploading ||
           (uploadStatus.image && uploadStatus.pdf && !imageFile && !pdfFile)
@@ -277,9 +328,14 @@ const FormUploadStep = ({
         {isUploading
           ? "Uploading..."
           : uploadStatus.image && uploadStatus.pdf
-          ? "Uploaded"
+          ? "Files Uploaded Successfully"
           : "Click to Upload Files"}
       </button>
+      {/* Debug information
+      <div className="mt-4 text-xs text-gray-500">
+        <p>Image status: {uploadStatus.image ? "Uploaded" : "Not uploaded"}</p>
+        <p>PDF status: {uploadStatus.pdf ? "Uploaded" : "Not uploaded"}</p>
+      </div> */}
     </div>
   );
 };

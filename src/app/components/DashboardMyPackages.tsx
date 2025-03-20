@@ -34,7 +34,6 @@ const MyPackages: React.FC = () => {
     }
   };
 
-  // Group formData by packageUniqueId
   const groupFormDataByPackageId = () => {
     const groupedData: { [key: string]: FormData[] } = {};
 
@@ -71,8 +70,7 @@ const MyPackages: React.FC = () => {
                 {packageDetails.isPurchased ? "Purchased" : "Not Purchased"}
               </span>
               <p className="text-gray-600 text-sm">
-                {/* Order ID: {randomOrderId || "Loading..."} */}
-                Order ID: { packageDetails?.id || "Loading..."}
+                Order ID: {packageDetails?.id || "Loading..."}
               </p>
             </div>
             {packageDetails.country && (
@@ -117,7 +115,10 @@ const MyPackages: React.FC = () => {
 
           <div className="border-t pt-6">
             {names.map((data, index) => (
-              <div key={index} className="border rounded-lg p-4 mb-4">
+              <div
+                key={data.id || index}
+                className="border rounded-lg p-4 mb-4"
+              >
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                   <div className="mb-4 md:mb-0">
                     <h3 className="font-medium mb-2">{data.name}</h3>
@@ -126,13 +127,12 @@ const MyPackages: React.FC = () => {
                         <span className="inline-flex items-center">
                           <FileText className="w-4 h-4 mr-1" />
                           Status: Form Incomplete
-                          {/* {formStatus} */}
                         </span>
                       </span>
                       <span>
                         <span className="inline-flex items-center">
                           <MessageSquare className="w-4 h-4 mr-1" />
-                          Remarks: 0{/* {member.remarks} */}
+                          Remarks: 0
                         </span>
                       </span>
                     </div>
@@ -152,12 +152,6 @@ const MyPackages: React.FC = () => {
     );
   };
 
-  // const [randomOrderId, setRandomOrderId] = useState<number | null>(null);
-
-  // useEffect(() => {
-  //   setRandomOrderId(Math.floor(Math.random() * 90000) + 10000);
-  // }, []);
-
   const groupedData = groupFormDataByPackageId();
 
   return (
@@ -174,9 +168,11 @@ const MyPackages: React.FC = () => {
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        Object.entries(groupedData).map(([packageUniqueId, names]) =>
-          renderPackageCard(packageUniqueId, names)
-        )
+        Object.entries(groupedData).map(([packageUniqueId, names]) => (
+          <div key={packageUniqueId}>
+            {renderPackageCard(packageUniqueId, names)}
+          </div>
+        ))
       )}
     </div>
   );
