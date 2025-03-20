@@ -41,7 +41,7 @@ const ProcessSection = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
 
   return (
-    <div className="bg-secondary py-16">
+    <div className="bg-secondary py-16 px-[5vw] ">
       <div className="px-[5vw] mx-auto lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Steps */}

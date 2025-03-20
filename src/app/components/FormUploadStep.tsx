@@ -166,7 +166,7 @@ const FormUploadStep = ({
         pdf: false,
       }));
     }
-  }, [imageFile, pdfFile]);
+  }, [imageFile, pdfFile  ]);
 
   return (
     <div className="space-y-4 p-4 bg-white mb-40">

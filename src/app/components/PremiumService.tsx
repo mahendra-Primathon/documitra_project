@@ -10,7 +10,7 @@ const ServiceCard: React.FC<ServiceProps> = ({
   iconUrl,
   altText,
 }) => (
-  <div className="relative group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+  <div className="relative group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-auto">
     <div className="aspect-w-4 aspect-h-3 relative">
       <div className="w-full h-full overflow-hidden">
         <Image
@@ -44,18 +44,30 @@ const ServiceCard: React.FC<ServiceProps> = ({
 
 const PremiumServices: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const cardsPerPage = 4;
+  const [isMobile, setIsMobile] = useState(false);
+  const cardsPerPage = isMobile ? 1 : 4;
   const totalPages = Math.ceil(services.length / cardsPerPage);
+
+  useEffect(() => {
+    // Detect screen size and update isMobile state
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // Check on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPage((prev) => (prev + 1) % totalPages);
-    }, 4000); // Auto-scroll every 4 seconds
+    }, 3000);
     return () => clearInterval(interval);
   }, [totalPages]);
 
   return (
-    <div className="px-[1vw] mx-auto py-16 max-w-7xl ">
+    <div className="px-5 sm:px-0 mx-auto py-16 max-w-7xl">
       <h2 className="text-3xl font-bold text-center mb-12">
         Our Premium Services
       </h2>
@@ -63,7 +75,9 @@ const PremiumServices: React.FC = () => {
       {/* Cards Grid */}
       <div className="flex justify-center">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-6xl mx-auto"
+          className={`grid gap-8 w-full max-w-6xl mx-auto ${
+            isMobile ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+          }`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
