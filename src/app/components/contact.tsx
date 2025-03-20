@@ -16,6 +16,7 @@ import {
   CONTACT_INFO,
 } from "../constants/contactData";
 import useClickOutside from "../hooks/useClickOutside";
+import { toast } from "react-toastify";
 
 interface FormData {
   reason: string;
@@ -92,6 +93,32 @@ const ContactUs: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
+    // Clear the form data
+
+    toast.success("Your contact form has been submitted successfully!", {
+      position: "top-right",
+      autoClose: 3000, // 3 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+
+
+    setTimeout(() => {
+      setFormData({
+        reason: "",
+        firstName: "",
+        lastName: "",
+        countryCode: "+91 (India)", // Default to India
+        mobileNumber: "",
+        email: "",
+        message: "",
+      });
+    }, 2000);
+
     // Add your form submission logic here
   };
 
