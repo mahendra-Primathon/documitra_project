@@ -32,6 +32,7 @@ export interface FormData {
   pdfUrl: string;
   packageCountry: string;
   packageId: string;
+  packageUniqueId: string; // Added this property
 }
 
 // Interface for package information

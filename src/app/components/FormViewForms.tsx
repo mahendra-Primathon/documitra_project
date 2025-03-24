@@ -40,64 +40,64 @@ const FormViewForms: React.FC = () => {
     <div className="p-4">
       <h2 className="text-xl font-semibold mb-4">Form Details</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Name</p>
           <p className="font-medium">{data.name}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Age</p>
           <p className="font-medium">{data.age}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Gender</p>
           <p className="font-medium">{data.gender}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Phone</p>
           <p className="font-medium">{data.phoneNumber}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Email</p>
           <p className="font-medium">{data.email}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Nationality</p>
           <p className="font-medium">{data.nationality}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Address</p>
           <p className="font-medium">{data.address}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Country</p>
           <p className="font-medium">{data.country}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Package Unique ID</p>
           <p className="font-medium">{data.packageUniqueId}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Package Country</p>
           <p className="font-medium">{data.packageCountry}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Photo</p>
           <a 
             href={data.imageUrl} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-blue-500 hover:underline"
+            className="text-primary hover:underline"
           >
             View Photo
           </a>
         </div>
-        <div className="p-3 bg-gray-50 rounded-md">
+        <div className="p-3 bg-white border-2 rounded-md">
           <p className="text-sm font-medium text-gray-500">Gov. ID</p>
           <a 
             href={data.pdfUrl} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-blue-500 hover:underline"
+            className="text-primary hover:underline"
           >
             View Gov. ID
           </a>

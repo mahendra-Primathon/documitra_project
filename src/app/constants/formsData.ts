@@ -10,6 +10,7 @@ export interface FormData {
   email: string;
   nationality: string;
   governmentId: string;
+  packageUniqueId: string; // Added this property
 
   // Page 2 data
   address: string;

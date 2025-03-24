@@ -82,7 +82,7 @@ const FormViewUpload: React.FC<FormViewUploadProps> = ({
   useClickOutside(modalRef, closeImagePreview);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
       {/* Section Header */}
       <div 
         className="flex items-center justify-between p-4 cursor-pointer"

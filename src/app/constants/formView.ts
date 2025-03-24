@@ -1,7 +1,7 @@
 // Constants for Form View Component
 
 export interface Remark {
-  id: string;
+  id: string ;
   message: string;
   date: string;
 }
@@ -66,15 +66,15 @@ export const DEFAULT_DOCUMENT_SECTIONS: DocumentSection[] = [
         uploaded: true,
         file: "/document-placeholder.jpg",
       },
-      {
-        id: "p3",
-        name: "Document.pdf",
-        date: "12 Aug 2024",
-        size: "1mb",
-        isValid: true,
-        uploaded: true,
-        file: "/document-placeholder.jpg",
-      },
+      // {
+      //   id: "p3",
+      //   name: "Document.pdf",
+      //   date: "12 Aug 2024",
+      //   size: "1mb",
+      //   isValid: true,
+      //   uploaded: true,
+      //   file: "/document-placeholder.jpg",
+      // },
     ],
     instructions:
       "INSTRUCTIONS: Upload 3 Photos: Front which should cover face elements, like Upload 2 Photos: Front which should cover face elements, like which should cover face elements, like",
