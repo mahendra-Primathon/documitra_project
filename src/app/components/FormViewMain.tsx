@@ -97,7 +97,7 @@ const FormViewMain: React.FC = () => {
               </div>
 
               {/* Accordion for Documents */}
-              <div className="border-b mb-3 ">
+              <div className=" mb-3 ">
                 <button
                   onClick={() => toggleSection(FORM_VIEW_SECTIONS.DOCUMENTS)}
                   className="w-full flex justify-between items-center p-4 bg-gray-200 rounded-3xl "
